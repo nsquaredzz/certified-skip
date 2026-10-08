@@ -241,20 +241,32 @@ The first reports the camera's temporal noise, the skip rate at each Δ against 
 
 ## Reproduce the numbers
 
-`python3 scripts/fetch_data.py all` downloads the 25 benchmark clips, 1.4 GB, from their owners' servers and checks each against a recorded SHA-256. Nothing is redistributed here.
+`python3 scripts/fetch_data.py all` downloads the 25 benchmark clips, 1.4 GB, from their owners' servers and checks each against a recorded SHA-256. Nothing is redistributed here. Unless a comment says otherwise, the three clips of the quick start are enough.
 
-| Result | Command | Footage |
-|---|---|---|
-| Part I, real footage | `python3 scripts/analyze_footage.py data/hall_monitor_cif.y4m --fps 30 --audit 500` | demo |
-| Part I, synthetic benchmark | `python3 scripts/synthetic_bench.py --scenes 3 --seconds 40 --small-trials 64 --slow-trials 64` | none |
-| Part II, four certificates | `python3 scripts/real_bench.py --clips hall,leftbag,virat --out out/real_bench` | demo |
-| Part III, sequential test | `python3 scripts/real_bench.py --clips hall,leftbag,virat --rules "range,quotient+ms g=.5,sequential z (ms80)" --out out/real_bench_seq` | demo |
-| Part IV, masks | `python3 scripts/render_segmentation.py data/hall_monitor_cif.y4m out/masks_hall.mp4 --fps 30 --native --upscale 2` | demo, and all for 1080p |
-| Part V, look scheduling | `python3 scripts/sampling_bench.py --decay 0.5 --out out/sampling_bench` | all |
-| Part VI, 25 clips | `python3 scripts/breadth_bench.py --max-frames 600 --out out/breadth` | all |
-| Part VII, answer agreement | `python scripts/e2e_vlm.py --trials 12 --e2-frames 15 --out out/e2e` | demo |
-| Part VII, the blind spot | `python scripts/e2e_vlm.py --trials 16 --skip-e2 --out out/e2e_e1b` | demo |
-| The media on this page | `python3 scripts/make_readme_media.py && python3 scripts/make_readme_figures.py` | all |
+```bash
+# Part I: real footage, and the synthetic benchmark (needs no footage)
+python3 scripts/analyze_footage.py data/hall_monitor_cif.y4m --fps 30 --audit 500
+python3 scripts/synthetic_bench.py --scenes 3 --seconds 40 --small-trials 64 --slow-trials 64
+
+# Part II: the four certificates.  Part III: the sequential test
+python3 scripts/real_bench.py --clips hall,leftbag,virat --out out/real_bench
+python3 scripts/real_bench.py --clips hall,leftbag,virat --rules "range,quotient+ms g=.5,sequential z (ms80)" --out out/real_bench_seq
+
+# Part IV: masks
+python3 scripts/render_segmentation.py data/hall_monitor_cif.y4m out/masks_hall.mp4 --fps 30 --native --upscale 2
+
+# Part V: look scheduling.  Part VI: the 25 clips.  Both need `fetch_data.py all`
+python3 scripts/sampling_bench.py --decay 0.5 --out out/sampling_bench
+python3 scripts/breadth_bench.py --max-frames 600 --out out/breadth
+
+# Part VII: the language model, answer agreement and then the blind spot
+python scripts/e2e_vlm.py --trials 12 --e2-frames 15 --out out/e2e
+python scripts/e2e_vlm.py --trials 16 --skip-e2 --out out/e2e_e1b
+
+# The media on this page (needs `fetch_data.py all`)
+python3 scripts/make_readme_media.py
+python3 scripts/make_readme_figures.py
+```
 
 Part VII needs `pip install -r requirements-e2e.txt` in a virtual environment and downloads Qwen2-VL-2B, about 4.5 GB. It took 2.3 s per query on Apple MPS.
 

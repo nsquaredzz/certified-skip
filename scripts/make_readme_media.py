@@ -263,7 +263,7 @@ def blindspot_demo(picks, tmp, trials=16, fade_s=8.0, contrast=70, results="out/
             if t > 0:
                 for k in tot:
                     tot[k][0] += int(keeps[k][t].sum()); tot[k][1] += N
-            if t % step == 0 or t == last:
+            if t > 0 and (t % step == 0 or t == last):          # frame 0 is all green: every rule sends its first frame whole
                 mv.add(frame(t, False))
         mv.add(frame(last, True), repeat=int(4.0 * out_fps))
         print(f"  {name} trial {picks[name]}: answers {rec['answers']}, object in view {rec['present_in_view']}, matched drop rate {d_cert:.3f}")
