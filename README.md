@@ -19,7 +19,7 @@
 <p align="center"><sub>
 An office hallway camera. Left: the frame, with the patches that are sent to the model outlined in green.<br>
 Right: the picture the model is left with when every other patch is reused from the last copy it was sent.<br>
-On this clip 95 % of the patches are never sent. Click for the full-quality video.
+On this clip 95 % of the patches are never sent. Every clip on this page links to its full-quality MP4.
 </sub></p>
 
 ## What this is
