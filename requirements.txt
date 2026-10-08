@@ -1,0 +1,5 @@
+# Core, tests, benchmarks and figures. ffmpeg and ffprobe must be on PATH for anything that reads video.
+numpy>=1.26
+pillow>=9.0
+matplotlib>=3.7
+pytest>=7.0

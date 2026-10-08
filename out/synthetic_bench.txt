@@ -1,0 +1,17 @@
+3 scenes, 80 sampled frames at 2.0 fps, 640x360, patch 16, delta 32.0, crf 23, sigma 2.0
+engine: C++ (ctypes)
+
+scene 0: post-codec sigma 1.66; certified drop 1.000 (baseline target 0.970) | consecutive tau 2.45 (0.970) | mean-vs-kept tau 2.45 (0.970) | uniform stride 33 (0.970)
+
+scene 1: post-codec sigma 0.16; certified drop 1.000 (baseline target 0.970) | consecutive tau 1.87 (0.970) | mean-vs-kept tau 2.35 (0.970) | uniform stride 33 (0.970)
+
+scene 2: post-codec sigma 1.45; certified drop 0.989 (baseline target 0.970) | consecutive tau 2.48 (0.970) | mean-vs-kept tau 2.49 (0.970) | uniform stride 33 (0.970)
+
+rule                          small 5px, 1 frame(s)    slow fade 8.0 s   worst view error
+certified                       192 / 192               192 / 192      15.5 (certified bound)
+consecutive_mean                192 / 192               168 / 192                     n/a
+mean_vs_kept                    192 / 192               192 / 192           46 (measured)
+uniform                           4 / 192                45 / 192                     n/a
+
+soundness audit: 2000 dropped patches, 0 violations, worst bottleneck/(s/2) = 0.875
+elapsed 83.0s

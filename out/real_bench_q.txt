@@ -1,0 +1,20 @@
+
+=== hall: 300 frames 352x288 @ 30 fps, 120 events
+  quotient+range     [  34s]  100% small+fade: none
+                              >=95% all:      drop 0.780 @thr 32 (small 0.95 tiny 1.00 fade 1.00 move-cov 1.00)
+  quotient+ms g=.5   [  35s]  100% small+fade: none
+                              >=95% all:      drop 0.933 @thr 64 (small 0.95 tiny 1.00 fade 1.00 move-cov 0.99)
+
+=== leftbag: 723 frames 384x288 @ 12.5 fps, 120 events
+  quotient+range     [  72s]  100% small+fade: drop 0.931 @thr 48 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.99)
+                              >=95% all:      drop 0.931 @thr 48 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.99)
+  quotient+ms g=.5   [  81s]  100% small+fade: drop 0.929 @thr 48 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.973 @thr 80 (small 0.97 tiny 0.95 fade 1.00 move-cov 0.88)
+
+=== virat: 300 frames 640x352 @ 10 fps, 120 events
+  quotient+range     [  65s]  100% small+fade: drop 0.985 @thr 32 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.985 @thr 32 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  quotient+ms g=.5   [  73s]  100% small+fade: drop 0.987 @thr 64 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.99)
+                              >=95% all:      drop 0.988 @thr 80 (small 1.00 tiny 1.00 fade 0.95 move-cov 0.93)
+
+wrote out/real_bench_q.json / .png in 362s

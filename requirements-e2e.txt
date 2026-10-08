@@ -1,0 +1,8 @@
+# Only for scripts/e2e_vlm.py (RESULTS.md Part VII): an unmodified Qwen2-VL-2B, about 4.5 GB of weights.
+# Versions are the ones the reported run used, on Apple MPS with Python 3.12.
+-r requirements.txt
+torch==2.14.1
+torchvision==0.29.1
+transformers==5.19.0
+accelerate==1.15.0
+qwen-vl-utils==0.0.14

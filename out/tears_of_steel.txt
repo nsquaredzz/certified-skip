@@ -1,0 +1,23 @@
+source: 1280x534 @ 24.00 fps, h264, 734.166667 s
+decoded 1468 frames of 1280x534 grey in 10.6s; grid 33x80 patches of 16px
+
+temporal noise (static half of patches): sigma_pixel = 1.87 grey levels (diff sigma median over all patches 7.41, p90 38.55)
+Gaussian-model spread of a static patch: mean 15.0, p50 14.9, p90 16.9, p99 18.8
+delta needed for 90% / 95% / 99% drop on a perfectly static scene: 17 / 18 / 19
+
+ delta | measured drop | Gaussian ceiling | certified max view error
+    16 |        0.247 |            0.773 |    7.5
+    24 |        0.314 |            1.000 |   11.5
+    32 |        0.370 |            1.000 |   15.5
+    48 |        0.462 |            1.000 |   23.5
+    64 |        0.541 |            1.000 |   31.5
+
+keep-fraction spikes at delta=32: 0 frames (0.0%), median keep 0.662, spike keep None, period ~None sampled frames
+
+baselines calibrated to the certified rule's drop rate at delta=32 (0.370):
+  consecutive-frame mean  tau=7.47  drop=0.370   (no guarantee)
+  mean vs last kept       tau=8.11  drop=0.370   (no guarantee)
+
+soundness audit at delta=16: checked 300 dropped patches, violations 0, worst bottleneck/(s/2) = 1.000
+plot -> out/tears_of_steel.png
+json -> out/tears_of_steel.json

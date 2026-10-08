@@ -1,0 +1,26 @@
+
+=== hall: 300 frames 352x288 @ 30 fps, 165 events
+  range              [   1s]  100% small+fade: drop 0.808 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)  faint8/12/16 recall 0.27/0.33/0.47 delay 17/1/0
+                              >=95% all:      drop 0.808 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)  faint8/12/16 recall 0.27/0.33/0.47 delay 17/1/0
+  quotient+ms g=.5   [  30s]  100% small+fade: drop 0.944 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.94)  faint8/12/16 recall 0.00/0.13/0.33 delay nan/4/3
+                              >=95% all:      drop 0.944 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.94)  faint8/12/16 recall 0.00/0.13/0.33 delay nan/4/3
+  sequential z (ms80) [  38s]  100% small+fade: drop 0.874 @thr 8.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)  faint8/12/16 recall 1.00/1.00/1.00 delay 0/0/0
+                              >=95% all:      drop 0.874 @thr 8.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)  faint8/12/16 recall 1.00/1.00/1.00 delay 0/0/0
+
+=== leftbag: 723 frames 384x288 @ 12.5 fps, 165 events
+  range              [   2s]  100% small+fade: drop 0.847 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)  faint8/12/16 recall 0.53/0.67/0.67 delay 0/1/0
+                              >=95% all:      drop 0.847 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)  faint8/12/16 recall 0.53/0.67/0.67 delay 0/1/0
+  quotient+ms g=.5   [  77s]  100% small+fade: drop 0.973 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.13/0.07/0.20 delay 6/11/1
+                              >=95% all:      drop 0.973 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.13/0.07/0.20 delay 6/11/1
+  sequential z (ms80) [  88s]  100% small+fade: drop 0.858 @thr 8.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 1.00/1.00/1.00 delay 0/0/0
+                              >=95% all:      drop 0.858 @thr 8.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 1.00/1.00/1.00 delay 0/0/0
+
+=== virat: 300 frames 640x352 @ 10 fps, 165 events
+  range              [   1s]  100% small+fade: drop 0.984 @thr 32 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)  faint8/12/16 recall 0.00/0.07/0.07 delay nan/2/1
+                              >=95% all:      drop 0.984 @thr 32 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)  faint8/12/16 recall 0.00/0.07/0.07 delay nan/2/1
+  quotient+ms g=.5   [  68s]  100% small+fade: drop 0.988 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.00/0.07/0.07 delay nan/0/0
+                              >=95% all:      drop 0.988 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.00/0.07/0.07 delay nan/0/0
+  sequential z (ms80) [  69s]  100% small+fade: drop 0.927 @thr 8.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.93/1.00/1.00 delay 0/0/0
+                              >=95% all:      drop 0.927 @thr 8.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.93/1.00/1.00 delay 0/0/0
+
+wrote out/real_bench_seq.json / .png in 374s

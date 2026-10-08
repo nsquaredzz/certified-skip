@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this code or its results, please cite the write-up below."
+title: "Certified Skip: certified patch skipping for fixed-camera video"
+type: software
+authors:
+  - family-names: Nair
+    given-names: Niyath
+repository-code: "https://github.com/nsquaredzz/certified-skip"
+url: "https://nsquaredzz.github.io/blog/certified-skip/"
+license: MIT
+version: 0.1.0
+date-released: 2026-10-08
+keywords:
+  - video understanding
+  - token pruning
+  - vision-language models
+  - persistent homology
+  - change detection
+  - sequential analysis
+abstract: >-
+  A one-line rule that decides which video patches a model can skip, with a proof of what cannot have
+  happened inside a skipped patch, and the further certificates, sequential test, real-time masks and
+  end-to-end experiment built on it.

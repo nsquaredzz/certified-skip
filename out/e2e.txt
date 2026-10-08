@@ -1,0 +1,106 @@
+
+model on mps
+
+=== hall: 300 frames 352x288; certified drop 0.949, EVS-style tau 6.09 (drop 0.949)
+  fade 5.9 s over 178 frames (per-frame step 0.39 grey levels)
+  E1 trial  0 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.'  | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  1 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  2 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  3 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  4 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  5 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  6 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 1 cert 1 seq 1
+  E1 trial  7 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 1 cert 1 seq 1
+  E1 trial  8 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  9 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial 10 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial 11 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 1 cert 1 seq 1
+  E2 t=  30: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t=  49: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t=  68: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t=  87: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 106: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 126: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 145: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 164: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 183: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 202: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 222: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 241: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 260: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t= 279: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t= 299: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E1 yes-rate: truth 0.17  control 0.00  evs 0.00  certified 0.08  sequential 0.08   (object actually in view: evs 0.25 cert 1.00 seq 1.00)
+  E2 evs       : count agreement 1.00 (MAD 0.00), person agreement 1.00
+  E2 certified : count agreement 1.00 (MAD 0.00), person agreement 1.00
+  E2 sequential: count agreement 1.00 (MAD 0.00), person agreement 1.00
+
+=== lobby: 1446 frames 384x288; certified drop 0.979, EVS-style tau 8.17 (drop 0.979)
+  fade 8.0 s over 200 frames (per-frame step 0.35 grey levels)
+  E1 trial  0 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.'  | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  1 bright: truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  2 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  3 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.'  | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  4 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 0 seq 0
+  E1 trial  5 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  6 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  7 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  8 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 0 seq 0
+  E1 trial  9 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.'  | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial 10 bright: truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.'  | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial 11 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E2 t=  30: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t=  92: count truth/evs/cert/seq = 2/1/1/2  person = 1/1/1/1
+  E2 t= 154: count truth/evs/cert/seq = 4/3/4/3  person = 1/1/1/1
+  E2 t= 216: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 278: count truth/evs/cert/seq = 2/1/2/2  person = 1/0/1/1
+  E2 t= 340: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 402: count truth/evs/cert/seq = 2/1/2/2  person = 1/1/1/1
+  E2 t= 464: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E2 t= 526: count truth/evs/cert/seq = 1/2/1/2  person = 1/1/1/1
+  E2 t= 588: count truth/evs/cert/seq = 0/1/0/0  person = 0/0/0/0
+  E2 t= 650: count truth/evs/cert/seq = 0/1/0/0  person = 0/0/0/0
+  E2 t= 712: count truth/evs/cert/seq = 0/0/0/0  person = 0/0/0/0
+  E2 t= 774: count truth/evs/cert/seq = 0/1/0/0  person = 0/0/0/0
+  E2 t= 836: count truth/evs/cert/seq = 1/1/1/1  person = 0/0/0/0
+  E2 t= 899: count truth/evs/cert/seq = 1/1/1/1  person = 1/1/1/1
+  E1 yes-rate: truth 0.50  control 0.00  evs 0.00  certified 0.33  sequential 0.33   (object actually in view: evs 0.00 cert 0.83 seq 0.83)
+  E2 evs       : count agreement 0.47 (MAD 0.53), person agreement 0.93
+  E2 certified : count agreement 0.93 (MAD 0.07), person agreement 1.00
+  E2 sequential: count agreement 0.87 (MAD 0.13), person agreement 1.00
+
+=== virat: 705 frames 960x544; certified drop 0.996, EVS-style tau 4.78 (drop 0.996)
+  fade 8.0 s over 80 frames (per-frame step 0.88 grey levels)
+  E1 trial  0 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  1 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  2 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  3 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  4 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  5 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  6 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  7 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  8 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial  9 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial 10 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E1 trial 11 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'    | object pixels in view: evs 0 cert 1 seq 1
+  E2 t=  30: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t=  78: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 126: count truth/evs/cert/seq = 0/2/2/2  person = 0/0/0/0
+  E2 t= 174: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 222: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 270: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 318: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 367: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 415: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 463: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 511: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E2 t= 559: count truth/evs/cert/seq = 1/2/2/2  person = 1/1/1/1
+  E2 t= 607: count truth/evs/cert/seq = 2/2/2/2  person = 1/1/1/1
+  E2 t= 655: count truth/evs/cert/seq = 1/2/2/2  person = 0/0/0/0
+  E2 t= 704: count truth/evs/cert/seq = 2/2/2/2  person = 0/0/0/0
+  E1 yes-rate: truth 0.17  control 0.00  evs 0.00  certified 0.00  sequential 0.00   (object actually in view: evs 0.00 cert 1.00 seq 1.00)
+  E2 evs       : count agreement 0.80 (MAD 0.27), person agreement 1.00
+  E2 certified : count agreement 0.80 (MAD 0.27), person agreement 1.00
+  E2 sequential: count agreement 0.80 (MAD 0.27), person agreement 1.00
+
+540 queries, 2.3 s per query on mps; wrote out/e2e.json

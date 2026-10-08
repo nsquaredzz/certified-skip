@@ -1,0 +1,14 @@
+
+=== hall: 300 frames 352x288 @ 30 fps, 165 events
+  sequential z (ms80) [  33s]  100% small+fade: drop 0.943 @thr 12.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)  faint8/12/16 recall 0.87/0.93/1.00 delay 0/0/0
+                              >=95% all:      drop 0.943 @thr 12.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)  faint8/12/16 recall 0.87/0.93/1.00 delay 0/0/0
+
+=== leftbag: 723 frames 384x288 @ 12.5 fps, 165 events
+  sequential z (ms80) [  86s]  100% small+fade: drop 0.972 @thr 12.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.53/0.93/1.00 delay 0/0/0
+                              >=95% all:      drop 0.972 @thr 12.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 0.53/0.93/1.00 delay 0/0/0
+
+=== virat: 300 frames 640x352 @ 10 fps, 165 events
+  sequential z (ms80) [  76s]  100% small+fade: drop 0.986 @thr 12.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 1.00/1.00/1.00 delay 0/0/0
+                              >=95% all:      drop 0.986 @thr 12.0 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.90)  faint8/12/16 recall 1.00/1.00/1.00 delay 0/0/0
+
+wrote out/real_bench_seq2.json / .png in 198s

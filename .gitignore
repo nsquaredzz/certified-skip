@@ -1,0 +1,25 @@
+# build products (make -C cpp)
+cpp/libcertskip.dylib
+cpp/libcertskip.so
+cpp/certskip
+*.o
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# footage is fetched by scripts/fetch_data.py and never committed
+data/
+
+# rendered videos and large stills: regenerate them with the scripts (commands in README.md)
+out/*.mp4
+out/masks_*.png
+out/e2e_blindspot_*.png
+out/_*
+
+.DS_Store
+
+# raw mask dumps from the command-line tool
+out/*.u8

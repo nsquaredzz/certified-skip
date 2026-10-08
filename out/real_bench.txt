@@ -1,0 +1,44 @@
+
+=== hall: 300 frames 352x288 @ 30 fps, 120 events
+  range              [   1s]  100% small+fade: drop 0.808 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.808 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  flat l=4           [  95s]  100% small+fade: drop 0.940 @thr 1600 (small 1.00 tiny 0.15 fade 1.00 move-cov 0.58)
+                              >=95% all:      drop 0.785 @thr 800 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  multiscale g=.5    [   4s]  100% small+fade: drop 0.925 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.99)
+                              >=95% all:      drop 0.925 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.99)
+  multiscale g=1     [   4s]  100% small+fade: drop 0.917 @thr 160 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.97)
+                              >=95% all:      drop 0.917 @thr 160 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.97)
+  quotient+range     [  24s]  100% small+fade: drop 0.859 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.859 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  quotient+ms g=.5   [  27s]  100% small+fade: drop 0.945 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)
+                              >=95% all:      drop 0.945 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)
+
+=== leftbag: 723 frames 384x288 @ 12.5 fps, 120 events
+  range              [   1s]  100% small+fade: drop 0.847 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.847 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  flat l=4           [ 249s]  100% small+fade: drop 0.968 @thr 1600 (small 1.00 tiny 0.33 fade 1.00 move-cov 0.67)
+                              >=95% all:      drop 0.812 @thr 800 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  multiscale g=.5    [  11s]  100% small+fade: drop 0.959 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.97)
+                              >=95% all:      drop 0.959 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.97)
+  multiscale g=1     [  11s]  100% small+fade: drop 0.967 @thr 160 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)
+                              >=95% all:      drop 0.967 @thr 160 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.95)
+  quotient+range     [  61s]  100% small+fade: drop 0.891 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.891 @thr 40 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  quotient+ms g=.5   [  72s]  100% small+fade: drop 0.973 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.91)
+                              >=95% all:      drop 0.973 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.91)
+
+=== virat: 300 frames 640x352 @ 10 fps, 120 events
+  range              [   1s]  100% small+fade: drop 0.984 @thr 32 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.986 @thr 40 (small 1.00 tiny 1.00 fade 0.95 move-cov 1.00)
+  flat l=4           [ 222s]  100% small+fade: drop 0.990 @thr 1600 (small 1.00 tiny 0.10 fade 1.00 move-cov 0.52)
+                              >=95% all:      drop 0.987 @thr 800 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  multiscale g=.5    [   9s]  100% small+fade: drop 0.987 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.987 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+  multiscale g=1     [   9s]  100% small+fade: drop 0.987 @thr 160 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.96)
+                              >=95% all:      drop 0.987 @thr 160 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.96)
+  quotient+range     [  57s]  100% small+fade: drop 0.985 @thr 32 (small 1.00 tiny 1.00 fade 1.00 move-cov 1.00)
+                              >=95% all:      drop 0.986 @thr 40 (small 1.00 tiny 1.00 fade 0.95 move-cov 1.00)
+  quotient+ms g=.5   [  67s]  100% small+fade: drop 0.988 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.93)
+                              >=95% all:      drop 0.988 @thr 80 (small 1.00 tiny 1.00 fade 1.00 move-cov 0.93)
+
+wrote out/real_bench.json / .png in 928s
