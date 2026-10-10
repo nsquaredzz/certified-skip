@@ -38,7 +38,7 @@ SHAPE = np.abs(_x - (205 - _y * 160 / TALL)) <= 40                 # a band 80 w
 EDGE = SHAPE & ~(np.roll(SHAPE, 1, 1) & np.roll(SHAPE, -1, 1) & np.roll(SHAPE, 1, 0))
 ORANGE = np.array((255, 130, 0), np.float32)
 F_TAG, F_BIG, F_TEXT, F_ANS, F_NOTE = font(24, True), font(40, True), font(28), font(28, True), font(19)
-PANELS = (("truth", "REAL SCENE (camera)"), ("old", "WHAT THE AI SEES: old method"), ("new", "WHAT THE AI SEES: new method"))
+PANELS = (("truth", "REAL SCENE (camera)"), ("old", "WHAT THE MODEL SEES: old method"), ("new", "WHAT THE MODEL SEES: new method"))
 
 
 def planted():
@@ -77,12 +77,12 @@ def deepest(mask):
 def text_panel(w, h, score, sent):
     """What the clip shows, in the corner the pictures leave free."""
     im = Image.new("RGB", (w, h), BG); d = ImageDraw.Draw(im); x, y = 40, 28
-    for line in ("Does the AI see", "what changed?"):
+    for line in ("Does the video model", "see what changed?"):
         d.text((x, y), line, font=F_BIG, fill=INK); y += 50
     y += 12; d.rectangle((x, y + 5, x + 26, y + 31), fill=tuple(int(c) for c in ORANGE))
     d.text((x + 38, y), "Something new appears on the floor", font=F_TEXT, fill=INK); y += 40
     for line, colour in (("(a dark band, shown here in orange).", INK), ("", INK),
-                         ("To save compute, the AI is sent only", INK), ("about 6% of the video. A method picks", INK), ("which pieces.", INK), ("", INK),
+                         ("To save compute, the model is sent only", INK), ("about 6% of the video. A method picks", INK), ("which pieces.", INK), ("", INK),
                          (f"Old method: sends {sent['old']:.1f}%, loses part of it.", RED), (f"New method: sends {sent['new']:.1f}%, loses nothing.", GREEN)):
         d.text((x, y), line, font=F_TEXT, fill=colour); y += 39 if line else 14
     y = h - 96
