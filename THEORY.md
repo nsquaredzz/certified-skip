@@ -214,3 +214,136 @@ A_t(x) = ρ · A_{t−1}(x − v) + s_t(x),      z_acc(x) = |A_t(x)| · √(1 �
 **Proposition 10 (the structural limit).** If onsets form a memoryless process with rate `λ` independent of the observable state, then for any schedule with mean horizon `h̄`, the expected miss rate is `≈ λ h̄` to first order and the mean staleness of motion is `E[h²]/2h̄ ≥ h̄/2`, with equality iff the schedule is uniform. Hence no adaptive schedule improves on uniform sampling in (looks, misses, staleness), and adaptivity can only pay through state-dependence of the onset rate. *Proof.* Linearity of the miss probability in `h` for small `λh`; Jensen for the staleness. ∎
 
 **What the footage says** (`RESULTS.md` Part V). The guarantee held in all twelve runs. On continuously busy indoor cameras, new activity appears in 17–92 % of frames, so no schedule can skip under a 10 % onset-miss constraint and the scheduler correctly looks at every frame. On the quiet parking-lot camera the learned onset rates differ between quiet and active states by only a factor 2–3, so there is little for risk equalisation to exploit: at equal cost the adaptive scheduler ties uniform on misses and onset delay and is worse on tracking staleness, exactly as Proposition 10 predicts. The scheduler's genuine contributions are self-calibration (it finds the rate for a given `α` without a hand-set horizon) and the guarantee; it is not a better sampler than a well-tuned uniform rate on this footage. This is the result that justifies the main design: looking at every frame with the cheap certified statistic costs almost nothing and makes the deterministic certificate possible, which no predictive scheme can offer.
+
+---
+
+## 9. Which image is certified: the offset gap
+
+**The gap.** Every certificate in Sections 2–4 is a statement about `T_g R + c`: the held copy, moved by a sub-pixel shift `g` and re-levelled by a brightness offset `c`, both fitted per patch on the frame being tested. A model that reuses tokens holds `R`. The shift is harmless for what is claimed, since a translate has the features of `R` at positions less than a pixel away (Section 3). The offset is not. Inside one patch it slides the persistence diagram along the diagonal and changes no contrast, which is why Sections 2–4 could drop it. Across patches it is a piecewise-constant field `c_p`, and
+
+```
+F − T_g R = c_p + e_p      on patch p,   with only e_p bounded by the rule.
+```
+
+The distance between the truth and the held copy is therefore not bounded by any threshold. Whatever change lives in the field `c_p` is never sent:
+
+* a flat object on a flat surface, once it covers whole patches: its interior has `d ≡ contrast` and range 0;
+* any change of lighting: on a flat patch `d ≈ (gain − 1)·mean(R)`, again with a small range.
+
+The functions called `view()` return `T_g R + c`, so the overlays, the media in the README and the end-to-end experiment of `RESULTS.md` Part VII all showed the re-levelled image, not the held copy. Measured on the 48 blind-spot trials of Part VII, the square is present in the re-levelled view in 48 trials and in the held copy in 27; on the parking lot, where the square covers 26 whole patches, in 0 of 16 (`RESULTS.md`, Part VIII).
+
+**Local and global symmetry.** A brightness shift is a symmetry of the topology of an image, and Sections 2–4 use it once per patch. An image has that symmetry once per frame at most, and so does a model looking at it: a frame that is brighter everywhere means the same, a frame that is brighter in some patches does not. The rules quotient by the product of one group per patch where the consumer is invariant only under the diagonal. In the language of gauge theory, a symmetry made local needs its gauge field carried along. Here that would be `c_p` and `g_p` for every dropped patch of every frame, and a model able to apply them to a cached token. Short of that, only the global part may be divided out.
+
+**The rule without offset.** Take `c = 0`. With `e = F − T_g R`, drop iff `M_r(e) < ε_r` for all `r ∈ 𝓡`; in the range form, drop iff `2‖e‖∞ < Δ`. In the code this is `offset="none"` on the quotient and sequential pruners, in numpy and in C++; `offset="patch"` is the rule of Sections 3–6 and remains the default, so every earlier number is reproduced unchanged.
+
+**Theorem 11 (certificate against the held copy, for the frame).** Let `V` be the image equal to `T_{g_p} R` on every dropped patch `p` and to `F` on every kept one. Under the rule without offset:
+(a) `‖F − V‖∞ < ε_0` over the whole frame;
+(b) `d_B(Dgm F, Dgm V) < ε_0` for the diagrams of the *frame*, dark and bright: no feature of contrast ≥ `Δ_0 = 2ε_0` is born, dies, splits or merges anywhere, features that extend over many patches included;
+(c) for every `r ∈ 𝓡` and every `(2r+1)`-box `B` inside a dropped patch, `|mean_B (F − V)| < ε_r`. In particular the brightness of the held copy is within `ε_r` of the truth on every such box.
+*Proof.* (a) On a dropped patch `M_0(e) < ε_0` is the sup bound, on a kept patch `F − V = 0`, and a bound that holds on every patch with no constant depending on the patch holds on their union. (b) is stability applied to the frame. (c) restates the rule. ∎
+
+With the per-patch offset, (a) reads `‖F − (T_g R + c_p)‖∞ < ε_0`: true, about an image that exists only in the encoder. `V` differs from the held copy by the resampling of each patch at a shift of at most `δ_max`, the approximation already stated in Section 3; with `δ_max = 0` it is the held copy and (b) has no approximation in it.
+
+**Corollary (what the offset hides).** Take a frame on which the rule with the per-patch offset drops every patch, with offsets `c_p`, and write `V = T_g R`. Then `‖F − (V + c)‖∞ < ε_0` for the patchwise-constant field `c`, and for every single level `m`
+
+```
+‖F − (V + m)‖∞ < ε_0 + ‖c − m‖∞,        best m:   ε_0 + ½·osc(c),     osc(c) = max_p c_p − min_p c_p.
+```
+
+Adding one constant to a whole image translates its persistence diagram and changes no contrast, so this is the frame-level statement that rule supports: bottleneck distance below `ε_0 + ½·osc(c)` up to one global level. The bound is attained (`V = 0`, `F = c`), and nothing in that rule bounds `osc(c)`. The term `½·osc(c)` is exactly what was missing from its certificate; the rule without offset is the case `c = 0`.
+
+**Tightness of the level.** A uniform change `u` over a patch has `M_r = u` at every scale, so it is sent as soon as `u ≥ min_r ε_r`, the bound of the largest box, and not before. With the benchmark schedule `Δ_r = 80·(2r+1)^(−½)`, `r ≤ 3`, that is 15 grey levels. The rule with the per-patch offset has no such bound at any threshold.
+
+**What changes besides the level.** A compact object of contrast κ on a flat patch gives `e = κ` on the object and 0 elsewhere, where the midrange gave `±κ/2`. At the same schedule the rule without offset therefore keeps an object containing a `(2r+1)`-box from contrast `ε_r` on, half of `Δ_r`. In the range form a patch it drops is one the rule with offset would drop too (`2‖d‖∞ < Δ` implies `range(d) < Δ`). In the multi-scale form neither rule's keeps contain the other's, because the midrange of a patch with one outlying pixel shifts every box mean.
+
+**The sequential layer** is unchanged. Its statistic has a plane projected out per patch, so it cannot see a uniform change, by construction; the memoryless part now bounds what that can hide, by (c).
+
+**What this does not handle.** A level change of the whole frame of `ε_r` or more resends the frame. That is the truth being sent, and it is the right behaviour for a light switch. For a camera whose gain hunts by a few grey levels it would be waste; one bounded level per frame could be divided out at no cost to a model that ignores global brightness. A prototype of that variant made no measurable difference on the six clips tried, so it is not in the code.
+
+**Relation to prior work, stated plainly.** Lighting changes and the unseen interior of a uniform object are two of the canonical problems of background maintenance, the "light switch" and the "foreground aperture" of Toyama, Krumm, Brumitt and Meyers (*Wallflower*, ICCV 1999). Video codecs compensate brightness globally (weighted prediction in H.264). Neither is new. What is added is the observation that the *certificate* was stated modulo a constant per patch that no consumer holds, and Theorem 11, which is what the stability theorem gives once that constant is gone: a statement about the frame and about the held copy.
+
+---
+
+## 10. Frame rate: a threshold on speed against a threshold on displacement
+
+**Setting.** A patch shows `x(s)` at time `s` seconds, and the camera samples it at `f` frames per second, `F_t = x(t/f)`. A *consecutive-frame* rule keeps the patch at frame `t` iff `σ(F_t − F_{t−1}) ≥ τ`, for a seminorm `σ`; the mean absolute difference is the choice of EVS-style pruning and of run-length tokenisation. A *reference* rule keeps it iff `σ'(F_t − R) ≥ ε`, with `R` the last kept copy; every rule of Sections 2–6 and 9 is of this kind.
+
+**Proposition 12.** Suppose that on a time interval the patch changes at a bounded rate, `σ(x(s) − x(s')) ≤ L·|s − s'|`, with `L` in grey levels per second.
+(a) If `f > L/τ`, the consecutive-frame rule keeps nothing on that interval. Its held copy stays what it was when the interval began, and the error `σ(F_t − held)` can reach `L` times the length of the interval. No choice of `τ` bounds it.
+(b) The reference rule has `σ'(F_t − held) < ε` at every frame, for every `f`. On the interval it keeps at most `V/ε + 1` times, where `V` is the total variation of `x` in `σ'`: a number that does not depend on `f`.
+*Proof.* (a) Every consecutive difference is at most `L/f < τ`. (b) The bound is the rule. Between two keeps the patch has moved by at least `ε` in `σ'`, and the sampled path is no longer than the continuous one. ∎
+
+*Reading.* `σ(F_t − F_{t−1}) ≥ τ` asks for a rate of change of at least `τ·f` grey levels per second. A consecutive-frame threshold is a threshold on *speed*, and it rises in proportion to the frame rate. A reference threshold is one on *displacement*, and the frame rate does not enter it. At one or two frames per second the two coincide for most of what happens in front of a camera, and that is the rate at which such rules are normally run. At the camera's own rate the consecutive-frame rule is blind to everything slower than `τ·f`, which includes the far side of every object that leaves a patch gradually: the copy it holds keeps part of what is no longer there.
+
+*Measured.* On eleven fixed cameras, read at rates from 1 fps to their native 25 or 30 fps, with the consecutive-frame rule re-tuned at every rate to the skip rate of the rule of Section 9: the share of the static part of the frame that is wrong in the held copy has median 0.12 % at 1 fps and 1.07 % at the native rate, against 0.08 % and 0.09 % for the reference rule (`RESULTS.md`, Part IX; `scripts/framerate_bench.py`).
+
+*What is and is not new.* That consecutive-frame rules miss slow change is the blind spot this project started from, and Part I of the results measures it on synthetic fades. The statement in terms of frame rate, and its measurement on real footage with no planted object, are what this section adds.
+
+---
+
+## 11. What to hold: the fewest sends a certificate allows
+
+Every rule above holds a *frame*. When the certificate breaks, the current frame is sent, and it is held until the certificate breaks again. This section asks what the fewest sends are for a given certificate, whatever is held, and how far a rule that holds frames is from that. The answer depends only on the geometry of the certificate's norm.
+
+**Setting.** One patch. Frames `x_0, …, x_{n−1}` in a normed space `(V, ‖·‖)`, where `‖·‖` is the norm of the certificate: the sup norm for the range rule without offset, and `‖e‖ = max_r M_r(e)/ε_r` for the multi-scale rule without offset (a norm, because `r = 0` is in the schedule; tolerance 1). A *policy* chooses held copies `h_0, …, h_{n−1} ∈ V`. It *sends* at `t = 0` and at every `t` with `h_t ≠ h_{t−1}`. It is *certified* at tolerance `ε` if `‖x_t − h_t‖ < ε` for every `t`, and it has *latency* `L` if `h_t` depends only on `x_0, …, x_{t+L}`. What is held need not be a frame. *Send-on-delta* is the policy of latency 0 that holds `x_s` from a send at `s` until the first `t` with `‖x_t − x_s‖ ≥ ε`, and sends `x_t` then.
+
+Two ways of cutting the clip greedily into maximal runs of consecutive frames, starting a new run at the first frame that breaks the condition:
+
+* `D_η(x)`: the number of runs when a run must have diameter `< η`;
+* `C_ε(x)`: the number of runs when a run must be *coverable*, meaning that some point of `V` is within `ε` of all its frames.
+
+A coverable run has diameter `< 2ε`, and a run of diameter `< ε` is covered by any of its own frames, so `D_{2ε}(x) ≤ C_ε(x) ≤ D_ε(x)`.
+
+**Theorem 13 (the fewest sends).** Every policy certified at tolerance `ε`, with any latency, sends at least `C_ε(x)` times, and the policy that holds a covering point of each greedy coverable run sends exactly `C_ε(x)` times.
+*Proof.* Between two sends the held copy is one point within `ε` of every frame, so the frames between two sends form a coverable run; and a sub-run of a coverable run is coverable. Let the greedy runs start at `g_1 = 0 < g_2 < …` and the policy send at `s_1 = 0 < s_2 < …`. Then `s_k ≤ g_k` for all `k`. It holds for `k = 1`. If `s_k ≤ g_k` and `s_{k+1} > g_k`, the frames `g_k, …, s_{k+1} − 1` lie between two sends, so they are coverable, and the greedy run that starts at `g_k`, being maximal, contains them: `s_{k+1} ≤ g_{k+1}`. So when greedy starts its `k`-th run the policy has sent at least `k` times. The second claim is the definition of the greedy runs. ∎
+
+**Theorem 14 (the price of holding a frame).** Send-on-delta at tolerance `ε` sends at most `D_ε(x)` times. Hence
+
+```
+D_{2ε}(x)  ≤  C_ε(x)  =  fewest sends of any certified policy  ≤  sends of send-on-delta  ≤  D_ε(x).
+```
+
+Both ends are attained, and their ratio is unbounded. By Theorem 13 at tolerance `ε/2`, no policy that guarantees `ε/2` sends less than send-on-delta does to guarantee `ε`: holding frames costs at most a factor two *in the tolerance*, and can cost any factor in the number of sends.
+*Proof.* Let send-on-delta send at `s`, in the greedy run `[g, g')` of diameter `< ε`. Every frame of that run is within `ε` of `x_s`, so the next send is at `g'` or later: distinct sends lie in distinct runs. For the ends, take scalar frames. A staircase whose steps are `2ε` or more makes all five quantities equal to the number of steps. The flicker `x_t = a + (−1)^t·b` with `ε/2 ≤ b < ε` has consecutive frames `2b ≥ ε` apart, so send-on-delta sends on every frame and `D_ε = n`, while the single held copy `a` is within `b < ε` of every frame and `C_ε = D_{2ε} = 1`. ∎
+
+**Theorem 15 (the sup norm: centres attain the bound).** In `ℓ∞^d` a set of frames is coverable at tolerance `ε` iff its diameter is `< 2ε`, and its coordinatewise midrange covers it. So `C_ε = D_{2ε}`, the bound is computed in one pass with a running maximum and minimum per pixel, and it is attained by holding the midrange of each run.
+*Proof.* Coordinate by coordinate: numbers in an interval of length `< 2ε` are within `ε` of its midpoint. ∎
+
+*Remarks.* (i) This is the binary intersection property of `ℓ∞`: balls that meet pairwise have a common point (hyperconvexity; Aronszajn and Panitchpakdi, 1956). Equivalently the Jung constant of `ℓ∞` is ½: a set of diameter `D` lies in a ball of radius `D/2`. In Euclidean space the radius can reach `D·√(d/(2(d+1)))` (Jung, 1901) and in a general norm `D·d/(d+1)` (Bohnenblust, 1938). The sup norm, in which the stability of persistence is stated, is therefore also the norm in which holding a centre gains the most over holding a frame: the full factor two of Theorem 14. (ii) The multi-scale norm is the sup norm of the linear features `e ↦ (mean_B e / ε_r)` over all boxes `B` and scales `r`, so the patch space sits isometrically inside a larger `ℓ∞`. `D_2` computed on the features is a lower bound by Theorems 13 and 14. It need not be attained, because the midrange of the features of several images need not be the features of an image.
+
+**Theorem 16 (latency).** Let `A_L` be the policy that, on a break at frame `s`, holds a point within `ε` of all of `x_s, …, x_{s+j}` for the largest `j ≤ L` for which there is one. `A_L` has latency `L` and is certified at tolerance `ε`; `A_0` is send-on-delta; and, with `ℓ_k` the lengths of the greedy coverable runs,
+
+```
+C_ε(x)  ≤  sends of A_L  ≤  Σ_k ⌈ℓ_k / (L+1)⌉  ≤  C_ε(x) + n/(L+1).
+```
+
+In particular `A_L` is optimal on any clip whose coverable runs are no longer than `L + 1` frames.
+*Proof.* The held point certifies frames `s, …, s+j` by choice, and any later frame it fails to certify is a break. Let `A_L` send at `s` inside the greedy run `[g_k, g_{k+1})`. If `j = L` the next send is at `s + L + 1` or later. If `j < L` and the clip has not ended, `x_s, …, x_{s+j+1}` is not coverable, while `x_s, …, x_{g_{k+1}−1}` is, so `s + j + 1 ≥ g_{k+1}`. Either way the next send is no earlier than `min(s + L + 1, g_{k+1})`: two sends in the same greedy run are at least `L + 1` frames apart. ∎
+
+*Remark (no latency, no guarantee).* With latency 0 no policy is within a constant of `C_ε`. For scalar integer frames, whatever a zero-latency policy holds, the next frame can be placed `ε` or more away from it on the side that keeps at least half (less one) of the interval of points covering all frames so far; the policy must send, and this can be repeated about `log₂ ε` times while one point still covers every frame, so `C_ε = 1`. Holding the midpoint of that interval meets the bound up to a constant. With `d` pixels the adversary can do this one pixel at a time. Latency is what removes the logarithm, and Theorem 16 says how much of it is needed.
+
+**The rule.** `python/certskip/centre.py`: `fewest_sends` computes `D_2` on the features, and `CentrePruner(lookahead=L)` is `A_L` with the pixelwise midrange as the point held. For the sup norm that is exactly Theorem 16. For the multi-scale norm the midrange is a candidate, accepted for a run only if it certifies every frame of the run, so the certificate holds whatever the candidate is; the lower bound still holds and the upper bound of Theorem 16 is not claimed. What the model is given is the midrange of a few consecutive frames, an image that was never a frame. The certificate says each of those frames is within `ε` of it, which is all it ever said about a held frame.
+
+**What is and is not new.** Cutting a sequence greedily into the fewest pieces under a property that passes to sub-runs is textbook. Send-on-delta is the Lebesgue sampling of event-triggered control (Åström and Bernhardsson, 2002; Miśkowicz, 2006). Approximating a scalar time series by the midrange of greedy segments under a sup-norm bound, and its optimality in the number of segments, is the PMC-MR algorithm of Lazaridis and Mehrotra (2003). Hyperconvexity and Jung's constant are classical. What is added: the question asked of a skip certificate, with the patch as the unit that is sent; Theorem 14, which places every frame-holding rule of this project between the optimum at `ε` and the optimum at `ε/2`; the bounded-latency policy and Theorem 16; and the measurement, on real cameras, of how far the rule in use is from the bound and how much of the distance a few frames of latency recover (`RESULTS.md`, Part X).
+
+---
+
+## 12. Two invariances, and what breaks without them
+
+Sections 9 to 11 are three answers to one question: of what, exactly, should a skip rule be a function? Stated abstractly, a clip is a path `x` in a metric space `(X, d)` of images, a group `G` acts on `X` by isometries, and the consumer is any map out of `X` that is 1-Lipschitz and unchanged by `G`. Two invariances are forced.
+
+**In space: the consumer's group, and no larger.** For a group `H` acting by isometries let `d_H(x, y) = inf_{g ∈ H} d(x, g·y)`.
+
+**Proposition 17.** (a) `d_G(x, y)` is the largest discrepancy `ρ(Φ(x), Φ(y))` over all `G`-invariant 1-Lipschitz maps `Φ` into (pseudo)metric spaces `(M, ρ)`: the quotient distance is the universal certificate for that class of consumers. (b) For images, with `H` and `G` linear subspaces of patchwise fields acting by addition and `d` the sup distance: a certificate `d_H(F, R) < ε` bounds `d_G(F, R)` iff `H ⊆ G`, and then by `ε`; if `H ⊄ G` there are `F, R` with `d_H(F, R) = 0` and `d_G(F, R)` as large as one likes.
+*Proof.* (a) For such a `Φ` and any `g`, `ρ(Φx, Φy) = ρ(Φx, Φ(g·y)) ≤ d(x, g·y)`; and the quotient map `X → X/G` with the distance `d_G` is itself such a `Φ`. (b) If `H ⊆ G` the infimum over `G` is over more. If `c ∈ H \ G`, take `F = R + λc`: `d_H = 0` and `d_G = λ·dist(c, G)`, which is positive because `G` is closed, and grows with `λ`. ∎
+
+The rules of Sections 2–6 took `H` = one brightness level per patch. A consumer is invariant at most under `G` = one level per frame, and `dist(c, G) = ½·osc(c)`: that is the corollary of Section 9, and the reason its fix is to shrink `H`, not to tune a threshold.
+
+**In time: the path, not its parametrisation.** The quantities of Section 11 depend on the frames only through their order.
+
+**Proposition 18.** (a) `D_η` and `C_ε` do not increase when frames are removed from a clip, and do not change when a frame is repeated. So for a path sampled on finer and finer grids they increase to a limit, the value for the path itself, which is at most `1 + V/η` for a path of total variation `V`. The fewest sends a certificate needs are a property of what happened, whatever the frame rate. (b) The number of keeps of a consecutive-frame rule has no such limit: for a path that changes at a bounded rate it is zero on every fine enough grid (Proposition 12).
+*Proof.* (a) A cut of the full clip into runs of diameter `< η` restricts to a cut of the sub-clip into no more runs of diameter `< η`, and the greedy cut is the smallest (the argument of Theorem 13); likewise for coverable runs. A repeated frame extends the run it is in. A greedy run ends because the next frame is at distance `η` or more from one of its frames, so the path has at least `η` of variation between the start of each run and the start of the next. ∎
+
+A threshold on `d(x_t, x_{t−1})` is a function of the parametrisation. A threshold on `d(x_t, h)` is a function of the path and of what is held. That is the whole difference between the two families of rules, and Part IX of the results is what it looks like on a camera.
+
+*What is and is not new.* Quotient metrics and their universal property are standard, and so is the invariance of a length-type quantity under reparametrisation. Putting the two side by side as the two conditions a skip certificate has to meet, and reading the offset gap and the frame-rate law as the failure of one each, is this project's.

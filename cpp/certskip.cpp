@@ -123,6 +123,7 @@ void csq_destroy(csq_handle* h) { if (h) { delete h->impl; delete h; } }
 int csq_grid_h(const csq_handle* h) { return h->impl->grid_h(); }
 int csq_grid_w(const csq_handle* h) { return h->impl->grid_w(); }
 void csq_reset(csq_handle* h) { h->impl->reset(); }
+void csq_set_offset(csq_handle* h, int per_patch) { h->impl->set_offset(per_patch != 0); }
 long csq_step(csq_handle* h, const uint8_t* frame, uint8_t* keep, float* spread, float* shift, float* mdy, float* mdx) {
     h->impl->step(frame, keep, spread, shift, mdy, mdx);
     long n = (long)h->impl->grid_h() * h->impl->grid_w(), kept = 0;
@@ -151,6 +152,7 @@ void css_destroy(css_handle* h) { if (h) { delete h->impl; delete h; } }
 int css_grid_h(const css_handle* h) { return h->impl->grid_h(); }
 int css_grid_w(const css_handle* h) { return h->impl->grid_w(); }
 void css_reset(css_handle* h) { h->impl->reset(); }
+void css_set_offset(css_handle* h, int per_patch) { h->impl->set_offset(per_patch != 0); }
 long css_step(css_handle* h, const uint8_t* frame, uint8_t* keep, float* score, float* shift, float* seq_z) {
     h->impl->step(frame, keep, score, shift, seq_z);
     long n = (long)h->impl->grid_h() * h->impl->grid_w(), kept = 0;

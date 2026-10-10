@@ -219,3 +219,83 @@ def test_native_sequential_matches_numpy():
     b = NativeSequentialPruner(96, 128, P, multiscale=sched, z=8.0).run(f)
     assert np.array_equal(a["keep"], b["keep"])
     assert np.allclose(a["spread"], b["spread"], atol=1e-3)
+
+
+# ------------------------------------------- offset="none": certified against the held copy (THEORY.md §9)
+SCHED = {r: 80 * (2 * r + 1) ** -0.5 for r in (0, 1, 2, 3)}
+
+
+def test_offset_none_keeps_a_flat_change_the_patch_offset_hides():
+    f, _ = _static_clip(T=2)
+    f[1, 32:64, 48:80] += 50                                     # a flat object covering four whole patches
+    f = f.astype(np.uint8)
+    a = wp.WarpPruner(96, 128, P, multiscale=SCHED); a.step(f[0]); ka, _, ca = a.step(f[1])
+    b = wp.WarpPruner(96, 128, P, multiscale=SCHED, offset="none"); b.step(f[0]); kb, _, cb = b.step(f[1])
+    blk = np.zeros_like(ka); blk[2:4, 3:5] = True
+    assert not ka.any()                                          # per-patch offset: each patch only got brighter, nothing is sent
+    assert np.abs(ca[blk]).min() > 40                            # the 50 grey levels sit in the offsets, which the model never sees
+    assert kb[blk].all() and not kb[~blk].any() and not cb.any()  # no offset: exactly those four patches are sent
+    off = [np.abs(f[1].astype(float) - pr.reference())[32:64, 48:80].mean() for pr in (a, b)]
+    assert off[0] > 40 and off[1] == 0                           # what the model holds, against the truth
+    with pytest.raises(ValueError):
+        wp.WarpPruner(96, 128, P, offset="frame")
+
+
+def test_offset_none_certificate_is_against_the_held_copy_on_the_whole_frame():
+    r = np.random.default_rng(7)
+    scene, yy, xx = _edge_scene(32, 48)
+    R = np.clip(scene + r.normal(0, 1.5, scene.shape), 0, 255).astype(np.uint8)
+    F = np.clip(_shift_x(scene, 0.3, yy, xx) + r.normal(0, 1.5, scene.shape), 0, 255).astype(int)
+    F[10:22, 8:24] += 6                                          # a faint flat change across four patches, under the threshold
+    F = np.clip(F, 0, 255).astype(np.uint8)
+    pr = wp.WarpPruner(32, 48, P, 32.0, 1.0, offset="none"); pr.step(R); k, s, c = pr.step(F)
+    assert not k.any() and not c.any()
+    W = pr._view                                                 # the held copy, each patch moved by its sub-pixel shift, no brightness term
+    assert np.abs(F - W).max() <= 0.5 * s.max() + 1e-9 and s.max() < 32
+    # one bound for the whole frame, patch borders included, so stability applies to the frame as a single image
+    assert tp.bottleneck_distance(tp.persistence_h0(F.astype(float)), tp.persistence_h0(W)) <= 0.5 * s.max() + 1e-6
+
+
+def test_offset_none_bounds_the_level_of_the_held_copy_under_slow_lighting_drift():
+    f, _ = _static_clip(T=12)
+    f[4:] += np.linspace(0, 30, 8)[:, None, None]                # the lights go up by 30 grey levels over eight frames
+    f = f.astype(np.uint8)
+    pr = wp.WarpPruner(96, 128, P, multiscale=SCHED, offset="none")
+    for t, frame in enumerate(f):
+        k, _, _ = pr.step(frame)
+        if t:
+            d = core.patch_grid(frame.astype(float) - pr._view, P)
+            for rr, D in SCHED.items():                          # Theorem 3 with c = 0: every box mean of the change, at every scale
+                assert (ss.box_max_abs_mean(d, rr)[~k] < 0.5 * D).all()
+    level = lambda p: np.abs(core.patch_grid(f[-1].astype(float) - p.reference(), P).mean((2, 3))).max()
+    old = wp.WarpPruner(96, 128, P, multiscale=SCHED); old.run(f)
+    assert level(pr) < 20 and level(old) > 25                    # with the per-patch offset the whole drift stays hidden
+
+
+@pytest.mark.skipif(not __import__("certskip").native_available(), reason="C++ library not built")
+def test_native_offset_none_matches_numpy():
+    from certskip.native import NativeQuotientPruner, NativeSequentialPruner
+    r = np.random.default_rng(3)
+    scene, yy, xx = _edge_scene(80, 96)
+    frames = []
+    for t in range(6):
+        img = _shift_x(scene, 0.15 * t, yy, xx) + r.normal(0, 2, scene.shape)
+        if t >= 3:
+            img[40:46, 60:66] += 50
+        if t >= 4:
+            img[16:48, 0:32] += 14                               # flat, four whole patches: only the rule without offset sends it
+        frames.append(np.clip(img, 0, 255).astype(np.uint8))
+    frames = np.stack(frames)
+    a = wp.WarpPruner(80, 96, P, 24.0, 1.0, offset="none").run(frames)
+    b = NativeQuotientPruner(80, 96, P, 24.0, 1.0, offset="none").run(frames)
+    assert np.array_equal(a["keep"], b["keep"]) and a["keep"][4, 1:3, 0:2].all()
+    assert np.allclose(a["spread"], b["spread"], atol=1e-4) and not a["shift"].any() and not b["shift"].any()
+    assert not NativeQuotientPruner(80, 96, P, 24.0, 1.0).run(frames)["keep"][4, 1:3, 0:2].any()
+    f, _ = _static_clip(T=70)
+    f[25:, 40:46, 70:76] -= 10
+    f[40:, 32:64, 48:80] += 20
+    f = f.astype(np.uint8)
+    a = sq.SequentialPruner(96, 128, P, multiscale=SCHED, z=8.0, offset="none").run(f)
+    b = NativeSequentialPruner(96, 128, P, multiscale=SCHED, z=8.0, offset="none").run(f)
+    assert np.array_equal(a["keep"], b["keep"]) and a["keep"][40, 2:4, 3:5].all()
+    assert np.allclose(a["spread"], b["spread"], atol=1e-3)
