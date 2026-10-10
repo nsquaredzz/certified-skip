@@ -313,6 +313,20 @@ Share of patches skipped on the untouched clips, published rule against no offse
 * **Where the published rule's copy "has" the square it is often only its outline**: interior patches of a flat square differ from the held copy by a constant, which the offset removes.
 * One run, a 2B model, a planted square. The per-patch offset remains the default of the library.
 
+## Real footage: three sunset time-lapses (2026-10-11)
+
+Nothing planted. Three fixed-camera sunset time-lapses from Wikimedia Commons, both rules at the benchmark schedule without the sequential test (`scripts/render_real_proof.py`, and `--src` for the two clips it does not render). The held picture is every patch as it was the last time it was sent. *Stale*: pixels of the held picture more than 20 grey levels from the camera frame. *Sent*: patches sent after the first frame.
+
+| clip | size | frames | sent, %: published / no offset | stale, mean over the clip, %: published / no offset | stale, worst frame, %: published / no offset | stale, last frame, % |
+|---|---|---|---|---|---|---|
+| Funchal | 704×400 | 1589 | 1.50 / 2.52 | 27.5 / 0.6 | 55.0 / 0.9 | 54.4 / 0.1 |
+| Munich, nightfall | 480×272 | 2010 | 4.76 / 5.34 | 32.5 / 0.7 | 47.2 / 12.2 | 22.6 / 0.0 |
+| Tokyo | 480×272 | 901 | 3.39 / 5.65 | 23.7 / 1.0 | 47.5 / 2.3 | 28.7 / 0.8 |
+
+* **On footage whose light changes, the published rule leaves a quarter to a third of the held picture stale**, mostly sky: flat patches whose change is a level. The rule without offset stays at or below 1 % on average, for 0.6 to 2.3 points more patches sent.
+* These are time-lapses, hours in under a minute. The change per frame is gradual but faster than a real-time camera would see. The Munich clip's 12.2 % worst frame for the rule without offset has not been looked into.
+* Footage, to be put in `data/commons/` as `funchal.webm`, `olympiaturm.ogv`, `tokyo.webm`: "Sunset timelapse in Funchal - 2014" by valunik, CC BY 3.0; "Nightfall timelapse from Olympiaturm" by Slashme, CC BY-SA 4.0; "Sunset tokyoarea-timelapse-2019-03-17" by Nesnad, CC BY-SA 4.0; all at commons.wikimedia.org under those file names.
+
 ---
 
 # Part IX — frame rate: a threshold on speed against one on displacement (2026-10-10)
