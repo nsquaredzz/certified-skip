@@ -16,7 +16,7 @@ this large band the 2B model's answers were not stable from one placement to the
 
 The fade plays at twice its speed and the last frame is held with the shares on it. Needs ffmpeg with libx264.
 
-    python3 scripts/render_square_proof.py [--out out/square_proof.mp4] [--still]
+    python3 scripts/render_square_proof.py [--out out/square_proof.mp4] [--shape square] [--still]
 """
 import argparse, json, sys
 from pathlib import Path
@@ -35,7 +35,23 @@ Y, X, TALL, WIDE, PRE, HOLD = 176, 0, 112, 256, 60, 60
 SQUARE = (slice(Y, Y + TALL), slice(X, X + WIDE))                 # the box around the band
 _y, _x = np.indices((TALL, WIDE))
 SHAPE = np.abs(_x - (205 - _y * 160 / TALL)) <= 40                 # a band 80 wide, from the far end of the floor to the near left corner
-EDGE = SHAPE & ~(np.roll(SHAPE, 1, 1) & np.roll(SHAPE, -1, 1) & np.roll(SHAPE, 1, 0))
+NAME, LABEL, VERDICT_TOP, TINT = "band", (372, 448), False, True               # what the text calls it, where "missing" is written, where the verdict goes
+
+
+def edge(shape):
+    """The outline of a shape, one pixel wide."""
+    q = np.pad(shape, 1); return shape & ~(q[1:-1, :-2] & q[1:-1, 2:] & q[:-2, 1:-1] & q[2:, 1:-1])
+
+
+EDGE = edge(SHAPE)
+WEIGHT = SHAPE.astype(np.float32)                                  # how much of the darkening each pixel gets: 1 inside, 0 outside
+
+
+def stain(tall, wide, cy, cx, b, a):
+    """Weights of an irregular blob with a soft rim, flattened as a puddle on a floor seen from above and ahead."""
+    y, x = np.indices((tall, wide)); th = np.arctan2((y - cy) / b, (x - cx) / a)
+    rho = np.hypot((y - cy) / b, (x - cx) / a) / (1 + 0.12 * np.sin(3 * th + 0.7) + 0.08 * np.sin(5 * th + 2.1))
+    return np.clip((1 - rho) / 0.12, 0, 1).astype(np.float32)
 ORANGE = np.array((255, 130, 0), np.float32)
 F_TAG, F_BIG, F_TEXT, F_ANS, F_NOTE = font(24, True), font(40, True), font(28), font(28, True), font(19)
 PANELS = (("truth", "REAL SCENE (camera)"), ("old", "WHAT THE MODEL SEES: old method"), ("new", "WHAT THE MODEL SEES: new method"))
@@ -50,7 +66,7 @@ def planted():
         front = np.abs(fr[i][SQUARE] - floor[SQUARE]) > 25
         for dy, dx in ((0, 1), (1, 0), (0, -1), (-1, 0)):           # one pixel wider, so no dark rim is drawn around legs
             front |= np.roll(front, (dy, dx), (0, 1))
-        seg[i][SQUARE] -= np.where(front | ~SHAPE, 0, int(round(c))); fronts.append(front)
+        seg[i][SQUARE] -= np.where(front, 0, np.rint(c * WEIGHT).astype(np.int32)); fronts.append(front)
     return fr, np.clip(seg, 0, 255).astype(np.uint8), fronts
 
 
@@ -59,7 +75,7 @@ def tinted(picture, before, front, outline):
     `outline`, a white line where the band is in the camera frame."""
     out = rgb(picture).astype(np.float32)
     a = (0.8 * SHAPE * np.clip((before[SQUARE].astype(np.float32) - picture[SQUARE]) / CONTRAST, 0, 1))[..., None]
-    box = (1 - a) * out[SQUARE] + a * ORANGE
+    box = (1 - a) * out[SQUARE] + a * ORANGE if TINT else out[SQUARE]
     if outline:
         box[EDGE & ~front] = 255
     out[SQUARE] = box
@@ -79,14 +95,14 @@ def text_panel(w, h, score, sent):
     im = Image.new("RGB", (w, h), BG); d = ImageDraw.Draw(im); x, y = 40, 28
     for line in ("Does the video model", "see what changed?"):
         d.text((x, y), line, font=F_BIG, fill=INK); y += 50
-    y += 12; d.rectangle((x, y + 5, x + 26, y + 31), fill=tuple(int(c) for c in ORANGE))
+    y += 12; d.rectangle((x, y + 5, x + 26, y + 31), fill=tuple(int(c) for c in ORANGE) if TINT else (70, 70, 70), outline=INK)
     d.text((x + 38, y), "Something new appears on the floor", font=F_TEXT, fill=INK); y += 40
-    for line, colour in (("(a dark band, shown here in orange).", INK), ("", INK),
+    for line, colour in ((f"(a dark {NAME}, shown here in orange)." if TINT else f"(a dark {NAME}, outlined in white below).", INK), ("", INK),
                          ("To save compute, the model is sent only", INK), ("about 6% of the video. A method picks", INK), ("which pieces.", INK), ("", INK),
                          (f"Old method: sends {sent['old']:.1f}%, loses part of it.", RED), (f"New method: sends {sent['new']:.1f}%, loses nothing.", GREEN)):
         d.text((x, y), line, font=F_TEXT, fill=colour); y += 39 if line else 14
     y = h - 96
-    for line in ("The band is added to real footage. Fade at 2x speed. On smaller", "patches, asked “is there a dark square patch?”, the model says",
+    for line in (f"The {NAME} is added to real footage. Fade at 2x speed. On smaller", "patches, asked “is there a dark square patch?”, the model says",
                  f"yes {score[0]} of 27 times with the old method and {score[1]} with the new."):
         d.text((x, y), line, font=F_NOTE, fill=MUTED); y += 27
     return im
@@ -104,22 +120,36 @@ def frame(pics, panel, sent, shares=None, hole=None):
         if shares and key != "truth":
             ok = shares[key] > 99; colour = GREEN if ok else RED
             note = "✓ nothing is missing" if ok else f"✗ {100 - shares[key]:.0f}% of it is missing"; xr = x0 + W - 12
-            d.rectangle((xr - 22 - d.textlength(note, font=F_ANS), y0 + H - 60, xr, y0 + H - 12), fill=(0, 0, 0, 220)); d.text((xr - 11 - d.textlength(note, font=F_ANS), y0 + H - 54), note, font=F_ANS, fill=colour)
+            if VERDICT_TOP:
+                d.rectangle((x0 + 10, y0 + 92, x0 + 32 + d.textlength(note, font=F_ANS), y0 + 140), fill=(0, 0, 0, 220)); d.text((x0 + 21, y0 + 98), note, font=F_ANS, fill=colour)
+            else:
+                d.rectangle((xr - 22 - d.textlength(note, font=F_ANS), y0 + H - 60, xr, y0 + H - 12), fill=(0, 0, 0, 220)); d.text((xr - 11 - d.textlength(note, font=F_ANS), y0 + H - 54), note, font=F_ANS, fill=colour)
             d.rectangle((x0 + 2, y0 + 2, x0 + W - 3, y0 + H - 3), outline=colour, width=6)
             if hole and not ok:                                      # point at the largest hole
-                px, py = x0 + UP * (X + hole[1]), y0 + UP * (Y + hole[0]); lx, ly = x0 + 372, y0 + 448
+                px, py = x0 + UP * (X + hole[1]), y0 + UP * (Y + hole[0]); lx, ly = x0 + LABEL[0], y0 + LABEL[1]
                 d.line((lx, ly + 20, px, py), fill=(255, 255, 255, 255), width=3); d.ellipse((px - 6, py - 6, px + 6, py + 6), fill=(255, 255, 255, 255))
                 d.rectangle((lx - 8, ly, lx + 12 + d.textlength("missing", font=F_ANS), ly + 42), fill=(0, 0, 0, 220)); d.text((lx + 2, ly + 4), "missing", font=F_ANS, fill=RED)
     return np.asarray(im)
 
 
 def main():
+    global Y, X, TALL, WIDE, SQUARE, SHAPE, EDGE, WEIGHT, NAME, LABEL, VERDICT_TOP, TINT
     ap = argparse.ArgumentParser(); ap.add_argument("--out", default="out/square_proof.mp4")
     ap.add_argument("--still", action="store_true", help="write the held last frame as a PNG next to --out and stop")
+    ap.add_argument("--shape", choices=("band", "square", "stain"), default="band", help="square: a 112 x 112 square on the floor instead of the diagonal band; stain: an irregular blob with a soft rim")
+    ap.add_argument("--grey", action="store_true", help="leave the patch as it is in the footage, dark grey, instead of tinting it orange")
     a = ap.parse_args(); out = Path(a.out)
+    if a.grey:
+        TINT = False
+    if a.shape == "square":
+        Y, X, TALL, WIDE, NAME, LABEL, VERDICT_TOP = 168, 128, 112, 112, "square", (500, 400), True
+        SQUARE = (slice(Y, Y + TALL), slice(X, X + WIDE)); SHAPE = np.ones((TALL, WIDE), bool); EDGE = edge(SHAPE); WEIGHT = SHAPE.astype(np.float32)
+    if a.shape == "stain":
+        Y, X, TALL, WIDE, NAME, LABEL, VERDICT_TOP = 176, 72, 112, 184, "stain", (500, 380), True
+        SQUARE = (slice(Y, Y + TALL), slice(X, X + WIDE)); WEIGHT = stain(TALL, WIDE, 60, 88, 42, 70); SHAPE = WEIGHT > 0.5; EDGE = edge(SHAPE)
     fr, seg, fronts = planted(); (old, ko), (new, kn) = held(seg, "patch"), held(seg, "none"); grey = {"truth": seg, "old": old, "new": new}; last = len(seg) - 1
     sent = {"old": 100 * ko[1:].mean(), "new": 100 * kn[1:].mean()}        # share of the patches sent after the first frame
-    dark = (fr[last][SQUARE].astype(int) - seg[last][SQUARE]) > CONTRAST / 2
+    dark = ((fr[last][SQUARE].astype(int) - seg[last][SQUARE]) > CONTRAST / 2) & (WEIGHT >= 1)   # the part at full darkness: a soft rim is not counted
     there = {k: (fr[last][SQUARE].astype(int) - grey[k][last][SQUARE]) > CONTRAST / 2 for k in ("old", "new")}
     shares = {k: 100 * v[dark].mean() for k, v in there.items()}
     e1 = [r for res in json.loads(Path(RUN).read_text()).values() for r in res["E1"] if r["yes"]["truth"] == 1]
