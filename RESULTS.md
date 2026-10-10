@@ -291,6 +291,30 @@ Three-panel versions of the lobby and parking-lot trials are tracked as `assets/
 
 ---
 
+# Part VIII — the copy the model holds: the rule without the offset (2026-10-10)
+
+Part VII showed the model the *view* of a rule, in which a skipped patch is re-levelled by the brightness offset fitted on the current frame. A model that reuses tokens holds only the last copy it was sent. This part repeats the fade-in test of Part VII on that held copy, for the rule as published and for the rule without the offset (THEORY.md §9; `offset="none"`).
+
+**Protocol.** `scripts/e2e_vlm.py --offset none --view held --trials 16 --skip-e2`, Qwen2-VL-2B-Instruct in half precision on a 4 GB GPU with the layers that do not fit held in main memory. Three cameras, 16 trials each, the square, fade and question of Part VII. *In the copy*: the square's pixels in the held copy differ from the scene without the square by more than half its contrast, on average. *Model says yes*: over the trials where the model says yes on the full frame. Log and answers: `out/e2e_e1b_held_cuda.txt`, `.json`.
+
+| camera | trials | model sees it in the full frame | in the copy: heuristic / published / no offset | model says yes: heuristic / published / no offset / no offset + sequential |
+|---|---|---|---|---|
+| hallway | 16 | 8 | 2 / 13 / 16 | 1 / 3 / 8 / 7 |
+| lobby | 16 | 12 | 4 / 14 / 16 | 0 / 12 / 10 / 10 |
+| parking lot | 16 | 7 | 0 / 0 / 16 | 0 / 1 / 5 / 4 |
+| all | 48 | 27 | 6 / 27 / 48 | 1 / 16 / 23 / 21 |
+
+Share of patches skipped on the untouched clips, published rule against no offset: hallway 94.9 % and 94.4 %, lobby 97.9 % and 97.4 %, parking lot 99.6 % and 99.5 %.
+
+## Reading
+
+* **Without the offset the square is in the held copy in all 48 trials**, against 27 for the published rule, for about half a point of skip rate on two cameras and a tenth on the third.
+* **The model follows on two cameras and not on the third.** Hallway 3 to 8 of 8 and parking lot 1 to 5 of 7; on the lobby the published rule scores 12 of 12 and the rule without the offset 10 of 12, although the square is in the copy in all 16 trials there. The two lobby misses are unexplained.
+* **Where the published rule's copy "has" the square it is often only its outline**: interior patches of a flat square differ from the held copy by a constant, which the offset removes.
+* One run, a 2B model, a planted square. The per-patch offset remains the default of the library.
+
+---
+
 # Part IX — frame rate: a threshold on speed against one on displacement (2026-10-10)
 
 Run on a Linux laptop (8 threads, GTX 1650 Ti), not on the M4 of Parts I–VII. Theory in `THEORY.md` §10; script `scripts/framerate_bench.py`; outputs `out/framerate.{json,txt,png}` and `out/framerate_summary.png`.
