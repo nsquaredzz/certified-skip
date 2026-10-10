@@ -22,6 +22,18 @@ Right: the picture the model is left with when every other patch is reused from 
 On this clip 95 % of the patches are never sent. Every clip on this page links to its full-quality MP4.
 </sub></p>
 
+## What is new (October 2026)
+
+Three results since the first write-up. Each has a section of [THEORY.md](THEORY.md) and a part of [RESULTS.md](RESULTS.md).
+
+* **Certified against the copy the model holds.** The rules below remove a brightness offset per patch before testing it, so a flat change larger than a patch can reach a model that reuses tokens as an outline. With `offset="none"` the certificate is about the held copy itself, for the whole frame. On the fade-in test of Part VII the object is in the held copy in 48 of 48 trials, against 27, and the model says yes in 23 of 27 perceivable trials, against 16; one of the three cameras still favours the rule with the offset (12 of 12 against 10). The cost is about half a point of skip rate. The offset stays the default. (§9, Part VIII)
+* **Frame rate.** At the same skip rate a consecutive-frame heuristic leaves more wrong pixels the faster the camera runs, a median of 11.6 times the certified rule's at 25 to 30 fps on 11 clips, while the certified rule does not change. (§10, Part IX)
+* **The fewest sends a certificate allows.** A lower bound on the patches any method must send for a given guarantee, and a rule that looks a few frames ahead and holds the centre of what is coming: about half the sends of holding the current frame at 8 frames of look-ahead. (§11 and §12, Part X)
+
+```python
+pruner = NativeSequentialPruner(288, 352, 16, multiscale=schedule, offset="none")
+```
+
 ## What this is
 
 A vision transformer turns every 16×16 patch of every frame into a token. On a fixed camera nearly all of those patches show the same wall and floor as a second ago, so video language models try to skip the ones that did not change. The rules in use are heuristics, typically the mean change of a patch between consecutive frames. They are cheap, they work most of the time, and they say nothing about what was thrown away.
