@@ -69,8 +69,8 @@ class SequentialPruner(WarpPruner):
     def __init__(self, height, width, patch=16, multiscale: dict | None = None,
                  delta=32.0, delta_max=1.0, iters=2,
                  windows=(1, 2, 4, 8, 16), radii=(1, 2, 3), z=4.5,
-                 sigma_floor=0.5, sigma_alpha=0.1, scale_floor=0.5, veto_frac=0.1):
-        super().__init__(height, width, patch, delta, delta_max, iters, multiscale)
+                 sigma_floor=0.5, sigma_alpha=0.1, scale_floor=0.5, veto_frac=0.1, offset: str = "patch"):
+        super().__init__(height, width, patch, delta, delta_max, iters, multiscale, offset)
         self.windows = tuple(int(w) for w in windows)
         self.radii = tuple(int(r) for r in radii)
         self.z = float(z)
@@ -129,7 +129,7 @@ class SequentialPruner(WarpPruner):
         dy, dx = fit_translation(frame, self.ref, P, self.delta_max, self.iters)
         Wimg = warp(self.ref, dy, dx, P)
         d = patch_grid(frame.astype(np.float64) - Wimg, P)
-        c_mid = 0.5 * (d.max((2, 3)) + d.min((2, 3)))
+        c_mid = 0.5 * (d.max((2, 3)) + d.min((2, 3))) if self.offset == "patch" else np.zeros((self.gh, self.gw))
         e_mid = d - c_mid[..., None, None]
         if self.multiscale is None:
             score = 2.0 * np.abs(e_mid).max((2, 3)) / self.delta

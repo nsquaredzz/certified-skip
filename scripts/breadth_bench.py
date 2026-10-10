@@ -6,7 +6,9 @@ three certified rules at their Part-II/III operating points (range Delta=32; quo
 Delta0=80; + sequential z'=8), and planted-object recall (small 5x5/40, tiny 3x3/48, fade 8x8->48,
 faint persistent 6x6 at contrast 12) for the quotient+multi-scale and sequential rules.
 
-    python3 scripts/breadth_bench.py [--max-frames 600] [--out out/breadth]
+    python3 scripts/breadth_bench.py [--max-frames 600] [--out out/breadth] [--offset none]
+
+--offset none runs every rule without the per-patch brightness offset (THEORY.md section 9).
 """
 import argparse, glob, json, sys, time
 from pathlib import Path
@@ -43,7 +45,7 @@ def oracle_fraction(frames, thr=30, min_px=8):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-frames", type=int, default=600); ap.add_argument("--out", default="out/breadth")
-    ap.add_argument("--hd-scale", default="960x544")
+    ap.add_argument("--hd-scale", default="960x544"); ap.add_argument("--offset", choices=("patch", "none"), default="patch")
     a = ap.parse_args()
     sched = schedule(80.0, 0.5)
     rows = []
@@ -57,12 +59,12 @@ def main():
         T, H, W = fr.shape
         sigma = nz.estimate_temporal_noise(fr, P)["sigma_pixel"]
         orc = oracle_fraction(fr)
-        d_range = drop_rate(NativeQuotientPruner(H, W, P, 32.0, 1.0).run(fr)["keep"])
-        d_ms = drop_rate(NativeSequentialPruner(H, W, P, multiscale=sched, z=1e9).run(fr)["keep"])
-        d_seq = drop_rate(NativeSequentialPruner(H, W, P, multiscale=sched, z=8.0).run(fr)["keep"])
+        d_range = drop_rate(NativeQuotientPruner(H, W, P, 32.0, 1.0, offset=a.offset).run(fr)["keep"])
+        d_ms = drop_rate(NativeSequentialPruner(H, W, P, multiscale=sched, z=1e9, offset=a.offset).run(fr)["keep"])
+        d_seq = drop_rate(NativeSequentialPruner(H, W, P, multiscale=sched, z=8.0, offset=a.offset).run(fr)["keep"])
         planted, ev = plant(fr, rng, P, fps, n_small=20, n_tiny=20, n_fade=10, n_move=0, n_faint=10, faint_contrasts=(12,))
-        r_ms = score(NativeSequentialPruner(H, W, P, multiscale=sched, z=1e9).run(planted)["keep"], ev, fps)
-        r_seq = score(NativeSequentialPruner(H, W, P, multiscale=sched, z=8.0).run(planted)["keep"], ev, fps)
+        r_ms = score(NativeSequentialPruner(H, W, P, multiscale=sched, z=1e9, offset=a.offset).run(planted)["keep"], ev, fps)
+        r_seq = score(NativeSequentialPruner(H, W, P, multiscale=sched, z=8.0, offset=a.offset).run(planted)["keep"], ev, fps)
         row = dict(clip=Path(f).name, res=f"{W}x{H}", fps=round(fps, 1), frames=T, sigma=round(sigma, 2), oracle=round(orc, 3),
                    drop_range=round(d_range, 3), drop_ms=round(d_ms, 3), drop_seq=round(d_seq, 3),
                    ms_small=r_ms["small"], ms_tiny=r_ms["tiny"], ms_fade=r_ms["fade"], ms_faint12=r_ms["faint12"],

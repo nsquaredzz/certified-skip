@@ -31,6 +31,14 @@ by less than delta_max pixels, up to Delta-contrast topology.
 This also happens to be the first step towards moving cameras: replace the
 per-patch translation by a per-frame or per-patch affine motion and the
 same certificate applies to the registered residual.
+
+The brightness shift c' is fitted on the frame being tested, one value per
+patch, so the certified image W + c' is not an image the model holds: its
+token encodes R.  With offset="none" there is no shift (c' = 0) and the
+guarantee is against the held copy itself: F is within s/2 of a sub-pixel
+translate of R, brightness included, with s = 2 max|F - W|.  A change that
+is uniform over a patch (a flat object larger than the patch, the lights
+going down) is then kept like any other.  THEORY.md section 9.
 """
 from __future__ import annotations
 
@@ -91,13 +99,17 @@ def warp(ref, dy, dx, patch):
 
 class WarpPruner:
     """Same interface as core.Pruner.  certify = 'range' (threshold delta) or
-    'multiscale' (dict r -> Delta_r, as in scalespace)."""
+    'multiscale' (dict r -> Delta_r, as in scalespace).  offset = 'patch'
+    (a brightness shift per patch is removed before the test) or 'none'."""
 
     def __init__(self, height, width, patch=16, delta=32.0, delta_max=1.0, iters=2,
-                 multiscale: dict | None = None):
+                 multiscale: dict | None = None, offset: str = "patch"):
+        if offset not in ("patch", "none"):
+            raise ValueError("offset must be 'patch' or 'none'")
         self.H, self.W, self.patch = int(height), int(width), int(patch)
         self.delta, self.delta_max, self.iters = float(delta), float(delta_max), int(iters)
         self.multiscale = multiscale
+        self.offset = offset
         self.gh, self.gw = self.H // patch, self.W // patch
         self.ref = None
         self._view = None
@@ -121,7 +133,7 @@ class WarpPruner:
         dy, dx = fit_translation(frame, self.ref, P, self.delta_max, self.iters)
         Wimg = warp(self.ref, dy, dx, P)
         d = patch_grid(frame.astype(np.float64) - Wimg, P)
-        c = 0.5 * (d.max((2, 3)) + d.min((2, 3)))
+        c = 0.5 * (d.max((2, 3)) + d.min((2, 3))) if self.offset == "patch" else np.zeros((self.gh, self.gw))
         e = d - c[..., None, None]
         if self.multiscale is None:
             score = 2.0 * np.abs(e).max((2, 3)) / self.delta           # = spread / delta

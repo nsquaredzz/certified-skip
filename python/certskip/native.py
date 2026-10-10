@@ -174,6 +174,7 @@ def _load_q():
         lib.csq_grid_h.argtypes = [ctypes.c_void_p]; lib.csq_grid_h.restype = ctypes.c_int
         lib.csq_grid_w.argtypes = [ctypes.c_void_p]; lib.csq_grid_w.restype = ctypes.c_int
         lib.csq_reset.argtypes = [ctypes.c_void_p]
+        lib.csq_set_offset.argtypes = [ctypes.c_void_p, ctypes.c_int]
         lib.csq_step.restype = ctypes.c_long
         lib.csq_step.argtypes = [ctypes.c_void_p] + [ctypes.c_void_p] * 6
         lib.csq_reference.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_long]
@@ -187,7 +188,9 @@ def _load_q():
 class NativeQuotientPruner:
     """C++ quotient rule (uint8 frames). Interface as warp.WarpPruner with certify='range'."""
 
-    def __init__(self, height, width, patch=16, delta=32.0, delta_max=1.0, iters=2):
+    def __init__(self, height, width, patch=16, delta=32.0, delta_max=1.0, iters=2, offset="patch"):
+        if offset not in ("patch", "none"):
+            raise ValueError("offset must be 'patch' or 'none'")
         lib = _load_q()
         if lib is None:
             raise RuntimeError("libcertskip (with quotient rule) not built; run `make` in cpp/")
@@ -197,6 +200,8 @@ class NativeQuotientPruner:
         self._h = lib.csq_create(self.H, self.W, self.patch, self.delta, self.delta_max, self.iters)
         if not self._h:
             raise ValueError("csq_create failed")
+        self.offset = offset
+        lib.csq_set_offset(self._h, int(offset == "patch"))
         self.gh, self.gw = lib.csq_grid_h(self._h), lib.csq_grid_w(self._h)
         self._n = 0
         self.last_motion = None
@@ -256,6 +261,7 @@ def _load_s():
         lib.css_grid_h.argtypes = [ctypes.c_void_p]; lib.css_grid_h.restype = ctypes.c_int
         lib.css_grid_w.argtypes = [ctypes.c_void_p]; lib.css_grid_w.restype = ctypes.c_int
         lib.css_reset.argtypes = [ctypes.c_void_p]
+        lib.css_set_offset.argtypes = [ctypes.c_void_p, ctypes.c_int]
         lib.css_step.restype = ctypes.c_long
         lib.css_step.argtypes = [ctypes.c_void_p] + [ctypes.c_void_p] * 5
         lib.css_reference.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_long]
@@ -270,7 +276,9 @@ class NativeSequentialPruner:
     """C++ sequential rule (uint8 frames). Interface as sequential.SequentialPruner."""
 
     def __init__(self, height, width, patch=16, multiscale=None, z=8.0, windows=(1, 2, 4, 8, 16), radii=(1, 2, 3),
-                 delta_max=1.0, iters=2, sigma_alpha=0.1, min_calib=8, scale_floor=0.5, veto_frac=0.1):
+                 delta_max=1.0, iters=2, sigma_alpha=0.1, min_calib=8, scale_floor=0.5, veto_frac=0.1, offset="patch"):
+        if offset not in ("patch", "none"):
+            raise ValueError("offset must be 'patch' or 'none'")
         lib = _load_s()
         if lib is None:
             raise RuntimeError("libcertskip (with sequential rule) not built; run `make` in cpp/")
@@ -285,6 +293,8 @@ class NativeSequentialPruner:
                                  float(scale_floor), float(veto_frac))
         if not self._h:
             raise ValueError("css_create failed")
+        self.offset = offset
+        lib.css_set_offset(self._h, int(offset == "patch"))
         self.gh, self.gw = lib.css_grid_h(self._h), lib.css_grid_w(self._h)
         self.z = float(z)
         self._n = 0

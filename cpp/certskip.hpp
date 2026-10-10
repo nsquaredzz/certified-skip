@@ -254,6 +254,9 @@ public:
     const std::vector<T>& reference() const { return ref_; }
     const std::vector<float>& view() const { return view_; }
     void reset() { have_ref_ = false; }
+    // true (default): remove a brightness offset per patch before the test, c = midrange of the change (THEORY.md §3).
+    // false: no offset, the patch is certified against the held copy itself, brightness included (THEORY.md §9).
+    void set_offset(bool per_patch) { offset_ = per_patch; }
 
     // keep/spread(or score)/shift per patch, motion (dy, dx) per patch.
     void step(const T* frame, uint8_t* keep, float* spread, float* shift, float* mdy, float* mdx) {
@@ -275,7 +278,8 @@ public:
                 const double d = double(frame[size_t(y0 + y) * W_ + (x0 + x)]) - wp[size_t(y) * P + x];
                 e[size_t(y) * P + x] = d; dmaxv = std::max(dmaxv, d); dminv = std::min(dminv, d);
             }
-            const double s = dmaxv - dminv, c = 0.5 * (dmaxv + dminv);
+            const double c = offset_ ? 0.5 * (dmaxv + dminv) : 0.0;
+            const double s = offset_ ? dmaxv - dminv : 2.0 * std::max(std::fabs(dmaxv), std::fabs(dminv));   // 2 max|d - c|
             double score;
             if (ms_.empty()) score = s / p_.delta;
             else {
@@ -304,7 +308,7 @@ protected:
         detail::gradients(ref_, H_, W_, gx_, gy_);
     }
     int H_, W_; Params p_; double dmax_; int iters_; std::vector<Scale> ms_; int gh_, gw_;
-    std::vector<T> ref_; std::vector<float> view_; std::vector<double> gx_, gy_; bool have_ref_;
+    std::vector<T> ref_; std::vector<float> view_; std::vector<double> gx_, gy_; bool have_ref_; bool offset_ = true;
 };
 
 // Sequential rule (THEORY.md §6): quotient + multi-scale memoryless certificate, plus a
@@ -364,9 +368,9 @@ public:
                 const double d = double(frame[size_t(y0 + y) * this->W_ + (x0 + x)]) - wp[size_t(y) * P + x];
                 e[size_t(y) * P + x] = d; dmaxv = std::max(dmaxv, d); dminv = std::min(dminv, d);
             }
-            const double c = 0.5 * (dmaxv + dminv);
+            const double c = this->offset_ ? 0.5 * (dmaxv + dminv) : 0.0;
             double sc = 0;
-            if (this->ms_.empty()) sc = (dmaxv - dminv) / this->p_.delta;
+            if (this->ms_.empty()) sc = (this->offset_ ? dmaxv - dminv : 2.0 * std::max(std::fabs(dmaxv), std::fabs(dminv))) / this->p_.delta;
             else { for (int i = 0; i < P * P; ++i) em[i] = e[i] - c; for (const auto& s : this->ms_) sc = std::max(sc, detail::box_max_abs_mean(em.data(), P, s.r, S.data()) / (0.5 * s.delta)); }
             mscore[gi] = sc; cmid[gi] = c; dyv[gi] = dy; dxv[gi] = dx;
             // planar projection and prefix-sum update

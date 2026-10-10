@@ -1,0 +1,1271 @@
+{
+ "hall": {
+  "drop_cert": 0.9435660957400088,
+  "drop_evs": 0.943599878382487,
+  "E1": [
+   {
+    "trial": 0,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 1,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 2,
+    "sign": 1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 3,
+    "sign": 1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 4,
+    "sign": 1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 5,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 6,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 7,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 8,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 9,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 10,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 11,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 1.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 12,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "Yes.",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 1,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 1.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 13,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 14,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 15,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   }
+  ],
+  "E2": []
+ },
+ "lobby": {
+  "drop_cert": 0.9738578110982955,
+  "drop_evs": 0.9738684845112224,
+  "E1": [
+   {
+    "trial": 0,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 1,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 2,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 1.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 3,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 4,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 5,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 1.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 6,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 7,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 8,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 9,
+    "sign": 1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 10,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 11,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 12,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 13,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 14,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 1.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   },
+   {
+    "trial": 15,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 1.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 1.0
+    }
+   }
+  ],
+  "E2": []
+ },
+ "virat": {
+  "drop_cert": 0.9953730782085561,
+  "drop_evs": 0.995373007299748,
+  "E1": [
+   {
+    "trial": 0,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 1,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 2,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 3,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 4,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "Yes."
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 1
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 5,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 6,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 7,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 8,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 9,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 10,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 11,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 12,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 13,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 14,
+    "sign": -1,
+    "answers": {
+     "truth": "Yes.",
+     "control": "No",
+     "evs": "No",
+     "certified": "Yes.",
+     "sequential": "Yes.",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 1,
+     "control": 0,
+     "evs": 0,
+     "certified": 1,
+     "sequential": 1,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   },
+   {
+    "trial": 15,
+    "sign": -1,
+    "answers": {
+     "truth": "No",
+     "control": "No",
+     "evs": "No",
+     "certified": "No",
+     "sequential": "No",
+     "published": "No"
+    },
+    "yes": {
+     "truth": 0,
+     "control": 0,
+     "evs": 0,
+     "certified": 0,
+     "sequential": 0,
+     "published": 0
+    },
+    "present_in_view": {
+     "evs": 0.0,
+     "certified": 1.0,
+     "sequential": 1.0,
+     "published": 0.0
+    }
+   }
+  ],
+  "E2": []
+ }
+}

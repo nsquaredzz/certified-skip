@@ -35,7 +35,7 @@ While a patch is skipped, nothing of contrast Δ or more can have appeared in it
 
 The rest of the repository is what happened when that rule met real cameras: where it broke, three further certificates built to fix it, a sequential test for objects too faint for any single frame, pixel-accurate object masks at video rate from the same machinery, two ideas that did not work, and an end-to-end check with an unmodified video language model.
 
-Everything is implemented twice, as a header-only C++17 core and as a numpy reference that must agree with it decision for decision, with 40 tests that check the theorems on data.
+Everything is implemented twice, as a header-only C++17 core and as a numpy reference that must agree with it decision for decision, with 51 tests that check the theorems on data.
 
 **Read next:** [the write-up](https://nsquaredzz.github.io/blog/certified-skip/) for the full argument, [THEORY.md](THEORY.md) for statements and proofs, [RESULTS.md](RESULTS.md) for every number.
 
@@ -192,7 +192,7 @@ make -C cpp
 python3 -m pytest tests -q
 ```
 
-That builds the shared library and the command-line tool, and runs the 40 tests. Then fetch three public cameras, 135 MB, and watch the rule work on one:
+That builds the shared library and the command-line tool, and runs the 51 tests. Then fetch three public cameras, 135 MB, and watch the rule work on one:
 
 ```bash
 python3 scripts/fetch_data.py
@@ -294,7 +294,7 @@ python/certskip/
   native.py           ctypes bindings to the C++ library
   video.py            ffmpeg reader and writer
 scripts/              one script per experiment, plus fetch_data.py and the two media builders
-tests/                40 tests: semantics, C++ parity, every theorem checked on data
+tests/                51 tests: semantics, C++ parity, every theorem checked on data
 THEORY.md             statements and proofs
 RESULTS.md            every measurement, in the order the work was done
 out/                  JSON, logs and plots of the reported runs

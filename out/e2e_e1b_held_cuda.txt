@@ -1,0 +1,70 @@
+model on cuda
+rule offset: none; dropped patches show the held copy
+
+=== hall: 300 frames 352x288; certified drop 0.944, EVS-style tau 5.70 (drop 0.944)
+  fade 5.9 s over 178 frames (per-frame step 0.39 grey levels)
+  E1 trial  0 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  1 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  2 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  3 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  4 bright: truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  5 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  6 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  7 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  8 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  9 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 10 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 11 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='No'   pub='No'    | object pixels in view: evs 1 cert 1 seq 1 pub 1
+  E1 trial 12 dark  : truth='Yes.' control='No'   evs='Yes.' cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 1 cert 1 seq 1 pub 1
+  E1 trial 13 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 14 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 15 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 yes-rate: truth 0.50  control 0.00  evs 0.06  certified 0.50  sequential 0.44   (object actually in view: evs 0.12 cert 1.00 seq 1.00)
+  E1 conditional on the model perceiving the object in the truth frame (8 trials): evs 0.12  certified 1.00  sequential 0.88
+  E1 published rule, held copy: object in view 0.81, yes-rate 0.19, conditional 0.38
+
+=== lobby: 1446 frames 384x288; certified drop 0.974, EVS-style tau 7.42 (drop 0.974)
+  fade 8.0 s over 200 frames (per-frame step 0.35 grey levels)
+  E1 trial  0 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  1 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  2 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 1 cert 1 seq 1 pub 1
+  E1 trial  3 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  4 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  5 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 1 cert 1 seq 1 pub 1
+  E1 trial  6 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  7 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  8 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial  9 bright: truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 10 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'   pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 11 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 12 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'   pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 13 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 1
+  E1 trial 14 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 1 cert 1 seq 1 pub 1
+  E1 trial 15 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 1 cert 1 seq 1 pub 1
+  E1 yes-rate: truth 0.75  control 0.00  evs 0.00  certified 0.62  sequential 0.62   (object actually in view: evs 0.25 cert 1.00 seq 1.00)
+  E1 conditional on the model perceiving the object in the truth frame (12 trials): evs 0.00  certified 0.83  sequential 0.83
+  E1 published rule, held copy: object in view 0.88, yes-rate 0.75, conditional 1.00
+
+=== virat: 705 frames 960x544; certified drop 0.995, EVS-style tau 4.16 (drop 0.995)
+  fade 8.0 s over 80 frames (per-frame step 0.88 grey levels)
+  E1 trial  0 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  1 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  2 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  3 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  4 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='Yes.'  | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  5 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  6 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  7 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  8 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial  9 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial 10 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial 11 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial 12 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial 13 dark  : truth='Yes.' control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial 14 dark  : truth='Yes.' control='No'   evs='No'   cert='Yes.' seq='Yes.' pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 trial 15 dark  : truth='No'   control='No'   evs='No'   cert='No'   seq='No'   pub='No'    | object pixels in view: evs 0 cert 1 seq 1 pub 0
+  E1 yes-rate: truth 0.44  control 0.00  evs 0.00  certified 0.31  sequential 0.25   (object actually in view: evs 0.00 cert 1.00 seq 1.00)
+  E1 conditional on the model perceiving the object in the truth frame (7 trials): evs 0.00  certified 0.71  sequential 0.57
+  E1 published rule, held copy: object in view 0.00, yes-rate 0.06, conditional 0.14
+
+288 queries, 15.4 s per query on cuda; wrote out/e2e_e1b_held_cuda.json

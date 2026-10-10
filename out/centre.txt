@@ -1,0 +1,29 @@
+sends per patch-frame after the first frame, %   (latency L in frames)
+clip                               norm        |  bound | L=0    L=1    L=2    L=4    L=8    L=15   | in use | largest norm
+akiyo_cif                          sup         |   2.71 |   5.93   4.56   4.02   3.56   3.22   2.98 |   3.06 | 0.9875
+akiyo_cif                          multi-scale |   2.88 |   6.02   4.66   4.14   3.68   3.37   3.16 |   3.14 | 0.9995
+caviar_EnterExitCrossingPaths1cor  sup         |   2.69 |   5.04   3.91   3.47   3.14   2.95   2.85 |   3.85 | 0.9875
+caviar_EnterExitCrossingPaths1cor  multi-scale |   3.31 |   5.58   4.46   4.06   3.78   3.61   3.53 |   4.31 | 0.9996
+caviar_Fight_Chase                 sup         |   2.75 |   6.12   4.13   3.70   3.38   3.14   2.99 |   4.23 | 0.9875
+caviar_Fight_Chase                 multi-scale |   2.82 |   6.16   4.19   3.77   3.46   3.23   3.07 |   4.27 | 0.9996
+caviar_LeftBag                     sup         |   2.29 |   5.57   3.60   3.19   2.89   2.68   2.53 |   3.46 | 0.9875
+caviar_LeftBag                     multi-scale |   2.31 |   5.59   3.64   3.23   2.93   2.71   2.55 |   3.50 | 0.9996
+caviar_Meet_Crowd                  sup         |   2.06 |   5.24   3.45   3.01   2.69   2.48   2.32 |   3.32 | 0.9875
+caviar_Meet_Crowd                  multi-scale |   2.15 |   5.30   3.54   3.11   2.81   2.60   2.44 |   3.38 | 0.9996
+caviar_OneLeaveShopReenter1cor     sup         |   1.83 |   3.26   2.54   2.30   2.13   2.02   1.97 |   2.56 | 0.9875
+caviar_OneLeaveShopReenter1cor     multi-scale |   2.18 |   3.61   2.91   2.70   2.54   2.41   2.36 |   2.88 | 0.9996
+caviar_Walk1                       sup         |   1.99 |   4.80   3.21   2.83   2.57   2.34   2.19 |   3.09 | 0.9875
+caviar_Walk1                       multi-scale |   2.01 |   4.83   3.24   2.87   2.61   2.38   2.23 |   3.13 | 0.9996
+caviar_WalkByShop1cor              sup         |   1.30 |   2.48   2.01   1.78   1.57   1.44   1.38 |   1.94 | 0.9875
+caviar_WalkByShop1cor              multi-scale |   1.53 |   2.66   2.17   1.96   1.79   1.68   1.63 |   2.10 | 0.9996
+hall_monitor_cif                   sup         |   4.47 |   7.93   5.66   5.24   4.97   4.80   4.69 |   5.55 | 0.9875
+hall_monitor_cif                   multi-scale |   4.56 |   8.02   5.78   5.36   5.09   4.92   4.81 |   5.64 | 0.9996
+xiph_bridge_close_cif              sup         |   4.13 |  12.54   8.57   6.95   5.59   4.82   4.48 |  10.94 | 0.9875
+xiph_bridge_close_cif              multi-scale |   4.13 |  12.54   8.58   6.95   5.60   4.83   4.50 |  10.95 | 0.9996
+xiph_bridge_far_cif                sup         |   0.03 |   0.85   0.67   0.58   0.44   0.32   0.21 |   0.57 | 0.9875
+xiph_bridge_far_cif                multi-scale |   0.03 |   0.85   0.67   0.58   0.44   0.32   0.21 |   0.57 | 0.9911
+
+11 clips. Median over clips:
+  sup         bound / L=0: 0.45; sends relative to L=0: L=1: 0.71, L=2: 0.66, L=4: 0.55, L=8: 0.51, L=15: 0.49; rule in use / L=0: 0.69
+  multi-scale bound / L=0: 0.46; sends relative to L=0: L=1: 0.72, L=2: 0.67, L=4: 0.56, L=8: 0.52, L=15: 0.50; rule in use / L=0: 0.69
+wrote out/centre.json and out/centre.png

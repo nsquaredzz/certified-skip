@@ -288,3 +288,102 @@ certified view / certified + sequential view at the matched drop rate, kept patc
 square outlined in yellow, and the recorded model answers stamped on a hold card at the end of each fade.
 Three-panel versions of the lobby and parking-lot trials are tracked as `assets/blindspot_lobby.mp4` and
 `assets/blindspot_parking.mp4` (`scripts/make_readme_media.py`).
+
+---
+
+# Part IX — frame rate: a threshold on speed against one on displacement (2026-10-10)
+
+Run on a Linux laptop (8 threads, GTX 1650 Ti), not on the M4 of Parts I–VII. Theory in `THEORY.md` §10; script `scripts/framerate_bench.py`; outputs `out/framerate.{json,txt,png}` and `out/framerate_summary.png`.
+
+**Question.** A consecutive-frame rule compares each frame with the one before it. Proposition 12 says its threshold is a threshold on speed, which rises with the frame rate, so the same rule should see less of the same scene when the scene is read faster. Does it, on real footage with nothing planted?
+
+**Protocol.** The eleven fixed-camera clips of CIF size (hall_monitor, akiyo, the two Xiph bridge cameras, seven CAVIAR clips), each read at its native rate and subsampled by 2, 3, 6, 10, 15 and 30. Only real frames are used. At every rate two rules run at the same skip rate: the certified rule of §9 (quotient + multi-scale, no offset, Δ₀ = 80) and the consecutive-frame mean rule of Part I, re-tuned at that rate to the certified rule's skip rate ("re-tuned") or tuned once at about 2 fps and left alone ("fixed"). After every frame the copy the model holds is compared with the truth: *object pixels wrong* is the share of moving-object pixels (more than 30 grey levels from the clip's temporal median, an oracle) that are off by more than 30 grey levels; *ghost pixels* is the same share over the rest of the frame, which is what a rule leaves behind where nothing is any more.
+
+## Median over the clips
+
+| step from native | about fps | clips | ghost %, certified | heuristic, re-tuned | heuristic, fixed | object pixels wrong %, certified | heuristic, re-tuned | heuristic, fixed | skip rate %, certified / re-tuned / fixed |
+|---|---|---|---|---|---|---|---|---|---|
+| 1/30 | 1 | 9 | 0.08 | 0.12 | 0.15 | 1.0 | 1.5 | 1.6 | 91.0 / 91.0 / 91.4 |
+| 1/15 | 2 | 11 | 0.07 | 0.17 | 0.17 | 1.0 | 2.3 | 2.3 | 91.5 / 91.5 / 91.5 |
+| 1/10 | 3 | 11 | 0.08 | 0.20 | 0.24 | 1.1 | 2.0 | 2.8 | 92.5 / 92.4 / 92.4 |
+| 1/6 | 5 | 11 | 0.08 | 0.29 | 0.28 | 1.2 | 2.9 | 4.2 | 93.5 / 93.5 / 93.9 |
+| 1/3 | 10 | 11 | 0.08 | 0.44 | 0.45 | 1.7 | 5.2 | 6.6 | 94.4 / 94.4 / 95.0 |
+| 1/2 | 15 | 11 | 0.09 | 0.54 | 0.64 | 2.0 | 7.5 | 8.1 | 94.8 / 94.8 / 96.1 |
+| 1/1 | 25 to 30 | 11 | 0.09 | 1.07 | 1.17 | 2.5 | 9.9 | 11.5 | 96.6 / 96.6 / 96.9 |
+
+## Per clip, at about 2 fps and at the native rate (heuristic re-tuned)
+
+| clip | native fps | ghost %, about 2 fps: certified / heuristic | ghost %, native: certified / heuristic | object pixels wrong %, native: certified / heuristic |
+|---|---|---|---|---|
+| akiyo_cif | 30 | 0.75 / 1.21 | 0.70 / 3.55 | 10.0 / 23.7 |
+| caviar_EnterExitCrossingPaths1cor | 25 | 0.01 / 0.07 | 0.07 / 0.80 | 2.5 / 5.8 |
+| caviar_Fight_Chase | 25 | 0.10 / 0.17 | 0.09 / 0.83 | 2.0 / 9.9 |
+| caviar_LeftBag | 25 | 0.10 / 0.50 | 0.12 / 2.18 | 3.0 / 13.8 |
+| caviar_Meet_Crowd | 25 | 0.09 / 0.21 | 0.10 / 1.07 | 2.7 / 7.4 |
+| caviar_OneLeaveShopReenter1cor | 25 | 0.01 / 0.05 | 0.03 / 0.54 | 2.5 / 9.2 |
+| caviar_Walk1 | 25 | 0.08 / 0.24 | 0.09 / 0.86 | 2.3 / 12.4 |
+| caviar_WalkByShop1cor | 25 | 0.03 / 0.15 | 0.08 / 2.21 | 2.1 / 8.0 |
+| hall_monitor_cif | 30 | 0.07 / 0.07 | 0.11 / 1.98 | 1.6 / 3.7 |
+| xiph_bridge_close_cif | 30 | 0.07 / 0.44 | 0.09 / 1.19 | 2.8 / 16.5 |
+| xiph_bridge_far_cif | 30 | 0.07 / 0.14 | 0.07 / 0.24 | 9.3 / 48.0 |
+
+## Reading
+
+* **The heuristic leaves more behind the faster it looks, the certified rule does not.** Median ghost pixels of the consecutive-frame rule go from 0.12 % at 1 fps to 1.07 % at the native rate, a factor nine, at equal skip rates throughout. The certified rule stays between 0.07 and 0.09 %. The heuristic's ghosts are higher at the native rate than at 2 fps on all eleven clips, and higher than the certified rule's at the native rate on all eleven.
+* **At the rates where video models are usually fed, the two are close.** At 1 fps the heuristic leaves 1.5 times the certified rule's ghosts, at 2 fps 2.3 times, at the native rate 12 times. A consecutive-frame rule looks adequate at 1–2 fps because at 1–2 fps it nearly is.
+* **Moving objects.** The share of moving-object pixels that are wrong goes from 2.3 % to 9.9 % for the heuristic and from 1.0 % to 2.5 % for the certified rule. The certified number rises too: at a high frame rate more frames fall between two sends, and each of them is off by something below the certificate's bound.
+* **Re-tuning the threshold at every rate does not help.** It keeps the skip rate equal and leaves the picture about as wrong as a fixed threshold does. The failure is in what is compared, not in the threshold.
+
+## What this is and is not
+
+It is the blind spot of Part I, measured without planting anything and stated as a law in the frame rate, with the two-line proof of Proposition 12 behind it. It is a measurement on pixels: the model was not asked. The oracle is a temporal median, not hand-labelled ground truth, and the heuristic is the consecutive-frame criterion re-implemented here, not any published system's full pipeline. The clips are the eleven CIF-size ones; nothing faster than 30 fps was available, so the law is tested downwards from the native rate only.
+
+---
+
+# Part X — what to hold: the fewest sends a certificate allows (2026-10-10)
+
+Linux laptop, CPU only. Theory in `THEORY.md` §11; code `python/certskip/centre.py`; tests `tests/test_centre.py`; script `scripts/centre_bench.py`; outputs `out/centre.{json,txt,png}`.
+
+**Question.** Every rule so far holds a frame: when the certificate breaks it sends the current frame. Theorem 13 gives the fewest sends any policy can make for a certificate, whatever it holds and with any latency; Theorem 14 places a frame-holding rule between that and the same bound at half the tolerance. How far from the bound is the rule in use on real cameras, and how much of the distance does a little latency recover?
+
+**Protocol.** The eleven CIF-size fixed-camera clips, 600 frames each (fewer where the clip is shorter), patch 16. Certificate: the multi-scale norm of the benchmarks without offset (Δ₀ = 80, γ = ½) and without the sub-pixel shift, the same at every latency. *Bound*: the greedy cut into runs of diameter below 2 (`fewest_sends`). *L = 0*: send-on-delta, the current frame is held. *L > 0*: on a break, the centre (pixelwise midrange) of the longest run among the next L frames that the centre certifies is held; the model's picture lags L frames. *In use*: the C++ rule of §9 at the same schedule, which also fits a sub-pixel shift per patch and so certifies less (position to within a pixel is not certified). Numbers are the share of patch-frames sent after the first frame.
+
+## Sends, %, multi-scale certificate
+
+| clip | bound | L = 0 | L = 1 | L = 2 | L = 4 | L = 8 | L = 15 | in use (with sub-pixel shift) |
+|---|---|---|---|---|---|---|---|---|
+| akiyo_cif | 2.88 | 6.02 | 4.66 | 4.14 | 3.68 | 3.37 | 3.16 | 3.14 |
+| caviar_EnterExitCrossingPaths1cor | 3.31 | 5.58 | 4.46 | 4.06 | 3.78 | 3.61 | 3.53 | 4.31 |
+| caviar_Fight_Chase | 2.82 | 6.16 | 4.19 | 3.77 | 3.46 | 3.23 | 3.07 | 4.27 |
+| caviar_LeftBag | 2.31 | 5.59 | 3.64 | 3.23 | 2.93 | 2.71 | 2.55 | 3.50 |
+| caviar_Meet_Crowd | 2.15 | 5.30 | 3.54 | 3.11 | 2.81 | 2.60 | 2.44 | 3.38 |
+| caviar_OneLeaveShopReenter1cor | 2.18 | 3.61 | 2.91 | 2.70 | 2.54 | 2.41 | 2.36 | 2.88 |
+| caviar_Walk1 | 2.01 | 4.83 | 3.24 | 2.87 | 2.61 | 2.38 | 2.23 | 3.13 |
+| caviar_WalkByShop1cor | 1.53 | 2.66 | 2.17 | 1.96 | 1.79 | 1.68 | 1.63 | 2.10 |
+| hall_monitor_cif | 4.56 | 8.02 | 5.78 | 5.36 | 5.09 | 4.92 | 4.81 | 5.64 |
+| xiph_bridge_close_cif | 4.13 | 12.54 | 8.58 | 6.95 | 5.60 | 4.83 | 4.50 | 10.95 |
+| xiph_bridge_far_cif | 0.03 | 0.85 | 0.67 | 0.58 | 0.44 | 0.32 | 0.21 | 0.57 |
+
+| over the 11 clips | L = 1 | L = 2 | L = 4 | L = 8 | L = 15 |
+|---|---|---|---|---|---|
+| sends against L = 0, median (range) | −28 % (−18 to −35) | −33 % (−25 to −45) | −44 % (−30 to −55) | −48 % (−33 to −62) | −50 % (−35 to −76) |
+| above the bound, median | +57 % | +40 % | +27 % | +17 % | +9 % |
+| against the rule in use, median (range) | +3 % (−22 to +48) | −7 % (−37 to +32) | −16 % (−49 to +17) | −22 % (−56 to +7) | −27 % (−64 to +1) |
+| clips on which it sends less than the rule in use | 2 of 11 | 9 of 11 | 10 of 11 | 10 of 11 | 10 of 11 |
+
+Holding a frame (L = 0) sends a median of 2.2 times the bound, from 1.65 times to 32 times (the far bridge camera, where almost nothing happens and nearly every send is one that a centred copy would have avoided). The sup-norm certificate with ε = 40 gives the same picture to within a point or two; both are in `out/centre.txt`. The largest certificate norm met on any frame of any run was 0.9996, below 1 as it must be.
+
+## Reading
+
+* **A rule that holds frames sends about twice the bound, and the bound is real.** Theorem 13 is a statement about every policy with this certificate on this patch grid, learned or not. Part III's "there is no drop-rate headroom left" compared the rules with an oracle of what moved; against what a certificate actually requires there is a factor of two, and Theorem 14 says where it comes from: a held frame sits wherever the scene happened to be when the certificate broke, and tolerates half of what a centred copy would.
+* **A little latency recovers most of it.** One frame of look-ahead removes a quarter of the sends, four frames 44 %, eight frames 48 %, and at fifteen frames the rule is within 9 % of the bound in the median. On the river camera, where the water never stops, sends fall from 12.5 % to 4.8 % at eight frames.
+* **Against the rule in use.** The sub-pixel shift of §3 was introduced to absorb edge jitter, and it removes a median 31 % of the sends of L = 0 by certifying less. Holding a centre absorbs any oscillation smaller than the tolerance, jitter included, and certifies more: from four frames of latency on it sends less than the rule in use on 10 of the 11 clips, a median of 16 % less at four frames and 22 % less at eight. The exception is akiyo, a head-and-shoulders clip whose motion really is a sub-pixel sway. The two are not exclusive; a rule that holds centres and fits a shift is not built.
+* **What it costs.** The model's picture lags by the latency, and what it is given is the midrange of a few consecutive frames, which was never a frame. The certificate is unchanged; whether the model's answers are is the experiment below.
+
+## What did not work
+
+The first version had no latency: on a break it held the centre of the run *so far*. On five cameras it sent 7 to 20 % less than holding a frame on two (hallway, lobby) and 10 to 30 % *more* on three (corridor, river, news anchor). When something is moving through a patch, the centre of the past is behind the present, and it breaks sooner than the present frame would. The remark after Theorem 16 is the general fact: without latency no policy is within a constant of the bound. Adding the run so far to the look-ahead window did not help from one frame of latency on, so the rule looks ahead only.
+
+## What is and is not new
+
+The scalar version, a time series approximated by the midrange of greedy segments under a sup-norm bound, is PMC-MR (Lazaridis and Mehrotra, 2003), and send-on-delta is the Lebesgue sampling of event-triggered control. New here: the lower bound asked of a skip certificate and measured on cameras, Theorem 14, the bounded-latency policy and Theorem 16, and the observation that the norm in which the stability theorem is stated is the one norm in which centres give the full factor two. Only the numpy reference exists; there is no C++ port, the look-ahead costs L frames of memory, and nothing here has been combined with the sequential test.
