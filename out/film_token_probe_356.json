@@ -1,0 +1,137 @@
+[
+ {
+  "frame": 20,
+  "kind": "yesno",
+  "q": "Is the young man's mouth open? Answer yes or no.",
+  "full": 0.2088734209537506,
+  "still": 0.13224312663078308,
+  "moved": 0.11847306787967682,
+  "stale": 0.18893815577030182
+ },
+ {
+  "frame": 20,
+  "kind": "yesno",
+  "q": "Is the young man smiling? Answer yes or no.",
+  "full": 0.04943058267235756,
+  "still": 0.04321346431970596,
+  "moved": 0.06272689253091812,
+  "stale": 0.0803227648139
+ },
+ {
+  "frame": 20,
+  "kind": "yesno",
+  "q": "Is the robot hand touching the young man? Answer yes or no.",
+  "full": 0.27936694025993347,
+  "still": 0.3357294201850891,
+  "moved": 0.3604320287704468,
+  "stale": 0.4047399163246155
+ },
+ {
+  "frame": 50,
+  "kind": "yesno",
+  "q": "Is the young man's mouth open? Answer yes or no.",
+  "full": 0.49661481380462646,
+  "still": 0.5436892509460449,
+  "moved": 0.6592942476272583,
+  "stale": 0.18893815577030182
+ },
+ {
+  "frame": 50,
+  "kind": "yesno",
+  "q": "Is the young man smiling? Answer yes or no.",
+  "full": 0.11583329737186432,
+  "still": 0.12075397372245789,
+  "moved": 0.13281263411045074,
+  "stale": 0.0803227648139
+ },
+ {
+  "frame": 50,
+  "kind": "yesno",
+  "q": "Is the robot hand touching the young man? Answer yes or no.",
+  "full": 0.3569335639476776,
+  "still": 0.3018338084220886,
+  "moved": 0.2262275367975235,
+  "stale": 0.4047399163246155
+ },
+ {
+  "frame": 80,
+  "kind": "yesno",
+  "q": "Is the young man's mouth open? Answer yes or no.",
+  "full": 0.07864877581596375,
+  "still": 0.05957396328449249,
+  "moved": 0.11213310807943344,
+  "stale": 0.18893815577030182
+ },
+ {
+  "frame": 80,
+  "kind": "yesno",
+  "q": "Is the young man smiling? Answer yes or no.",
+  "full": 0.0334637388586998,
+  "still": 0.020565392449498177,
+  "moved": 0.04197682440280914,
+  "stale": 0.0803227648139
+ },
+ {
+  "frame": 80,
+  "kind": "yesno",
+  "q": "Is the robot hand touching the young man? Answer yes or no.",
+  "full": 0.24908506870269775,
+  "still": 0.2318396121263504,
+  "moved": 0.23743227124214172,
+  "stale": 0.4047399163246155
+ },
+ {
+  "frame": 110,
+  "kind": "yesno",
+  "q": "Is the young man's mouth open? Answer yes or no.",
+  "full": 0.12863272428512573,
+  "still": 0.13032089173793793,
+  "moved": 0.33402079343795776,
+  "stale": 0.18893815577030182
+ },
+ {
+  "frame": 110,
+  "kind": "yesno",
+  "q": "Is the young man smiling? Answer yes or no.",
+  "full": 0.07258794456720352,
+  "still": 0.0779459998011589,
+  "moved": 0.06456250697374344,
+  "stale": 0.0803227648139
+ },
+ {
+  "frame": 110,
+  "kind": "yesno",
+  "q": "Is the robot hand touching the young man? Answer yes or no.",
+  "full": 0.2375786453485489,
+  "still": 0.21294936537742615,
+  "moved": 0.2051459699869156,
+  "stale": 0.4047399163246155
+ },
+ {
+  "frame": 134,
+  "kind": "yesno",
+  "q": "Is the young man's mouth open? Answer yes or no.",
+  "full": 0.5202086567878723,
+  "still": 0.5628729462623596,
+  "moved": 0.23018039762973785,
+  "stale": 0.18893815577030182
+ },
+ {
+  "frame": 134,
+  "kind": "yesno",
+  "q": "Is the young man smiling? Answer yes or no.",
+  "full": 0.0767688974738121,
+  "still": 0.10208620131015778,
+  "moved": 0.06084056943655014,
+  "stale": 0.0803227648139
+ },
+ {
+  "frame": 134,
+  "kind": "yesno",
+  "q": "Is the robot hand touching the young man? Answer yes or no.",
+  "full": 0.22912649810314178,
+  "still": 0.2763037383556366,
+  "moved": 0.21289463341236115,
+  "stale": 0.4047399163246155
+ }
+]

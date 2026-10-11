@@ -1,0 +1,27 @@
+encoding 78 frames (0 cached)
+encoded in 10.6 s a frame
+  frame  20 P(yes): full 0.17  still 0.14  moved 0.09  stale 0.09 | Is there a grey loudspeaker visible in this image?
+  frame  20 P(yes): full 0.67  still 0.67  moved 0.63  stale 0.63 | Is the woman visible in this image?
+  frame  20 P(yes): full 0.62  still 0.61  moved 0.62  stale 0.62 | Is the man in the red jacket closer to the camera than the grey-haired man?
+  frame  20 P(count): full 3 (0.99)  still 3 (0.99)  moved 3 (0.99)  stale 3 (0.99) | How many people are visible in this image?
+  frame  40 P(yes): full 0.07  still 0.07  moved 0.08  stale 0.09 | Is there a grey loudspeaker visible in this image?
+  frame  40 P(yes): full 0.63  still 0.67  moved 0.67  stale 0.63 | Is the woman visible in this image?
+  frame  40 P(yes): full 0.64  still 0.62  moved 0.64  stale 0.62 | Is the man in the red jacket closer to the camera than the grey-haired man?
+  frame  40 P(count): full 3 (0.99)  still 3 (0.99)  moved 3 (0.99)  stale 3 (0.99) | How many people are visible in this image?
+  frame  60 P(yes): full 0.68  still 0.60  moved 0.58  stale 0.09 | Is there a grey loudspeaker visible in this image?
+  frame  60 P(yes): full 0.70  still 0.66  moved 0.71  stale 0.63 | Is the woman visible in this image?
+  frame  60 P(yes): full 0.70  still 0.68  moved 0.70  stale 0.62 | Is the man in the red jacket closer to the camera than the grey-haired man?
+  frame  60 P(count): full 3 (0.99)  still 3 (0.99)  moved 3 (0.99)  stale 3 (0.99) | How many people are visible in this image?
+  frame  80 P(yes): full 0.69  still 0.70  moved 0.59  stale 0.09 | Is there a grey loudspeaker visible in this image?
+  frame  80 P(yes): full 0.73  still 0.73  moved 0.72  stale 0.63 | Is the woman visible in this image?
+  frame  80 P(yes): full 0.69  still 0.68  moved 0.68  stale 0.62 | Is the man in the red jacket closer to the camera than the grey-haired man?
+  frame  80 P(count): full 3 (0.97)  still 3 (0.96)  moved 3 (0.97)  stale 3 (0.99) | How many people are visible in this image?
+  frame 100 P(yes): full 0.65  still 0.64  moved 0.67  stale 0.09 | Is there a grey loudspeaker visible in this image?
+  frame 100 P(yes): full 0.65  still 0.64  moved 0.66  stale 0.63 | Is the woman visible in this image?
+  frame 100 P(yes): full 0.73  still 0.73  moved 0.70  stale 0.62 | Is the man in the red jacket closer to the camera than the grey-haired man?
+  frame 100 P(count): full 3 (0.95)  still 3 (0.95)  moved 3 (0.96)  stale 3 (0.99) | How many people are visible in this image?
+  frame 120 P(yes): full 0.76  still 0.74  moved 0.68  stale 0.09 | Is there a grey loudspeaker visible in this image?
+  frame 120 P(yes): full 0.02  still 0.03  moved 0.22  stale 0.63 | Is the woman visible in this image?
+  frame 120 P(yes): full 0.77  still 0.77  moved 0.75  stale 0.62 | Is the man in the red jacket closer to the camera than the grey-haired man?
+  frame 120 P(count): full 2 (0.95)  still 2 (0.86)  moved 3 (0.64)  stale 3 (0.99) | How many people are visible in this image?
+96 forward passes, 17.6 s each

@@ -1,0 +1,15 @@
+(a) hook with the frame's own tokens against the untouched model:
+   untouched P(yes) 0.079  hooked 0.079  | Is the young man's mouth open?
+   untouched P(yes) 0.033  hooked 0.033  | Is the young man smiling?
+(b) share of the first-token probability on yes or no, and the four likeliest first tokens:
+   frame  20: P(yes) 0.21, yes+no mass 0.99, top [('No', 0.775), ('Yes', 0.202), ('no', 0.011), ('yes', 0.005)] | Is the young man's mouth open?
+   frame  20: P(yes) 0.05, yes+no mass 0.99, top [('No', 0.927), ('Yes', 0.048), ('no', 0.018), ('The', 0.003)] | Is the young man smiling?
+   frame  20: P(yes) 0.28, yes+no mass 0.99, top [('No', 0.712), ('Yes', 0.274), ('The', 0.004), ('yes', 0.002)] | Is the robot hand touching the young man?
+   frame 134: P(yes) 0.52, yes+no mass 1.00, top [('Yes', 0.5), ('No', 0.47), ('yes', 0.017), ('no', 0.007)] | Is the young man's mouth open?
+   frame 134: P(yes) 0.08, yes+no mass 0.99, top [('No', 0.895), ('Yes', 0.075), ('no', 0.022), ('The', 0.003)] | Is the young man smiling?
+   frame 134: P(yes) 0.23, yes+no mass 0.99, top [('No', 0.762), ('Yes', 0.225), ('The', 0.003), ('no', 0.003)] | Is the robot hand touching the young man?
+(c) adjacent frames, all tokens new (natural jitter):
+   frames [47, 48, 49, 50, 51, 52]: P(yes) [0.59, 0.67, 0.61, 0.5, 0.36, 0.15], spread 0.52 | Is the young man's mouth open?
+   frames [47, 48, 49, 50, 51, 52]: P(yes) [0.13, 0.12, 0.1, 0.12, 0.09, 0.09], spread 0.04 | Is the young man smiling?
+   frames [131, 132, 133, 134]: P(yes) [0.75, 0.78, 0.74, 0.52], spread 0.26 | Is the young man's mouth open?
+   frames [131, 132, 133, 134]: P(yes) [0.12, 0.12, 0.16, 0.08], spread 0.08 | Is the young man smiling?

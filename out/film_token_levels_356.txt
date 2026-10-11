@@ -1,0 +1,17 @@
+356 still: share of tokens after the first frame: still 83.1 %, moved 0.0 %, new (encoded) 16.9 %
+356 moved: share of tokens after the first frame: still 40.2 %, moved 55.0 %, new (encoded) 4.9 %
+encoding the 77 frames whose tokens are used at the frames asked about
+encoded 78 frames, 10.68 s a frame
+cosine with the token a fresh encoding gives: a token carried one cell along with its content 0.892 | a token left where it was 0.547 | the same cell one frame later 0.771 | an unrelated cell 0.283
+  frame  67: closeness to the frame's own tokens (1 = identical), whole frame / on the people: still 0.749 / 0.725   moved 0.712 / 0.687   stale 0.621 / 0.546
+  frame 134: closeness to the frame's own tokens (1 = identical), whole frame / on the people: still 0.785 / 0.767   moved 0.699 / 0.695   stale 0.618 / 0.572
+  frame  67 | full 2      still 2      moved 2      stale 2      | How many people are visible in this image? Answer with a single number.
+  frame  67 | full no     still no     moved no     stale yes    | Is the young man looking down? Answer yes or no.
+  frame  67 | full no     still no     moved no     stale no     | Is the young man's mouth open? Answer yes or no.
+  frame 134 | full 2      still 2      moved 2      stale 2      | How many people are visible in this image? Answer with a single number.
+  frame 134 | full no     still no     moved no     stale yes    | Is the young man looking down? Answer yes or no.
+  frame 134 | full yes    still yes    moved no     stale no     | Is the young man's mouth open? Answer yes or no.
+356: answers the same as with full tokens, still: 6 of 6
+356: answers the same as with full tokens, moved: 5 of 6
+356: answers the same as with full tokens, stale: 3 of 6
+24 queries, 17.1 s each

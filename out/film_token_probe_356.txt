@@ -1,0 +1,18 @@
+encoding 126 frames (0 cached)
+encoded in 10.7 s a frame
+  frame  20 P(yes): full 0.21  still 0.13  moved 0.12  stale 0.19 | Is the young man's mouth open?
+  frame  20 P(yes): full 0.05  still 0.04  moved 0.06  stale 0.08 | Is the young man smiling?
+  frame  20 P(yes): full 0.28  still 0.34  moved 0.36  stale 0.40 | Is the robot hand touching the young man?
+  frame  50 P(yes): full 0.50  still 0.54  moved 0.66  stale 0.19 | Is the young man's mouth open?
+  frame  50 P(yes): full 0.12  still 0.12  moved 0.13  stale 0.08 | Is the young man smiling?
+  frame  50 P(yes): full 0.36  still 0.30  moved 0.23  stale 0.40 | Is the robot hand touching the young man?
+  frame  80 P(yes): full 0.08  still 0.06  moved 0.11  stale 0.19 | Is the young man's mouth open?
+  frame  80 P(yes): full 0.03  still 0.02  moved 0.04  stale 0.08 | Is the young man smiling?
+  frame  80 P(yes): full 0.25  still 0.23  moved 0.24  stale 0.40 | Is the robot hand touching the young man?
+  frame 110 P(yes): full 0.13  still 0.13  moved 0.33  stale 0.19 | Is the young man's mouth open?
+  frame 110 P(yes): full 0.07  still 0.08  moved 0.06  stale 0.08 | Is the young man smiling?
+  frame 110 P(yes): full 0.24  still 0.21  moved 0.21  stale 0.40 | Is the robot hand touching the young man?
+  frame 134 P(yes): full 0.52  still 0.56  moved 0.23  stale 0.19 | Is the young man's mouth open?
+  frame 134 P(yes): full 0.08  still 0.10  moved 0.06  stale 0.08 | Is the young man smiling?
+  frame 134 P(yes): full 0.23  still 0.28  moved 0.21  stale 0.40 | Is the robot hand touching the young man?
+60 forward passes, 17.6 s each

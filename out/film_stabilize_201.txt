@@ -1,0 +1,46 @@
+encoding 7 frames
+  frame  55: all new 0.04  still reused 0.08 | Is there a grey loudspeaker visible in this image?
+  frame  56: all new 0.03  still reused 0.08 | Is there a grey loudspeaker visible in this image?
+  frame  57: all new 0.05  still reused 0.10 | Is there a grey loudspeaker visible in this image?
+  frame  58: all new 0.44  still reused 0.35 | Is there a grey loudspeaker visible in this image?
+  frame  59: all new 0.67  still reused 0.60 | Is there a grey loudspeaker visible in this image?
+  frame  60: all new 0.68  still reused 0.60 | Is there a grey loudspeaker visible in this image?
+  frame  61: all new 0.70  still reused 0.61 | Is there a grey loudspeaker visible in this image?
+  frame  62: all new 0.59  still reused 0.56 | Is there a grey loudspeaker visible in this image?
+  frame  63: all new 0.19  still reused 0.42 | Is there a grey loudspeaker visible in this image?
+  frame  64: all new 0.09  still reused 0.32 | Is there a grey loudspeaker visible in this image?
+  frame 114: all new 0.78  still reused 0.77 | Is there a grey loudspeaker visible in this image?
+  frame 115: all new 0.61  still reused 0.72 | Is there a grey loudspeaker visible in this image?
+  frame 116: all new 0.54  still reused 0.58 | Is there a grey loudspeaker visible in this image?
+  frame 117: all new 0.65  still reused 0.60 | Is there a grey loudspeaker visible in this image?
+  frame 118: all new 0.66  still reused 0.66 | Is there a grey loudspeaker visible in this image?
+  frame 119: all new 0.75  still reused 0.66 | Is there a grey loudspeaker visible in this image?
+  frame 120: all new 0.76  still reused 0.74 | Is there a grey loudspeaker visible in this image?
+  frame 121: all new 0.70  still reused 0.74 | Is there a grey loudspeaker visible in this image?
+  frame 122: all new 0.72  still reused 0.67 | Is there a grey loudspeaker visible in this image?
+  frame 123: all new 0.71  still reused 0.71 | Is there a grey loudspeaker visible in this image?
+  frame  55: all new 0.70  still reused 0.66 | Is the woman visible in this image?
+  frame  56: all new 0.71  still reused 0.67 | Is the woman visible in this image?
+  frame  57: all new 0.71  still reused 0.66 | Is the woman visible in this image?
+  frame  58: all new 0.71  still reused 0.68 | Is the woman visible in this image?
+  frame  59: all new 0.70  still reused 0.71 | Is the woman visible in this image?
+  frame  60: all new 0.70  still reused 0.66 | Is the woman visible in this image?
+  frame  61: all new 0.75  still reused 0.69 | Is the woman visible in this image?
+  frame  62: all new 0.73  still reused 0.69 | Is the woman visible in this image?
+  frame  63: all new 0.75  still reused 0.71 | Is the woman visible in this image?
+  frame  64: all new 0.74  still reused 0.72 | Is the woman visible in this image?
+  frame 114: all new 0.34  still reused 0.30 | Is the woman visible in this image?
+  frame 115: all new 0.44  still reused 0.46 | Is the woman visible in this image?
+  frame 116: all new 0.44  still reused 0.42 | Is the woman visible in this image?
+  frame 117: all new 0.35  still reused 0.31 | Is the woman visible in this image?
+  frame 118: all new 0.10  still reused 0.23 | Is the woman visible in this image?
+  frame 119: all new 0.04  still reused 0.06 | Is the woman visible in this image?
+  frame 120: all new 0.02  still reused 0.03 | Is the woman visible in this image?
+  frame 121: all new 0.02  still reused 0.02 | Is the woman visible in this image?
+  frame 122: all new 0.02  still reused 0.02 | Is the woman visible in this image?
+  frame 123: all new 0.03  still reused 0.03 | Is the woman visible in this image?
+80 forward passes, 17.5 s each
+  frames 55-64 | Is there a grey loudspeaker visible in this image?:  full: spread 0.67, raw flips 2, after detector 0;  still: spread 0.54, raw flips 2, after detector 0;
+  frames 114-123 | Is there a grey loudspeaker visible in this image?:  full: spread 0.24, raw flips 0, after detector 0;  still: spread 0.18, raw flips 0, after detector 0;
+  frames 55-64 | Is the woman visible in this image?:  full: spread 0.05, raw flips 0, after detector 0;  still: spread 0.07, raw flips 0, after detector 0;
+  frames 114-123 | Is the woman visible in this image?:  full: spread 0.42, raw flips 0, after detector 0;  still: spread 0.44, raw flips 0, after detector 0;

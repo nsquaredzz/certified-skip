@@ -1,0 +1,16 @@
+  return umr_sum(a, axis, dtype, out, keepdims, initial, where)
+(a) hook with the frame's own tokens against the untouched model, frame 60:
+   untouched P(yes) 0.678  hooked 0.678  | Is there a grey loudspeaker visible in this image?
+   untouched P(yes) 0.697  hooked 0.697  | Is the woman visible in this image?
+(b) share of the first-token probability on yes or no, and the four likeliest first tokens:
+   frame  20: P(yes) 0.17, yes+no mass 0.99, top [('No', 0.817), ('Yes', 0.163), ('no', 0.007), ('yes', 0.003)] | Is there a grey loudspeaker visible in this image?
+   frame  20: P(yes) 0.67, yes+no mass 1.00, top [('Yes', 0.659), ('No', 0.331), ('yes', 0.004), ('no', 0.001)] | Is the woman visible in this image?
+   frame  20: P(yes) 0.62, yes+no mass 1.00, top [('Yes', 0.607), ('No', 0.38), ('yes', 0.007), ('no', 0.002)] | Is the man in the red jacket closer to the camera than the grey-haired man?
+   frame 120: P(yes) 0.76, yes+no mass 1.00, top [('Yes', 0.735), ('No', 0.239), ('yes', 0.02), ('no', 0.003)] | Is there a grey loudspeaker visible in this image?
+   frame 120: P(yes) 0.02, yes+no mass 1.00, top [('No', 0.973), ('Yes', 0.022), ('no', 0.002), ('The', 0.0)] | Is the woman visible in this image?
+   frame 120: P(yes) 0.77, yes+no mass 1.00, top [('Yes', 0.761), ('No', 0.225), ('yes', 0.011), ('no', 0.001)] | Is the man in the red jacket closer to the camera than the grey-haired man?
+(c) adjacent frames, all tokens new (natural jitter):
+   frames [57, 58, 59, 60, 63]: P(yes) [0.05, 0.44, 0.67, 0.68, 0.19], spread 0.63 | Is there a grey loudspeaker visible in this image?
+   frames [57, 58, 59, 60, 63]: P(yes) [0.71, 0.71, 0.7, 0.7, 0.75], spread 0.05 | Is the woman visible in this image?
+   frames [117, 118, 119, 120]: P(yes) [0.65, 0.66, 0.75, 0.76], spread 0.10 | Is there a grey loudspeaker visible in this image?
+   frames [117, 118, 119, 120]: P(yes) [0.35, 0.1, 0.04, 0.02], spread 0.33 | Is the woman visible in this image?

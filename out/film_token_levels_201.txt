@@ -1,0 +1,28 @@
+201 still: share of tokens after the first frame: still 52.9 %, moved 0.0 %, new (encoded) 47.1 %
+201 moved: share of tokens after the first frame: still 29.3 %, moved 48.9 %, new (encoded) 21.8 %
+encoded 128 frames, 10.73 s a frame
+cosine with the token a fresh encoding gives: a token carried one cell along with its content 0.894 | a token left where it was 0.58 | the same cell one frame later 0.87 | an unrelated cell 0.297
+  frame  30 | full 3      still 3      moved 3      stale 3      | How many people are visible in this image? Answer with a single number.
+  frame  30 | full no     still no     moved no     stale no     | Is the man in the red jacket holding a phone to his ear? Answer yes or no.
+  frame  30 | full no     still no     moved no     stale no     | Is there a woman's face visible in this image? Answer yes or no.
+  frame  30 | full the    still the    moved the    stale the    | Is the man in the red jacket on the left or on the right of the grey-haired man? Answer left or right.
+  frame  30 | full no     still no     moved no     stale no     | Is there a grey loudspeaker visible in this image? Answer yes or no.
+  frame  60 | full 3      still 3      moved 3      stale 3      | How many people are visible in this image? Answer with a single number.
+  frame  60 | full no     still no     moved no     stale no     | Is the man in the red jacket holding a phone to his ear? Answer yes or no.
+  frame  60 | full no     still no     moved yes    stale no     | Is there a woman's face visible in this image? Answer yes or no.
+  frame  60 | full the    still the    moved the    stale the    | Is the man in the red jacket on the left or on the right of the grey-haired man? Answer left or right.
+  frame  60 | full yes    still yes    moved yes    stale no     | Is there a grey loudspeaker visible in this image? Answer yes or no.
+  frame  90 | full 3      still 3      moved 3      stale 3      | How many people are visible in this image? Answer with a single number.
+  frame  90 | full no     still no     moved no     stale no     | Is the man in the red jacket holding a phone to his ear? Answer yes or no.
+  frame  90 | full no     still no     moved no     stale no     | Is there a woman's face visible in this image? Answer yes or no.
+  frame  90 | full the    still the    moved the    stale the    | Is the man in the red jacket on the left or on the right of the grey-haired man? Answer left or right.
+  frame  90 | full yes    still yes    moved yes    stale no     | Is there a grey loudspeaker visible in this image? Answer yes or no.
+  frame 127 | full 2      still 2      moved 2      stale 3      | How many people are visible in this image? Answer with a single number.
+  frame 127 | full no     still no     moved no     stale no     | Is the man in the red jacket holding a phone to his ear? Answer yes or no.
+  frame 127 | full no     still no     moved no     stale no     | Is there a woman's face visible in this image? Answer yes or no.
+  frame 127 | full the    still the    moved the    stale the    | Is the man in the red jacket on the left or on the right of the grey-haired man? Answer left or right.
+  frame 127 | full yes    still yes    moved yes    stale no     | Is there a grey loudspeaker visible in this image? Answer yes or no.
+201: answers the same as with full tokens, still: 20 of 20
+201: answers the same as with full tokens, moved: 19 of 20
+201: answers the same as with full tokens, stale: 16 of 20
+80 queries, 17.3 s each
