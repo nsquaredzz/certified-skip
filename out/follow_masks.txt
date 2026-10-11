@@ -1,0 +1,65 @@
+mask tracker (masks), margin 4 px, at 25 fps; baseline: perfect boxes without identities at 1, 2, 5 and 25 fps
+
+=== Walk1: 619 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 2
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       0       163     100.0     9      100.0     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       1       276     100.0     9      100.0     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       4       572       4.2     9      100.0     1      1    95.2    0.0     Y   |   4.3/n  100.0/Y  100.0/Y  100.0/Y
+       5       548       0.0  never picked up alone                                 | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+
+=== LeftBag: 1447 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 13
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       0       235     100.0     0      100.0     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       1       517      22.1   132       38.2    10      0    81.6    0.0     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       2       585      31.1     5        2.1     1      0     2.1   97.9     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       3       337      92.3     7      100.0     1      1    94.2    0.0     n   |  53.8/n  100.0/Y  100.0/Y  100.0/Y
+       4       410      83.9   149       87.4     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       5       205      80.5    11       49.0     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+
+=== Meet_Crowd: 497 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 0
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       0       322       2.8     8      100.0     1      1    30.6    0.0     n   |   7.7/n  100.0/Y  100.0/Y  100.0/Y
+       1       291       0.0  never picked up alone                                 | 100.0/Y    8.3/n  100.0/Y  100.0/Y
+       2       308      11.7   284      100.0     1      0   100.0    0.0     Y   |  15.4/n   11.5/n  100.0/Y  100.0/Y
+       3       243      44.9  never picked up alone                                 | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+
+=== Fight_Chase: 438 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 23
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       0       157      96.2     0      100.0     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       1       243      36.6     7       25.8     3      0    99.6    0.0     Y   |  60.0/Y   50.0/n   77.6/n  100.0/Y
+       2       279      40.9    23       14.1     1      0    99.2    0.0     Y   |  63.6/n   60.9/n   83.9/n  100.0/Y
+       3       431      55.7    66        9.3     1      0     9.3   90.7     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       4       431      55.5     0        6.5     2      0    35.7   64.3     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+
+=== WalkByShop1cor: 2360 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 141
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       0       387       0.0  never picked up alone                                 | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       1       420       0.0  never picked up alone                                 | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       2      2335       6.3    19        0.5     1      0     0.5   99.5     n   |  90.4/n  100.0/Y  100.0/Y  100.0/Y
+       3      2325       6.8   604        1.3     1      0     1.3   98.7     n   |  39.8/n  100.0/Y  100.0/Y  100.0/Y
+       4       124     100.0     0      100.0     1      0   100.0    0.0     Y   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       5       515      57.7     0       52.6     7      0    99.8    0.0     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       6       775      31.1     3        0.1     1      0     1.3   97.8     n   |   6.5/n  100.0/Y  100.0/Y  100.0/Y
+       7      1720      15.1   140        1.3     3      0     5.5   94.1     n   |   1.4/n  100.0/Y  100.0/Y  100.0/Y
+       8       109      87.2     0       21.1     2      0    17.4   77.1     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       9       292      67.8     1       47.4     1      0    64.6   23.7     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      10       184      23.9   144       15.0     1      0    15.0   85.0     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      11       295      52.5     0       47.8     4      0    95.6    0.0     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      12       605       0.0    10        1.7     1      0     1.7   98.3     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      13       605       0.0    11        6.1     4      0     7.9   92.1     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      17       213      43.2     1        4.2     1      0    93.4    3.3     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      18       201      39.3  never picked up alone                                 | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+      19       243      45.7     0       19.3     1      0    94.2    2.9     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+
+=== EnterExitCrossingPaths1cor: 383 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 60
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       0       383       6.0    29        3.1     1      0     3.1   96.9     n   |  93.8/Y  100.0/Y  100.0/Y  100.0/Y
+       1       383      12.0    35        2.3     1      0     2.3   97.7     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+       2       134      45.5     0        9.0     3      0    13.4   76.9     n   |  83.3/Y  100.0/Y  100.0/Y  100.0/Y
+       3       219      65.3   140        5.1     1      0    54.4   38.0     n   | 100.0/Y    5.3/n    2.3/n    2.7/n
+       4       266      30.1     3        2.3     2      0    19.8   76.4     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y
+
+=== OneLeaveShopReenter1cor: 390 frames, 72x96 patches, sent nan %, flicker patches ignored 0, breaks in the record 37
+  person  labelled  ceiling%  wait  unbroken%  segs  mixed  right%  lost%  ends   | baseline right% / ends, at 1, 2, 5, 25 fps
+       1       147      85.0     0        1.4     1      0     8.8   81.0     n   |  16.7/n  100.0/Y  100.0/Y  100.0/Y
+       2       261      91.6     3        4.3     1      0     5.0   91.9     n   | 100.0/Y  100.0/Y  100.0/Y  100.0/Y

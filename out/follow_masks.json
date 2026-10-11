@@ -1,0 +1,1529 @@
+{
+ "Walk1": {
+  "frames": 619,
+  "sent": NaN,
+  "breaks": 2,
+  "people": [
+   {
+    "person": 0,
+    "frames": 163,
+    "picked_up": true,
+    "wait": 9,
+    "followed": 154,
+    "unbroken": 1.0,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 1.0
+   },
+   {
+    "person": 1,
+    "frames": 276,
+    "picked_up": true,
+    "wait": 9,
+    "followed": 267,
+    "unbroken": 1.0,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 1.0
+   },
+   {
+    "person": 4,
+    "frames": 572,
+    "picked_up": true,
+    "wait": 9,
+    "followed": 563,
+    "unbroken": 1.0,
+    "right": 0.9520426287744227,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 1,
+    "ceiling": 0.04195804195804196
+   },
+   {
+    "person": 5,
+    "frames": 548,
+    "picked_up": false
+   }
+  ],
+  "baseline": {
+   "1": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 7
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 11
+    },
+    "4": {
+     "right": 0.043478260869565216,
+     "ends_right": false,
+     "samples": 23
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 22
+    }
+   },
+   "2": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 13
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 23
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 47
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 45
+    }
+   },
+   "5": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 32
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 55
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 115
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 110
+    }
+   },
+   "25": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 163
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 276
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 572
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 548
+    }
+   }
+  }
+ },
+ "LeftBag": {
+  "frames": 1447,
+  "sent": NaN,
+  "breaks": 13,
+  "people": [
+   {
+    "person": 0,
+    "frames": 235,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 235,
+    "unbroken": 1.0,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 1.0
+   },
+   {
+    "person": 1,
+    "frames": 517,
+    "picked_up": true,
+    "wait": 132,
+    "followed": 385,
+    "unbroken": 0.38181818181818183,
+    "right": 0.8155844155844156,
+    "lost": 0.0,
+    "ends_right": false,
+    "segments": 10,
+    "mixed_segments": 0,
+    "ceiling": 0.2205029013539652
+   },
+   {
+    "person": 2,
+    "frames": 585,
+    "picked_up": true,
+    "wait": 5,
+    "followed": 580,
+    "unbroken": 0.020689655172413793,
+    "right": 0.020689655172413793,
+    "lost": 0.9793103448275862,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.3111111111111111
+   },
+   {
+    "person": 3,
+    "frames": 337,
+    "picked_up": true,
+    "wait": 7,
+    "followed": 330,
+    "unbroken": 1.0,
+    "right": 0.9424242424242424,
+    "lost": 0.0,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 1,
+    "ceiling": 0.9228486646884273
+   },
+   {
+    "person": 4,
+    "frames": 410,
+    "picked_up": true,
+    "wait": 149,
+    "followed": 261,
+    "unbroken": 0.8735632183908046,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.8390243902439024
+   },
+   {
+    "person": 5,
+    "frames": 205,
+    "picked_up": true,
+    "wait": 11,
+    "followed": 194,
+    "unbroken": 0.4896907216494845,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.8048780487804879
+   }
+  ],
+  "baseline": {
+   "1": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 10
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 21
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 24
+    },
+    "3": {
+     "right": 0.5384615384615384,
+     "ends_right": false,
+     "samples": 13
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 17
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 8
+    }
+   },
+   "2": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 20
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 44
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 49
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 28
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 34
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 17
+    }
+   },
+   "5": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 47
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 104
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 117
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 67
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 82
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 41
+    }
+   },
+   "25": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 235
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 517
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 585
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 337
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 410
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 205
+    }
+   }
+  }
+ },
+ "Meet_Crowd": {
+  "frames": 497,
+  "sent": NaN,
+  "breaks": 0,
+  "people": [
+   {
+    "person": 0,
+    "frames": 322,
+    "picked_up": true,
+    "wait": 8,
+    "followed": 314,
+    "unbroken": 1.0,
+    "right": 0.3057324840764331,
+    "lost": 0.0,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 1,
+    "ceiling": 0.027950310559006212
+   },
+   {
+    "person": 1,
+    "frames": 291,
+    "picked_up": false
+   },
+   {
+    "person": 2,
+    "frames": 308,
+    "picked_up": true,
+    "wait": 284,
+    "followed": 24,
+    "unbroken": 1.0,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.11688311688311688
+   },
+   {
+    "person": 3,
+    "frames": 243,
+    "picked_up": false
+   }
+  ],
+  "baseline": {
+   "1": {
+    "0": {
+     "right": 0.07692307692307693,
+     "ends_right": false,
+     "samples": 13
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 12
+    },
+    "2": {
+     "right": 0.15384615384615385,
+     "ends_right": false,
+     "samples": 13
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 10
+    }
+   },
+   "2": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 27
+    },
+    "1": {
+     "right": 0.08333333333333333,
+     "ends_right": false,
+     "samples": 24
+    },
+    "2": {
+     "right": 0.11538461538461539,
+     "ends_right": false,
+     "samples": 26
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 21
+    }
+   },
+   "5": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 64
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 59
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 62
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 49
+    }
+   },
+   "25": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 322
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 291
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 308
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 243
+    }
+   }
+  }
+ },
+ "Fight_Chase": {
+  "frames": 438,
+  "sent": NaN,
+  "breaks": 23,
+  "people": [
+   {
+    "person": 0,
+    "frames": 157,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 157,
+    "unbroken": 1.0,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.9617834394904459
+   },
+   {
+    "person": 1,
+    "frames": 243,
+    "picked_up": true,
+    "wait": 7,
+    "followed": 236,
+    "unbroken": 0.2584745762711864,
+    "right": 0.9957627118644068,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 3,
+    "mixed_segments": 0,
+    "ceiling": 0.3662551440329218
+   },
+   {
+    "person": 2,
+    "frames": 279,
+    "picked_up": true,
+    "wait": 23,
+    "followed": 256,
+    "unbroken": 0.140625,
+    "right": 0.9921875,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.40860215053763443
+   },
+   {
+    "person": 3,
+    "frames": 431,
+    "picked_up": true,
+    "wait": 66,
+    "followed": 365,
+    "unbroken": 0.09315068493150686,
+    "right": 0.09315068493150686,
+    "lost": 0.9068493150684932,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.5568445475638051
+   },
+   {
+    "person": 4,
+    "frames": 431,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 431,
+    "unbroken": 0.06496519721577726,
+    "right": 0.35730858468677495,
+    "lost": 0.642691415313225,
+    "ends_right": false,
+    "segments": 2,
+    "mixed_segments": 0,
+    "ceiling": 0.5545243619489559
+   }
+  ],
+  "baseline": {
+   "1": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 7
+    },
+    "1": {
+     "right": 0.6,
+     "ends_right": true,
+     "samples": 10
+    },
+    "2": {
+     "right": 0.6363636363636364,
+     "ends_right": false,
+     "samples": 11
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 18
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 18
+    }
+   },
+   "2": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 14
+    },
+    "1": {
+     "right": 0.5,
+     "ends_right": false,
+     "samples": 20
+    },
+    "2": {
+     "right": 0.6086956521739131,
+     "ends_right": false,
+     "samples": 23
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 36
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 36
+    }
+   },
+   "5": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 32
+    },
+    "1": {
+     "right": 0.7755102040816326,
+     "ends_right": false,
+     "samples": 49
+    },
+    "2": {
+     "right": 0.8392857142857143,
+     "ends_right": false,
+     "samples": 56
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 87
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 87
+    }
+   },
+   "25": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 157
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 243
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 279
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 431
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 431
+    }
+   }
+  }
+ },
+ "WalkByShop1cor": {
+  "frames": 2360,
+  "sent": NaN,
+  "breaks": 141,
+  "people": [
+   {
+    "person": 0,
+    "frames": 387,
+    "picked_up": false
+   },
+   {
+    "person": 1,
+    "frames": 420,
+    "picked_up": false
+   },
+   {
+    "person": 2,
+    "frames": 2335,
+    "picked_up": true,
+    "wait": 19,
+    "followed": 2316,
+    "unbroken": 0.004749568221070812,
+    "right": 0.004749568221070812,
+    "lost": 0.9952504317789291,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.06252676659528908
+   },
+   {
+    "person": 3,
+    "frames": 2325,
+    "picked_up": true,
+    "wait": 604,
+    "followed": 1721,
+    "unbroken": 0.01336432306798373,
+    "right": 0.01336432306798373,
+    "lost": 0.9866356769320163,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.0675268817204301
+   },
+   {
+    "person": 4,
+    "frames": 124,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 124,
+    "unbroken": 1.0,
+    "right": 1.0,
+    "lost": 0.0,
+    "ends_right": true,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 1.0
+   },
+   {
+    "person": 5,
+    "frames": 515,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 515,
+    "unbroken": 0.5262135922330097,
+    "right": 0.9980582524271845,
+    "lost": 0.0,
+    "ends_right": false,
+    "segments": 7,
+    "mixed_segments": 0,
+    "ceiling": 0.5766990291262136
+   },
+   {
+    "person": 6,
+    "frames": 775,
+    "picked_up": true,
+    "wait": 3,
+    "followed": 772,
+    "unbroken": 0.0012953367875647669,
+    "right": 0.012953367875647668,
+    "lost": 0.977979274611399,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.3109677419354839
+   },
+   {
+    "person": 7,
+    "frames": 1720,
+    "picked_up": true,
+    "wait": 140,
+    "followed": 1580,
+    "unbroken": 0.012658227848101266,
+    "right": 0.05506329113924051,
+    "lost": 0.9405063291139241,
+    "ends_right": false,
+    "segments": 3,
+    "mixed_segments": 0,
+    "ceiling": 0.15058139534883722
+   },
+   {
+    "person": 8,
+    "frames": 109,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 109,
+    "unbroken": 0.21100917431192662,
+    "right": 0.1743119266055046,
+    "lost": 0.7706422018348624,
+    "ends_right": false,
+    "segments": 2,
+    "mixed_segments": 0,
+    "ceiling": 0.8715596330275229
+   },
+   {
+    "person": 9,
+    "frames": 292,
+    "picked_up": true,
+    "wait": 1,
+    "followed": 291,
+    "unbroken": 0.4742268041237113,
+    "right": 0.6460481099656358,
+    "lost": 0.23711340206185566,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.678082191780822
+   },
+   {
+    "person": 10,
+    "frames": 184,
+    "picked_up": true,
+    "wait": 144,
+    "followed": 40,
+    "unbroken": 0.15,
+    "right": 0.15,
+    "lost": 0.85,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.2391304347826087
+   },
+   {
+    "person": 11,
+    "frames": 295,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 295,
+    "unbroken": 0.47796610169491527,
+    "right": 0.9559322033898305,
+    "lost": 0.0,
+    "ends_right": false,
+    "segments": 4,
+    "mixed_segments": 0,
+    "ceiling": 0.5254237288135594
+   },
+   {
+    "person": 12,
+    "frames": 605,
+    "picked_up": true,
+    "wait": 10,
+    "followed": 595,
+    "unbroken": 0.01680672268907563,
+    "right": 0.01680672268907563,
+    "lost": 0.9831932773109243,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.0
+   },
+   {
+    "person": 13,
+    "frames": 605,
+    "picked_up": true,
+    "wait": 11,
+    "followed": 594,
+    "unbroken": 0.06060606060606061,
+    "right": 0.07912457912457913,
+    "lost": 0.9208754208754208,
+    "ends_right": false,
+    "segments": 4,
+    "mixed_segments": 0,
+    "ceiling": 0.0
+   },
+   {
+    "person": 17,
+    "frames": 213,
+    "picked_up": true,
+    "wait": 1,
+    "followed": 212,
+    "unbroken": 0.04245283018867924,
+    "right": 0.9339622641509434,
+    "lost": 0.0330188679245283,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.431924882629108
+   },
+   {
+    "person": 18,
+    "frames": 201,
+    "picked_up": false
+   },
+   {
+    "person": 19,
+    "frames": 243,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 243,
+    "unbroken": 0.1934156378600823,
+    "right": 0.9423868312757202,
+    "lost": 0.02880658436213992,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.4567901234567901
+   }
+  ],
+  "baseline": {
+   "1": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 16
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 17
+    },
+    "2": {
+     "right": 0.9042553191489362,
+     "ends_right": false,
+     "samples": 94
+    },
+    "3": {
+     "right": 0.3978494623655914,
+     "ends_right": false,
+     "samples": 93
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 5
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 20
+    },
+    "6": {
+     "right": 0.06451612903225806,
+     "ends_right": false,
+     "samples": 31
+    },
+    "7": {
+     "right": 0.014492753623188406,
+     "ends_right": false,
+     "samples": 69
+    },
+    "8": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 5
+    },
+    "9": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 12
+    },
+    "10": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 8
+    },
+    "11": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 12
+    },
+    "12": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 25
+    },
+    "13": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 25
+    },
+    "17": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 9
+    },
+    "18": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 8
+    },
+    "19": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 10
+    }
+   },
+   "2": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 33
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 35
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 195
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 194
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 10
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 43
+    },
+    "6": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 64
+    },
+    "7": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 143
+    },
+    "8": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 9
+    },
+    "9": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 24
+    },
+    "10": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 16
+    },
+    "11": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 25
+    },
+    "12": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 51
+    },
+    "13": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 51
+    },
+    "17": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 18
+    },
+    "18": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 17
+    },
+    "19": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 20
+    }
+   },
+   "5": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 78
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 84
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 467
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 465
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 25
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 103
+    },
+    "6": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 155
+    },
+    "7": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 344
+    },
+    "8": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 22
+    },
+    "9": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 58
+    },
+    "10": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 37
+    },
+    "11": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 59
+    },
+    "12": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 121
+    },
+    "13": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 121
+    },
+    "17": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 42
+    },
+    "18": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 40
+    },
+    "19": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 48
+    }
+   },
+   "25": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 387
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 420
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 2335
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 2325
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 124
+    },
+    "5": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 515
+    },
+    "6": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 775
+    },
+    "7": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 1720
+    },
+    "8": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 109
+    },
+    "9": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 292
+    },
+    "10": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 184
+    },
+    "11": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 295
+    },
+    "12": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 605
+    },
+    "13": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 605
+    },
+    "17": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 213
+    },
+    "18": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 201
+    },
+    "19": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 243
+    }
+   }
+  }
+ },
+ "EnterExitCrossingPaths1cor": {
+  "frames": 383,
+  "sent": NaN,
+  "breaks": 60,
+  "people": [
+   {
+    "person": 0,
+    "frames": 383,
+    "picked_up": true,
+    "wait": 29,
+    "followed": 354,
+    "unbroken": 0.031073446327683617,
+    "right": 0.031073446327683617,
+    "lost": 0.9689265536723164,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.06005221932114883
+   },
+   {
+    "person": 1,
+    "frames": 383,
+    "picked_up": true,
+    "wait": 35,
+    "followed": 348,
+    "unbroken": 0.022988505747126436,
+    "right": 0.022988505747126436,
+    "lost": 0.9770114942528736,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.12010443864229765
+   },
+   {
+    "person": 2,
+    "frames": 134,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 134,
+    "unbroken": 0.08955223880597014,
+    "right": 0.13432835820895522,
+    "lost": 0.7686567164179104,
+    "ends_right": false,
+    "segments": 3,
+    "mixed_segments": 0,
+    "ceiling": 0.4552238805970149
+   },
+   {
+    "person": 3,
+    "frames": 219,
+    "picked_up": true,
+    "wait": 140,
+    "followed": 79,
+    "unbroken": 0.05063291139240506,
+    "right": 0.5443037974683544,
+    "lost": 0.379746835443038,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.6529680365296804
+   },
+   {
+    "person": 4,
+    "frames": 266,
+    "picked_up": true,
+    "wait": 3,
+    "followed": 263,
+    "unbroken": 0.022813688212927757,
+    "right": 0.19771863117870722,
+    "lost": 0.7642585551330798,
+    "ends_right": false,
+    "segments": 2,
+    "mixed_segments": 0,
+    "ceiling": 0.3007518796992481
+   }
+  ],
+  "baseline": {
+   "1": {
+    "0": {
+     "right": 0.9375,
+     "ends_right": true,
+     "samples": 16
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 16
+    },
+    "2": {
+     "right": 0.8333333333333334,
+     "ends_right": true,
+     "samples": 6
+    },
+    "3": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 8
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 11
+    }
+   },
+   "2": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 32
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 32
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 11
+    },
+    "3": {
+     "right": 0.05263157894736842,
+     "ends_right": false,
+     "samples": 19
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 22
+    }
+   },
+   "5": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 77
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 77
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 27
+    },
+    "3": {
+     "right": 0.022727272727272728,
+     "ends_right": false,
+     "samples": 44
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 53
+    }
+   },
+   "25": {
+    "0": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 383
+    },
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 383
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 134
+    },
+    "3": {
+     "right": 0.0273972602739726,
+     "ends_right": false,
+     "samples": 219
+    },
+    "4": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 266
+    }
+   }
+  }
+ },
+ "OneLeaveShopReenter1cor": {
+  "frames": 390,
+  "sent": NaN,
+  "breaks": 37,
+  "people": [
+   {
+    "person": 1,
+    "frames": 147,
+    "picked_up": true,
+    "wait": 0,
+    "followed": 147,
+    "unbroken": 0.013605442176870748,
+    "right": 0.08843537414965986,
+    "lost": 0.8095238095238095,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.8503401360544217
+   },
+   {
+    "person": 2,
+    "frames": 261,
+    "picked_up": true,
+    "wait": 3,
+    "followed": 258,
+    "unbroken": 0.04263565891472868,
+    "right": 0.050387596899224806,
+    "lost": 0.9186046511627907,
+    "ends_right": false,
+    "segments": 1,
+    "mixed_segments": 0,
+    "ceiling": 0.9157088122605364
+   }
+  ],
+  "baseline": {
+   "1": {
+    "1": {
+     "right": 0.16666666666666666,
+     "ends_right": false,
+     "samples": 6
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 10
+    }
+   },
+   "2": {
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 12
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 22
+    }
+   },
+   "5": {
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 30
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 52
+    }
+   },
+   "25": {
+    "1": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 147
+    },
+    "2": {
+     "right": 1.0,
+     "ends_right": true,
+     "samples": 261
+    }
+   }
+  }
+ }
+}

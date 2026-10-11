@@ -1,0 +1,87 @@
+tubes: tau 25, coexist 25 frames, empty scene median; follower: reach 32 px, wait 25 frames; baseline: perfect boxes without identities
+
+=== Walk1: 619 frames, 180 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       0       163     0     1    96.9     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       1       276     8     0   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       4       572     4     0    34.9     n   |   4.3/n  100.0/Y |   4.3/n    4.3/n
+       5       548    57     3    96.7     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 261 MB
+
+=== LeftBag: 1447 frames, 502 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       0       235     0     0   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       1       517    72     2    84.3     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       2       585     0     2    80.7     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       3       337     3     0    56.3     n   |  53.8/n  100.0/Y |  53.8/n   53.6/n
+       4       410     0     1    99.8     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       5       205     5     3    17.5     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 591 MB
+
+=== Meet_Crowd: 497 frames, 102 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       0       322     0     0    53.4     Y   |   7.7/n  100.0/Y | 100.0/Y  100.0/Y
+       1       291  never picked up alone  | 100.0/Y    8.3/n | 100.0/Y  100.0/Y
+       2       308    76     0    67.2     n   |  15.4/n   11.5/n |  15.4/n   11.5/n
+       3       243   132     0   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 591 MB
+
+=== Fight_Chase: 438 frames, 104 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       0       157     0     0   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       1       243     7     0    78.4     Y   |  60.0/Y   50.0/n |  60.0/Y   95.0/n
+       2       279    12     0    61.0     n   |  63.6/n   60.9/n |  63.6/n  100.0/Y
+       3       431     0     0    95.1     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       4       431     0     2   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 591 MB
+
+=== WalkByShop1cor: 2360 frames, 756 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       0       387  never picked up alone  | 100.0/Y  100.0/Y |  75.0/n  100.0/Y
+       1       420     0     1    49.3     n   | 100.0/Y  100.0/Y | 100.0/Y   60.0/n
+       2      2335   372     4     0.3     n   |  90.4/n  100.0/Y |   3.2/n   16.4/n
+       3      2325   238     7     9.9     n   |  39.8/n  100.0/Y |   3.2/n   17.5/n
+       4       124     0     2   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       5       515     0     0    74.6     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       6       775    79     0    98.4     n   |   6.5/n  100.0/Y | 100.0/Y  100.0/Y
+       7      1720     0     5    79.7     n   |   1.4/n  100.0/Y | 100.0/Y  100.0/Y
+       8       109     0     0    60.6     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       9       292     0     1    83.6     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+      10       184    85     1    79.8     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+      11       295     0     4    34.9     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+      12       605   512     1    20.4     n   | 100.0/Y  100.0/Y |  80.0/n   41.2/n
+      13       605   192     1    75.5     Y   | 100.0/Y  100.0/Y |  80.0/n  100.0/Y
+      17       213     0     0    97.7     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+      18       201     0     1    32.3     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+      19       243     0     1    25.5     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 1137 MB
+
+=== EnterExitCrossingPaths1cor: 383 frames, 75 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       0       383     0     3    32.4     n   |  93.8/Y  100.0/Y | 100.0/Y  100.0/Y
+       1       383     0     0    70.0     n   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+       2       134     0     0    20.9     n   |  83.3/Y  100.0/Y | 100.0/Y  100.0/Y
+       3       219     2     0    95.9     n   | 100.0/Y    5.3/n | 100.0/Y  100.0/Y
+       4       266     2     0   100.0     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 1137 MB
+
+=== OneLeaveShopReenter1cor: 390 frames, 71 tubes
+  person  labelled  wait  hops  right%  ends   | baseline right% / ends, at 1 and 2 fps | combined (ambiguous), at 1 and 2 fps
+       1       147     0     1    98.0     n   |  16.7/n  100.0/Y | 100.0/Y  100.0/Y
+       2       261     2     0    83.4     Y   | 100.0/Y  100.0/Y | 100.0/Y  100.0/Y
+  peak memory so far 1137 MB
+
+all clips: people 43, picked up 41 | follower: ends right 15, right all the way 7, right at least 90 % 15, median right 79.7 %
+   baseline 1 fps: ends right 33, right all the way 30, right at least 90 % 32, median right 100.0 %, mean right 82.3 %
+   combined 1 fps, tubes ambiguous: ends right 34, right all the way 33, right at least 90 % 33, mean right 86.9 %
+   combined 1 fps, tubes always: ends right 30, right all the way 29, right at least 90 % 30, mean right 84.0 %
+   baseline 2 fps: ends right 38, right all the way 38, right at least 90 % 38, median right 100.0 %, mean right 91.5 %
+   combined 2 fps, tubes ambiguous: ends right 35, right all the way 35, right at least 90 % 36, mean right 88.4 %
+   combined 2 fps, tubes always: ends right 31, right all the way 30, right at least 90 % 33, mean right 84.6 %
+clips the settings were not chosen on: people 35, picked up 34 | follower: ends right 10, right all the way 5, right at least 90 % 11, median right 79.0 %
+   baseline 1 fps: ends right 28, right all the way 25, right at least 90 % 27, median right 100.0 %, mean right 86.0 %
+   combined 1 fps, tubes ambiguous: ends right 28, right all the way 27, right at least 90 % 27, mean right 89.1 %
+   combined 1 fps, tubes always: ends right 27, right all the way 26, right at least 90 % 26, mean right 90.1 %
+   baseline 2 fps: ends right 32, right all the way 32, right at least 90 % 32, median right 100.0 %, mean right 94.7 %
+   combined 2 fps, tubes ambiguous: ends right 29, right all the way 29, right at least 90 % 30, mean right 91.0 %
+   combined 2 fps, tubes always: ends right 28, right all the way 27, right at least 90 % 30, mean right 92.4 %
