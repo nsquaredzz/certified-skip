@@ -13,10 +13,10 @@ Each rule maps frames and a threshold to a keep mask over patches and frames, wi
 \toprule
 rule & keep test & stands in for \\
 \midrule
-consecutive mean & mean $|F_t - F_{t-1}|$ over the patch $\ge \tau$ & EVS, TimeChat-Online; RLT's pixel-$L^1$ test exactly \\
-consecutive cosine & cosine similarity of mean-removed random projections of the patch in $F_t$ and $F_{t-1}$ $\le 1 - \tau$ & the merge test of DyCoke and FrameFusion (on ViT or LLM features there) \\
-segment static & mean $|F_t - F_{s}|$ $\ge \tau$, $s$ the first frame of the fixed segment containing $t$ & PruneVid's static tokens of a temporal segment \\
-frame similarity & whole frame kept iff the frame mean of $|F_t - F_{t-1}|$ $\ge \tau$ & LongVU's adjacent-frame reduction (on DINOv2 features there) \\
+consecutive mean & mean $|F_t - F_{t-1}|$ over the patch $\ge \tau$ & EVS's pixel test; a per-frame analogue of RLT's \\
+consecutive cosine & cosine similarity of mean-removed random projections of the patch in $F_t$ and $F_{t-1}$ $\le 1 - \tau$ & TimeChat-Online, FrameFusion, DyCoke's adjacent-frame test (on encoder or LLM features there) \\
+segment static & patch kept on every frame of its 16-frame segment iff the mean pairwise cosine of its vectors over the segment is $< 1 - \tau$, else once & PruneVid's static tokens of a segment (fixed segments, not clustering) \\
+window similarity & whole frame dropped iff its mean cosine to the other frames of its 8-frame window is $\ge 1 - \tau$ & LongVU's temporal reduction (on DINOv2 features there) \\
 consecutive + refresh & consecutive mean, plus every patch every 60 frames & a periodic keyframe \\
 uniform & every $k$-th frame in full & fixed-rate frame sampling \\
 anchored mean & mean $|F_t - R|$ $\ge \tau$, $R$ the last kept copy & the anchored rule without a certificate \\

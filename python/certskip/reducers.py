@@ -17,10 +17,11 @@ comparison structure* of each method: against which frame a token is judged redu
   dycoke               cosine_consecutive within groups of `group`      DyCoke keeps the first frame of
                        frames; the first frame of each group is kept    every group of 4 sampled frames
   segment_static       within fixed segments of `seg` frames, a patch   PruneVid: static tokens of a
-                       is static iff mean |F_t - F_seg0| < tau for the   temporal segment are merged
-                       segment's first frame                            into one
-  frame_consecutive    the whole frame is dropped iff the frame-level   LongVU's temporal reduction by
-                       mean |F_t - F_{t-1}| < tau                        adjacent-frame feature similarity
+                       position is static iff its mean pairwise cosine  temporal segment are merged
+                       similarity over the segment is >= 1 - tau         into one
+  frame_consecutive    in windows of 8 frames, a frame is dropped iff   LongVU's temporal reduction by
+                       its mean cosine similarity to the window's other  DINOv2 similarity within
+                       frames is >= 1 - tau                             8-frame windows
   consecutive_refresh  consecutive with a full refresh every `period`   the periodic-keyframe variant
                        frames                                           the write-up listed as missing
   mean_vs_kept         mean |F_t - R| < tau against the last kept copy  anchored, no certificate
@@ -92,25 +93,46 @@ def dycoke(frames: np.ndarray, patch: int, tau: float, group: int = 4, scores=No
     return keep
 
 
+def _unit(v: np.ndarray) -> np.ndarray:
+    return v / (np.linalg.norm(v, axis=-1, keepdims=True) + 1e-6)
+
+
 def segment_static(frames: np.ndarray, patch: int, tau: float, seg: int = 16) -> np.ndarray:
-    T, H, W = frames.shape
-    gh, gw = H // patch, W // patch
-    keep = np.ones((T, gh, gw), bool)
+    """PruneVid's static-token test: within a segment, a patch position is static iff the mean
+    pairwise cosine similarity of its patch vectors over all frame pairs is >= 1 - tau; a static
+    position is merged into one token (kept on the segment's first frame only), a dynamic one is kept
+    on every frame.  Segments are fixed `seg`-frame blocks here, not PruneVid's DPC-KNN clusters."""
+    u = _unit(_patch_vectors(frames, patch))
+    T = len(frames)
+    keep = np.ones(u.shape[:3], bool)
     for s0 in range(0, T, seg):
-        ref = frames[s0].astype(np.float32)
-        for t in range(s0 + 1, min(T, s0 + seg)):
-            d = np.abs(frames[t].astype(np.float32) - ref)
-            keep[t] = patch_grid(d, patch).mean(axis=(2, 3)) >= tau
+        s = u[s0:s0 + seg]; n = len(s)
+        if n < 2:
+            continue
+        tot = s.sum(0)                                             # sum over pairs t < t' of <u_t, u_t'>
+        pair = ((tot * tot).sum(-1) - (s * s).sum((0, -1))) / 2
+        static = pair / (n * (n - 1) / 2) >= 1.0 - tau
+        keep[s0 + 1:s0 + n] = ~static
     return keep
 
 
-def frame_consecutive(frames: np.ndarray, patch: int, tau: float) -> np.ndarray:
-    T, H, W = frames.shape
-    gh, gw = H // patch, W // patch
-    keep = np.ones((T, gh, gw), bool)
-    for t in range(1, T):
-        m = np.abs(frames[t].astype(np.float32) - frames[t - 1].astype(np.float32)).mean()
-        keep[t] = m >= tau
+def frame_consecutive(frames: np.ndarray, patch: int, tau: float, window: int = 8) -> np.ndarray:
+    """LongVU's temporal reduction: in non-overlapping windows of `window` frames, a frame is
+    dropped in full iff its mean cosine similarity to the other frames of the window is >= 1 - tau.  The frame descriptor is the concatenated
+    patch vectors, a stand-in for DINOv2 features; LongVU's query-guided and spatial steps are not
+    re-implemented."""
+    v = _patch_vectors(frames, patch)
+    u = _unit(v.reshape(len(frames), -1))
+    T = len(frames)
+    keep = np.ones(v.shape[:3], bool)
+    for w0 in range(0, T, window):
+        s = u[w0:w0 + window]; n = len(s)
+        if n < 2:
+            continue
+        sim = s @ s.T
+        score = (sim.sum(1) - 1.0) / (n - 1)
+        drop = score >= 1.0 - tau
+        keep[w0:w0 + n] = ~drop[:, None, None]
     return keep
 
 
@@ -130,8 +152,8 @@ REGISTRY = {
     "consecutive (EVS/RLT)":        (consecutive,            None, "mean |F_t - F_{t-1}| < tau"),
     "cosine consecutive (DyCoke/FrameFusion)": (cosine_consecutive, None, "1 - cos(v_t, v_{t-1}) < tau on projected patches"),
     "dycoke groups of 4":           (dycoke,                 None, "cosine consecutive, first of every 4 kept"),
-    "segment static (PruneVid)":    (segment_static,         None, "mean |F_t - F_seg0| < tau in 16-frame segments"),
-    "frame consecutive (LongVU)":   (frame_consecutive,      None, "frame-level mean |F_t - F_{t-1}| < tau"),
+    "segment static (PruneVid)":    (segment_static,         None, "mean pairwise cosine over a 16-frame segment >= 1 - tau"),
+    "frame consecutive (LongVU)":   (frame_consecutive,      None, "frame's mean cosine to its 8-frame window >= 1 - tau"),
     "consecutive + refresh/60":     (consecutive_refresh,    None, "consecutive, full refresh every 60 frames"),
     "mean vs last kept":            (mean_vs_kept,           None, "mean |F_t - R| < tau, R = last kept"),
 }

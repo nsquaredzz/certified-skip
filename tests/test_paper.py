@@ -169,7 +169,7 @@ def test_consecutive_rules_never_see_a_slow_ramp_but_anchored_rules_do():
     # calibrate every consecutive rule to drop 97 % on the static control, then look at the ramp patch
     ctrl = np.clip(base[None] + rng.normal(0, 1.0, (T, 64, 64)), 0, 255).astype(np.uint8)
     for fn in (rd.consecutive, rd.cosine_consecutive, rd.frame_consecutive):
-        thr, _, d = bl.calibrate(fn, ctrl, P, 0.97, hi=2.0 if fn is rd.cosine_consecutive else 255.0, iters=25)
+        thr, _, d = bl.calibrate(fn, ctrl, P, 0.97, hi=2.0 if fn is not rd.consecutive else 255.0, iters=25)
         keep = fn(frames, P, thr)
         assert keep[1:, gy, gx].sum() <= 4                        # at most the static false-fire budget
     keep = core.Pruner(64, 64, P, 32.0).run(frames)["keep"]

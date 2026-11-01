@@ -161,8 +161,8 @@ if aud:
              "consecutive + refresh/60", "uniform frames"]
     short = {"certified range": "certified range", "certified quotient+MS": "certified quotient+MS", "certified +sequential": "certified +sequential",
              "mean vs last kept": "anchored mean (no certificate)", "consecutive (EVS/RLT)": "consecutive mean (EVS, RLT)",
-             "cosine consecutive (DyCoke/FrameFusion)": "consecutive cosine (DyCoke, FrameFusion)", "dycoke groups of 4": "DyCoke groups of 4",
-             "segment static (PruneVid)": "segment static (PruneVid)", "frame consecutive (LongVU)": "frame similarity (LongVU)",
+             "cosine consecutive (DyCoke/FrameFusion)": "consecutive cosine (TimeChat, FrameFusion)", "dycoke groups of 4": "DyCoke groups of 4",
+             "segment static (PruneVid)": "segment static (PruneVid)", "frame consecutive (LongVU)": "window similarity (LongVU)",
              "consecutive + refresh/60": "consecutive + refresh every 60", "uniform frames": "uniform frames"}
 
     def at_budget(rows, target):

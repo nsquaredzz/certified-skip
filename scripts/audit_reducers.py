@@ -180,7 +180,7 @@ def main():
             # reducers: calibrate on the untouched clip to each target drop rate
             for rname, (fn, _, desc) in rd.REGISTRY.items():
                 rows = []; t0 = time.perf_counter()
-                hi = 2.0 if "cosine" in rname or "dycoke" in rname else 255.0
+                hi = 2.0 if any(k in rname for k in ("cosine", "dycoke", "PruneVid", "LongVU")) else 255.0
                 for target in targets:
                     thr, _, d = bl.calibrate(fn, frames, P, target, hi=hi, iters=18)
                     if abs(d - target) > 0.02:
