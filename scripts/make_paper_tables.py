@@ -72,7 +72,7 @@ if davis:
     for n in ("fixed range", "fixed quotient+MS", "warp+refine MS"):
         ax.plot(x, [davis[clips[i]][n]["drop"] for i in order], ".", ms=4, color=COLORS[n], label=n)
     ax.set_xlabel("DAVIS 2017 clip, sorted by the warp rule's drop rate"); ax.set_ylabel("share of patches dropped"); ax.set_ylim(0, 1)
-    ax.set_xticks([]); ax.legend(loc="lower right", frameon=False)
+    ax.set_xticks([]); ax.legend(loc="upper left", frameon=False)
     fig.savefig(FIG / "davis_drop.pdf"); plt.close(fig)
     # figure: background vs object drop for the warp rule
     fig, ax = plt.subplots(figsize=(3.0, 2.6))
@@ -149,7 +149,7 @@ if sc:
         for rname, row in d.items():
             xs = [float(c) for c in caps if c != "inf"]; ys = [row[c] for c in caps if c != "inf"]
             ax.plot(xs, ys, "-o", ms=3, lw=1, label=f"{clip}, {rname}")
-    ax.set_xscale("symlog", linthresh=1); ax.set_xlabel(r"cap $\kappa$ on $|c|$ (grey levels)"); ax.set_ylabel("drop rate with keep rule"); ax.legend(frameon=False, fontsize=6)
+    ax.set_xscale("symlog", linthresh=1); ax.set_xlabel(r"cap $\kappa$ on $|c|$ (grey levels)"); ax.set_ylabel("drop rate with keep rule"); ax.legend(frameon=False, fontsize=6, loc="lower right")
     fig.savefig(FIG / "shift_cost.pdf"); plt.close(fig)
 
 # ---------------------------------------------------------------- audit
@@ -210,8 +210,9 @@ if aud:
                 ax.set_xlim(0.78, 1.0); ax.set_ylim(-0.02, 1.02)
                 ax.set_title(f"{key}: {'12-s fade' if ev == 'slow' else 'small object, one frame'}")
                 ax.set_xlabel("drop rate"); ax.set_ylabel("recall")
-        axes[0, 0].legend(frameon=False, fontsize=5.5, loc="lower left")
-        fig.tight_layout(); fig.savefig(FIG / "audit_curves.pdf"); plt.close(fig)
+        handles, labels = axes[0, 0].get_legend_handles_labels()
+        fig.legend(handles, labels, frameon=False, fontsize=5.5, loc="lower center", ncol=3)
+        fig.tight_layout(rect=(0, 0.14, 1, 1)); fig.savefig(FIG / "audit_curves.pdf"); plt.close(fig)
 
 (TAB / "headline.json").write_text(json.dumps(headline, indent=1, default=float))
 for k, v in headline.items():

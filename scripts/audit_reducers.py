@@ -174,11 +174,14 @@ def main():
                     rows.append(r)
                 res["rules"][rname] = rows
                 print(f"  {rname:36s} [{time.perf_counter()-t0:4.0f}s] " + "  ".join(f"d{r['drop']:.3f}:f{r['fade']:.2f}/s{r['slow']:.2f}" for r in rows))
+            # the paper's operating point: every rule is also calibrated to exactly this drop rate
+            op = [r["drop"] for r in res["rules"]["certified quotient+MS"] if r["thr"] == 80]
+            targets = sorted(TARGETS + op)
             # reducers: calibrate on the untouched clip to each target drop rate
             for rname, (fn, _, desc) in rd.REGISTRY.items():
                 rows = []; t0 = time.perf_counter()
                 hi = 2.0 if "cosine" in rname or "dycoke" in rname else 255.0
-                for target in TARGETS:
+                for target in targets:
                     thr, _, d = bl.calibrate(fn, frames, P, target, hi=hi, iters=18)
                     if abs(d - target) > 0.02:
                         continue                                   # the method cannot reach this budget at this rate
@@ -190,7 +193,7 @@ def main():
                 print(f"  {rname:36s} [{time.perf_counter()-t0:4.0f}s] " + "  ".join(f"d{r['drop']:.3f}:f{r['fade']:.2f}/s{r['slow']:.2f}" for r in rows))
             # uniform frame sampling
             rows = []
-            for target in TARGETS:
+            for target in targets:
                 keep = bl.uniform_for_drop(T, gh, gw, target); d = core.drop_rate(keep)
                 r = score(keep, ev, fps); r.update(thr=None, drop=d, drop_planted=d, tokens_per_s=(1 - d) * fps * gh * gw, rho=1 - d)
                 rows.append(r)
