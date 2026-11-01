@@ -1,0 +1,122 @@
+\section{Certificates for moving cameras}
+\label{sec:theory}
+
+\subsection{The warp quotient}
+
+Rule~3 of \citet{nair2026certifiedskip} quotients out a sub-pixel translation per patch. Nothing in its proof uses that the warp is a translation; what it uses is that the model holds a token for some reference content and that the rule compares the new patch against a \emph{constructed} image $W$ built from that content. We make the construction explicit for a moving camera and then state what is exact and what is not.
+
+\paragraph{Mechanics.} Kept pixels live in a canvas $C$ in the coordinates of the first frame of the shot. A per-frame map $g_t$ (a homography, estimated by coarse-to-fine Gauss--Newton on brightness constancy with Huber weights so that moving objects do not steer it) sends frame-$t$ pixels to canvas coordinates. For a patch $\Omega$ the rule may further refine $g_t$ by a per-patch translation $\delta$ with $|\delta|_\infty \le \delta_{\max}$, and may choose among several candidate warps (the current registration, the previous one, the nearest whole-pixel translation); write $g$ for the warp finally used on $\Omega$. The warped reference is the bilinear resampling
+\begin{equation}
+W(x) \;=\; \sum_{k=1}^{4} \lambda_k(x)\, C\big(p_k(x)\big), \qquad p_k(x) \text{ the four canvas pixels around } g(x),\ \lambda_k \ge 0,\ \textstyle\sum_k \lambda_k = 1 .
+\label{eq:W}
+\end{equation}
+With $d = F - W$ on $\Omega$, $s = \range(d) = \max d - \min d$ and $c = \midrange(d)$, the patch is dropped iff $s < \Delta$ (range certificate) or iff every box statistic of $d - c$ is below its scale's threshold (multi-scale certificate, \citealp[Rule 2]{nair2026certifiedskip}). A patch whose sampling region is not yet in the canvas has no reference and is kept. Kept patches are written into the canvas by inverse warping, one bilinear resample per canvas pixel. A frame on which the registration fails (robust residual scale above $24$ grey levels) is a shot cut: the canvas is reset to that frame and every patch is kept, so cut-heavy footage pays for its cuts.
+
+\begin{theorem}[warp-quotient certificate]
+\label{thm:warp}
+Let $g$ be any map $\Omega \to \mathbb{R}^2$ and $W$ any image on $\Omega$ built from previously kept pixels, in particular \eqref{eq:W}. If the patch is dropped by the range rule then
+\begin{enumerate}[label=(\alph*)]
+\item $\lVert F - (W + c) \rVert_\infty = s/2 < \Delta/2$;
+\item $\dB\big(\Dgm F,\ \Dgm(W + c)\big) \le s/2 < \Delta/2$ for sublevel-set and for superlevel-set $H_0$ (dark and bright blobs);
+\item every feature's contrast changes by at most $s$, and no feature of contrast $\ge \Delta$ is born from nothing or dies into nothing in $F$ relative to $W$.
+\end{enumerate}
+If the patch is dropped by the multi-scale rule with thresholds $\varepsilon_r$, then for every box half-width $r$ in the schedule, $\dB\big(\Dgm(\beta_r F), \Dgm(\beta_r(W + c))\big) < \varepsilon_r$ for the $(2r{+}1)$-box mean filter $\beta_r$, and no feature of $\beta_r F$ with persistence $\ge 2\varepsilon_r$ is created or destroyed relative to $\beta_r W$.
+\end{theorem}
+
+\begin{proof}
+(a) For every pixel $d(x) - c \in [\min d - c, \max d - c] = [-s/2, s/2]$, both ends attained. (b) is the stability theorem of \citet{cohensteiner2007} applied to $F$ and $W + c$; adding the constant $c$ shifts births and deaths of $W$ equally and leaves persistences unchanged. (c) In a bottleneck matching of cost $\le s/2$ a matched feature's birth and death each move by at most $s/2$ and an unmatched feature has persistence at most $s < \Delta$. The multi-scale statement is \citet[Theorem 5]{nair2026certifiedskip} with $R + c$ replaced by $W + c$; its proof uses only linearity of $\beta_r$ and stability.
+\end{proof}
+
+The theorem is exact and says nothing about how $g$ was found: registration is a heuristic that affects only how many patches are kept. What it leaves open is how $W$ relates to the pixels that were actually kept, which is where interpolation enters.
+
+\begin{proposition}[where interpolation enters, and by how much]
+\label{prop:iota}
+Each canvas value in \eqref{eq:W} is itself a convex combination of four pixels of the frame that wrote it, $C(p_k) = \sum_{j=1}^{4} \mu_{kj} F_{t_k}(q_{kj})$. Let $W_{\mathrm{NN}}(x) = F_{t_{k^*}}(q_{k^* j^*})$ be the kept pixel at the nearest read corner $k^*$ and its nearest write corner $j^*$, an actual pixel value of a kept frame, and let
+\[
+\iota(x) \;=\; \operatorname{osc}_k C(p_k(x)) \;+\; \max_k \operatorname{osc}_j F_{t_k}(q_{kj}),
+\qquad \operatorname{osc} = \max - \min .
+\]
+Then $|W(x) - W_{\mathrm{NN}}(x)| \le \iota(x)$ for every pixel, and with $\iota(\Omega) = \max_{x \in \Omega} \iota(x)$,
+\[
+\dB\big(\Dgm F,\ \Dgm(W_{\mathrm{NN}} + c)\big) \;<\; \Delta/2 + \iota(\Omega)
+\]
+on every dropped patch. If $g$ maps $\Omega$ onto whole canvas pixels that were written at whole pixel positions, $\iota \equiv 0$ on $\Omega$.
+\end{proposition}
+
+\begin{proof}
+$W(x)$ lies in the convex hull of the four corner values, so $|W(x) - C(p_{k^*})| \le \operatorname{osc}_k C(p_k)$; likewise $|C(p_{k^*}) - F_{t_{k^*}}(q_{k^* j^*})| \le \operatorname{osc}_j F_{t_{k^*}}(q_{k^* j}) \le \max_k \operatorname{osc}_j F_{t_k}(q_{kj})$. Add. The diagram statement is Theorem~\ref{thm:warp}(b), the triangle inequality for $\dB$ and stability applied to $W$ and $W_{\mathrm{NN}}$. For whole-pixel positions all four weights but one vanish at both stages and the oscillations are of a single value.
+\end{proof}
+
+$\iota$ is observable: the rule computes it per pixel and reports it per patch and per frame. It is zero on every patch of a fixed camera, where the construction reduces bit for bit to the range rule (Appendix~\ref{app:parity}), and it is large exactly where the reference has an edge sharper than one pixel under the sample point, which is the one place where the position of content is ambiguous at the level of the edge's contrast. What Proposition~\ref{prop:iota} does \emph{not} say is that $\Dgm(W_{\mathrm{NN}})$ is the diagram of the kept content ``moved by $g$'': for a whole-pixel translation that is literally true, since $W_{\mathrm{NN}}$ restricted to $\Omega$ is a block of kept pixels; for a general warp the pull-back by the rounded map can change grid adjacency, and we do not have a bound. We measure it instead (Section~\ref{sec:warpaudit}): on synthetic scenes re-rendered under sub-pixel translations and random homographies, $W$ never has fewer features of contrast $\ge \Delta - 2\iota$ than the re-indexed kept pixels have of contrast $\ge \Delta$.
+
+\begin{proposition}[tightness]
+\label{prop:tight}
+For every warp $g$ and every residual pattern $e$ on $\Omega$ with $\range(e) = \Delta$ there is a canvas, a flat one, on which $F = W + e$ contains a feature of contrast exactly $\Delta$ that $W$ does not. Hence no rule that reads only the residual against some $g$ in the group can drop at residual spread $\ge \Delta$ and keep Theorem~\ref{thm:warp}.
+\end{proposition}
+
+\begin{proof}
+A warp of a flat canvas is flat, so $W$ has no features and the deepest minimum of $W + e$ is a dark blob of persistence $\Delta$ (\citealp[Proposition 2]{nair2026certifiedskip}).
+\end{proof}
+
+\paragraph{What the token means.} The model holds a token for the content of $\Omega$'s reference. Theorem~\ref{thm:warp} says the new frame is that content, moved by $g$ and shifted by $c$, up to $\Delta$-contrast topology; Proposition~\ref{prop:iota} says ``that content'' means the kept pixels up to $\iota$. A background token therefore stays frozen \emph{modulo the frame warp}, which is the design of an entity token: the warp is metadata that travels with the token, not a reason to recompute it. What the token cannot absorb is $c$; Section~\ref{sec:shift} measures what it costs to refuse it.
+
+\subsection{How much must any sound rule keep?}
+\label{sec:opt}
+
+Every certificate above is a promise of the same shape: on a skipped patch, the content the model holds is within $\theta$ of the truth in the currency of a statistic $\sigma$. We ask how many patches that promise forces \emph{any} rule to keep, with or without foresight.
+
+\begin{definition}
+Fix a patch and a statistic $\sigma$ on patch differences that is a seminorm: $\sigma(a + b) \le \sigma(a) + \sigma(b)$, $\sigma(-a) = \sigma(a)$. The range, the $L^1$ mean, the flat norm and the multi-scale statistic with the brightness shift optimised out are seminorms. A \emph{schedule} is a set of keep times containing $0$; its anchor at time $t$ is the last keep $\le t$. The schedule is \emph{$\theta$-sound} if $\sigma(F_t - F_{a(t)}) < \theta$ at every skipped $t$. The \emph{anchored rule} at threshold $\Delta$ keeps exactly when $\sigma(F_t - F_{a(t)}) \ge \Delta$; write $m_\Delta$ for its number of keeps. $\OPT_\theta$ is the fewest keeps of any $\theta$-sound schedule, chosen with full knowledge of the sequence.
+\end{definition}
+
+The range rule, the multi-scale rule (with $c$ optimised) and the anchored mean rule are anchored rules for their statistics; consecutive-frame rules are not schedules of this kind at all, since they promise nothing about the held content.
+
+\begin{theorem}[the price of causality is a factor two in the guarantee]
+\label{thm:opt}
+For every sequence and every seminorm $\sigma$:
+\begin{enumerate}[label=(\roman*)]
+\item $\OPT_\Delta \le m_\Delta$;
+\item $m_\Delta \le 2\,\OPT_{\Delta/2} + 1$;
+\item for every $\gamma < 2$ and every deterministic causal $\Delta$-sound rule $A$ there are sequences on which $A$ keeps every frame while $\OPT_{\Delta/\gamma} \le 2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) The anchored rule is $\Delta$-sound by construction.
+(ii) Let $g_1 < \dots < g_m$ be the anchored rule's keeps. Suppose a $\Delta/2$-sound schedule $S$ keeps nowhere in the closed interval $[g_i, g_{i+1}]$. Then both endpoints share an anchor $a < g_i$ of $S$, and
+$\sigma(F_{g_{i+1}} - F_{g_i}) \le \sigma(F_{g_{i+1}} - F_a) + \sigma(F_a - F_{g_i}) < \Delta/2 + \Delta/2$,
+contradicting the rule's keep at $g_{i+1}$ (it kept because $\sigma(F_{g_{i+1}} - F_{g_i}) \ge \Delta$, $g_i$ being its anchor). So $S$ keeps in each of the $m - 1$ closed intervals; a keep at a shared endpoint serves two of them, hence $|S| \ge \lceil (m-1)/2 \rceil$.
+(iii) Take scalar multiples $x_t$ of one pattern $p$ with $\sigma(p) = 1$, so $\sigma(F_t - F_a) = |x_t - x_a|$, and put $u = (\Delta/\gamma)(1 - \epsilon)$ with $\epsilon$ small. Send $x_0 = 0$, $x_1 = u$. If $A$ keeps at $1$, its anchor is $u$ and the adversary alternates $x_t = \pm u$: consecutive values are $2u \ge \Delta$ apart, so every frame is forced, while the anchor $0$ covers every value since $|u| < \Delta/\gamma$: $\OPT_{\Delta/\gamma} = 1$. If $A$ skips at $1$, send $x_2 = \Delta$, which forces a keep, and then alternate between $-\epsilon'$ and $2u - 2\epsilon'$ with $\epsilon' = \epsilon\Delta/(2\gamma)$. Both values are within $\Delta/\gamma$ of $u$, so the clairvoyant schedule that keeps at $0$ and $1$ is $\Delta/\gamma$-sound and $\OPT_{\Delta/\gamma} = 2$; and each value is at distance $\ge \Delta$ from $A$'s anchor, which is always the previous frame, for $\gamma < 2 - 2.5\epsilon$. Voluntary keeps by $A$ only move its anchor to a value the adversary treats the same way, and $A$ is deterministic, so the adversary can branch on its decision at frame~$1$.
+\end{proof}
+
+Three readings. First, $m_\Delta$ can exceed $\OPT_\Delta$ by an unbounded factor (a sequence that alternates around a value the rule never anchors on), so the comparison at equal threshold is the wrong one; (iii) says it is wrong for every causal rule, not just ours. Second, at half the guarantee the anchored rule is within a factor two of clairvoyance, for any seminorm, and nothing causal does better than that factor. Third, the sequences of (iii) are adversarial; on footage, Section~\ref{sec:exp} finds $m_\Delta / \OPT_\Delta$ between $1.00$ and $1.18$, so the causal rule is near-optimal in practice at the \emph{same} guarantee, with the factor two held in reserve for the worst case. Theorem~\ref{thm:opt} applies verbatim to the warp rule of Section~\ref{sec:theory} for a fixed warp; with a warp that changes between frames the triangle inequality picks up the interpolation term, and we do not state a bound.
+
+\subsection{Why consecutive comparison misses slow change}
+\label{sec:blind}
+
+Most published reducers judge a token redundant by comparing it with the \emph{previous frame} (Section~\ref{sec:related}). The following is elementary and is the whole mechanism behind the audit of Section~\ref{sec:audit}.
+
+\begin{proposition}[consecutive comparison]
+\label{prop:consecutive}
+Let a rule skip patch $\Omega$ at time $t$ iff $\sigma(F_t - F_{t-1}) < \tau$ for a seminorm $\sigma$, and let $\Omega$ carry a change with per-frame increments $i_t$ on top of noise $n_t$, $F_t = F_0 + \sum_{k \le t} i_k + n_t$. If $\sigma(i_t) \le \tau - \sigma(n_t - n_{t-1})$ for all $t$ in a window, the patch is skipped throughout the window, whatever $\sum_t i_t$ becomes. In particular a fade whose per-frame increment is below $\tau$ minus the noise spread is never sent, while an anchored rule sends it once $\sigma\big(\sum_{k \le t} i_k + n_t - n_{t_0}\big)$ reaches its threshold.
+\end{proposition}
+
+\begin{proof}
+$\sigma(F_t - F_{t-1}) \le \sigma(i_t) + \sigma(n_t - n_{t-1}) < \tau$ by the triangle inequality.
+\end{proof}
+
+When the noise does exceed $\tau - \sigma(i_t)$ on some frames, the consecutive rule fires on the fading patch at that patch's own static false-fire rate, which does not depend on the fade. A budget that drops a fraction $D$ of patches on static footage bounds the \emph{average} rate by $1 - D$, but the rate on a quiet patch is far below the average, because a calibrated rule spends its budget on the moving regions; Section~\ref{sec:audit} measures both. The same proposition applies to rules that compare within a short segment (the segment's first frame is the anchor, and a fade longer than the segment is a slow change relative to it) and to frame-level similarity rules, where a small region's change is diluted over the frame before it is compared.
+
+\subsection{What a cached token can and cannot carry}
+\label{sec:shift}
+
+A dropped patch is certified equal to its reference \emph{up to the brightness shift $c$}. The view adds $c$ back; a token cached inside a model cannot, unless the map from pixels to that token is affine.
+
+\begin{proposition}[the shift through a linear patch embedding]
+\label{prop:shift}
+Let $E$ be a linear patch embedding, $E(W) = A\,\mathrm{vec}(W) + b$ (a convolution with stride equal to the patch, as in SigLIP- and Qwen2-VL-style encoders). Then $E(W + c\,\mathbf 1) = E(W) + c\,A\mathbf 1$ exactly, where $A\mathbf 1$ is the per-channel sum of the kernel, computed once. No such identity holds after the first nonlinearity.
+\end{proposition}
+
+So the shift can be injected exactly at the embedding, which saves only the embedding; a token reused \emph{after} the encoder has no exact correction. The alternative is a keep rule: send the patch whenever $|c|$ exceeds a cap $\kappa$, so that every reused token is within $\Delta/2 + \kappa$ of the truth pointwise with nothing to apply. The rule already supports the cap; Section~\ref{sec:exp} measures its cost in drop rate on three cameras.
+
+\paragraph{Through the network.} For a composition of layers with Lipschitz constants $L_\ell$, an input certificate $\lVert F - (W + c) \rVert \le \varepsilon$ gives $\lVert y_{\mathrm{full}} - y_{\mathrm{skip}} \rVert \le (\prod_\ell L_\ell)\,\varepsilon$. Dot-product attention is not Lipschitz on an unbounded domain \citep{kim2021lipschitz}, so for a standard encoder the product is either undefined or vacuous. We state this as the open problem it is and do not claim a bound through any model in this paper.

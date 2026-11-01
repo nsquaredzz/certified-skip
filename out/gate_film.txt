@@ -1,0 +1,8 @@
+  bridge           366 frames, 2 obj, SAM 2 2.27 s/frame, rule 0.30, carry 0.13 | every frame J 1.000 | never 0.675 | tau 0.5: SAM 2 on 24 %, gated J 0.987, uniform J 0.986 | tau 1: SAM 2 on 13 %, gated J 0.977, uniform J 0.975
+mean over 1 clips, 365 frames; the rule costs 109 s and the carry 46 s in total on this machine
+  every frame  J 1.000   SAM 2 on 100.0 % of frames (365 calls)   time: SAM 2 828 s + ours 0 s = 828 s
+  never        J 0.675   SAM 2 on   0.0 % of frames (0 calls)   time: SAM 2 0 s + ours 46 s = 46 s
+  gated 0.5    J 0.987   SAM 2 on  24.1 % of frames (88 calls)   time: SAM 2 197 s + ours 155 s = 352 s
+  uniform 0.5  J 0.986   SAM 2 on  24.1 % of frames (88 calls)   time: SAM 2 196 s + ours 46 s = 242 s
+  gated 1      J 0.977   SAM 2 on  12.9 % of frames (47 calls)   time: SAM 2 103 s + ours 155 s = 258 s
+  uniform 1    J 0.975   SAM 2 on  12.9 % of frames (47 calls)   time: SAM 2 104 s + ours 46 s = 150 s

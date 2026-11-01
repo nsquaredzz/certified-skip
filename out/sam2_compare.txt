@@ -1,0 +1,8 @@
+SAM 2.1 (sam2.1_hiera_base_plus.pt, 81 M parameters, mps) against the moving-camera rule (numpy on the CPU)
+  mallard-water     80 frames, 1 object(s) | SAM 2: J 0.958, patch IoU 0.963, 1.48 s/frame | ours: patch IoU 0.045 (precision 0.05, recall 0.74), 0.54 s/frame, 65 % of patches sent
+  snowboard         66 frames, 2 object(s) | SAM 2: J 0.803, patch IoU 0.912, 2.30 s/frame | ours: patch IoU 0.103 (precision 0.11, recall 0.56), 0.52 s/frame, 55 % of patches sent
+  car-shadow        40 frames, 1 object(s) | SAM 2: J 0.977, patch IoU 0.981, 1.39 s/frame | ours: patch IoU 0.200 (precision 0.20, recall 0.91), 0.30 s/frame, 21 % of patches sent
+  train             80 frames, 4 object(s) | SAM 2: J 0.940, patch IoU 0.944, 3.91 s/frame | ours: patch IoU 0.283 (precision 0.34, recall 0.61), 0.31 s/frame, 21 % of patches sent
+  planes-water      38 frames, 2 object(s) | SAM 2: J 0.758, patch IoU 0.926, 2.16 s/frame | ours: patch IoU 0.076 (precision 0.35, recall 0.09), 0.18 s/frame, 4 % of patches sent
+  drift-chicane     52 frames, 1 object(s) | SAM 2: J 0.926, patch IoU 0.929, 1.48 s/frame | ours: patch IoU 0.324 (precision 0.33, recall 0.94), 0.19 s/frame, 3 % of patches sent
+mean over 6 clips | SAM 2: J 0.894, patch IoU 0.943, 2.12 s/frame | ours: patch IoU 0.172 (precision 0.23, recall 0.64), 0.34 s/frame

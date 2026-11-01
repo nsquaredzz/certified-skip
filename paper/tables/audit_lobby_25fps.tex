@@ -1,0 +1,16 @@
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+rule & drop & tokens/s & small 5$\times$5 & tiny 3$\times$3 & fade 3 s & fade 12 s & mover & faint 12 & $\rho$ median \\
+\midrule
+certified range & 0.976 & 263 & 0.07 & 0.13 & 0.15 & 0.25 & 0.08 & 0.13 & 0.000 \\
+certified quotient+MS & 0.977 & 246 & 1.00 & 1.00 & 1.00 & 0.95 & 0.90 & 0.20 & 0.000 \\
+certified +sequential & 0.977 & 251 & 1.00 & 1.00 & 1.00 & 0.95 & 0.91 & 1.00 & 0.001 \\
+anchored mean (no certificate) & 0.980 & 216 & 0.20 & 0.07 & 0.95 & 1.00 & 0.27 & 0.00 & 0.000 \\
+consecutive mean (EVS, RLT) & 0.980 & 216 & 0.07 & 0.03 & 0.05 & 0.15 & 0.14 & 0.07 & 0.000 \\
+consecutive cosine (DyCoke, FrameFusion) & 0.980 & 216 & 0.53 & 0.37 & 0.15 & 0.25 & 0.41 & 0.13 & 0.000 \\
+segment static (PruneVid) & \multicolumn{9}{l}{cannot reach the budget at this frame rate} \\
+frame similarity (LongVU) & 0.980 & 216 & 0.00 & 0.03 & 0.40 & 1.00 & 0.02 & 0.27 & 0.026 \\
+consecutive + refresh every 60 & 0.980 & 216 & 0.07 & 0.03 & 0.75 & 1.00 & 0.03 & 0.33 & 0.016 \\
+uniform frames & 0.981 & 205 & 0.07 & 0.07 & 1.00 & 1.00 & 0.01 & 0.53 & 0.019 \\
+\bottomrule
+\end{tabular}

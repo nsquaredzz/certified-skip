@@ -1,0 +1,77 @@
+\section{The warp rule on a fixed camera is the range rule}
+\label{app:parity}
+
+With the identity warp, no per-patch refinement and a canvas written only at whole pixel positions, every read in \eqref{eq:W} lands on a canvas pixel with weight one, and every canvas pixel holds the value of the frame that last kept it, unresampled. Then $W = R$, the last copy sent, on every patch, $\iota \equiv 0$, and the warp rule's statistic is the range rule's. The repository checks this bit for bit: on a synthetic fixed-camera sequence with noise and a planted change, the keep masks of the two implementations are identical, their scores agree to floating-point precision, and the maximum of $\iota$ is exactly zero (test \texttt{test\_fixed\_camera\_is\_the\_range\_rule\_bit\_for\_bit} in \texttt{tests/test\_paper.py}).
+
+\section{What each reducer re-implementation keeps}
+\label{app:reducers}
+
+Each rule maps frames and a threshold to a keep mask over patches and frames, with frame~0 kept, so that one calibration routine can set every rule to the same budget. None of them is the published system: the model-side parts (ViT features, attention scores, merging inside the LLM) are replaced by the pixel-space statistic that plays the same role. What is kept is the comparison structure, that is, the frame against which a token is judged redundant.
+
+\begin{center}\small
+\begin{tabular}{p{0.24\linewidth}p{0.36\linewidth}p{0.3\linewidth}}
+\toprule
+rule & keep test & stands in for \\
+\midrule
+consecutive mean & mean $|F_t - F_{t-1}|$ over the patch $\ge \tau$ & EVS, TimeChat-Online; RLT's pixel-$L^1$ test exactly \\
+consecutive cosine & cosine similarity of mean-removed random projections of the patch in $F_t$ and $F_{t-1}$ $\le 1 - \tau$ & the merge test of DyCoke and FrameFusion (on ViT or LLM features there) \\
+segment static & mean $|F_t - F_{s}|$ $\ge \tau$, $s$ the first frame of the fixed segment containing $t$ & PruneVid's static tokens of a temporal segment \\
+frame similarity & whole frame kept iff the frame mean of $|F_t - F_{t-1}|$ $\ge \tau$ & LongVU's adjacent-frame reduction (on DINOv2 features there) \\
+consecutive + refresh & consecutive mean, plus every patch every 60 frames & a periodic keyframe \\
+uniform & every $k$-th frame in full & fixed-rate frame sampling \\
+anchored mean & mean $|F_t - R|$ $\ge \tau$, $R$ the last kept copy & the anchored rule without a certificate \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The vectors of the cosine rule are a fixed $256 \times 64$ Gaussian projection of the mean-removed patch, an untrained proxy for a linear patch embedding that, like a ViT embedding under cosine similarity, ignores brightness and compares texture; a learned encoder may be more or less sensitive to a given change, but it compares the same two frames.
+
+\section{Planted events}
+\label{app:events}
+
+Events are added to the integer frames of an untouched clip before any rule sees them, at random patch-aligned positions, with sign chosen against the local brightness so that the object always has the stated contrast. A one-frame event (small $5{\times}5$ at contrast 40, tiny $3{\times}3$ at 48) is caught if its patch is kept on that frame. A mover ($6{\times}6$, contrast 40, 2~px per frame for 12 frames) is caught on the share of its frames on which the patch under it is kept. A faint object ($6{\times}6$, contrast 12, persistent for 3~s) is caught if its patch is kept within 1~s of its onset. A fade ($8{\times}8$ over 3~s, or $12{\times}12$ over 12~s, linearly to contrast 48) is caught if its patch is kept at or before the frame where the fade reaches contrast 32; the object then keeps its final contrast, so a late keep is recorded as a delay. Thresholds are calibrated on the clip without events, so planted events do not change the budget a rule is held to.
+
+\begin{table}[h]
+\centering\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\linewidth}{!}{\input{tables/audit_lobby_2fps}}
+
+\vspace{4pt}
+\resizebox{\linewidth}{!}{\input{tables/audit_virat_2fps}}
+\caption{The audit of Table~\ref{tab:audit} at 2~fps: CAVIAR lobby (top) and VIRAT (bottom).}
+\label{tab:audit2fps}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/audit_curves}
+\caption{Recall of slow fades and of small objects against drop rate at the native frame rate, one panel per clip. Each curve is one rule swept over its threshold.}
+\label{fig:auditcurves}
+\end{figure}
+
+\section{Computing the clairvoyant optimum}
+\label{app:opt}
+
+For one patch and a seminorm $\sigma$, $\OPT_\theta$ is the shortest sequence of keep times $0 = k_1 < k_2 < \dots$ such that every frame $t$ with anchor $k_j$ satisfies $\sigma(F_t - F_{k_j}) < \theta$. Let $\mathrm{reach}(k)$ be the last frame $t \ge k$ such that every frame in $[k, t]$ is within $\theta$ of $F_k$. A schedule is sound iff each keep's successor is at most $\mathrm{reach}(k) + 1$, so $\OPT_\theta$ is a shortest path on a DAG, computed by dynamic programming from the end of the sequence with $O(T^2)$ evaluations of $\sigma$ per patch. A brute-force search over all schedules confirms it on short random sequences. The anchored rule's keeps $m_\theta$ are counted on the same sequence, and Theorem~\ref{thm:opt}(i) and (ii) are checked on every patch (\texttt{scripts/competitive\_audit.py}).
+
+\section{Reproducing the numbers}
+\label{app:repro}
+
+Every table and figure is generated from stored outputs by \texttt{scripts/make\_paper\_tables.py}. The outputs come from:
+
+\begin{center}\scriptsize
+\begin{tabular}{p{0.3\linewidth}p{0.62\linewidth}}
+\toprule
+result & command \\
+\midrule
+DAVIS (Table~\ref{tab:davis}) & \texttt{scripts/warp\_bench.py --davis all --frames 40} \\
+film (Table~\ref{tab:film}) & \texttt{scripts/warp\_bench.py --film 120,360,540 --film-seconds 60} \\
+synthetic audit (Table~\ref{tab:warpaudit}) & \texttt{scripts/warp\_audit.py} \\
+competitive (Table~\ref{tab:competitive}) & \texttt{scripts/competitive\_audit.py --clips hall,lobby,virat --deltas 16,32,48} \\
+shift cost (Table~\ref{tab:shift}) & \texttt{scripts/shift\_cost.py --clips hall,lobby,virat} \\
+reducer audit (Tables~\ref{tab:audit}, \ref{tab:audit2fps}) & \texttt{scripts/audit\_reducers.py --clips lobby,virat --rates native,2} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The theorems' finite claims are covered by \texttt{tests/test\_paper.py}: the fixed-camera parity of Appendix~\ref{app:parity}, registration of a synthetic pan, Theorem~\ref{thm:warp} against the constructed reference, the oscillation bound behind Proposition~\ref{prop:iota}, cut handling, Theorem~\ref{thm:opt}(i)--(ii) on random walks, optimality of the dynamic program by brute force, the adversary of Theorem~\ref{thm:opt}(iii), and Proposition~\ref{prop:consecutive} on a slow ramp for the re-implemented reducers. Footage is fetched by \texttt{scripts/fetch\_data.py}; DAVIS~2017 and Tears of Steel are under their own licences.

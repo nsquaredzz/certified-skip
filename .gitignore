@@ -23,3 +23,6 @@ out/_*
 
 # raw mask dumps from the command-line tool
 out/*.u8
+
+# local builds
+*.egg-info/

@@ -1,0 +1,104 @@
+{
+ "davis_audit_fixed range": [
+  0,
+  0,
+  0.0
+ ],
+ "davis_drop_fixed range": 0.2115303983228512,
+ "davis_min_fixed range": 0.0016126431220770954,
+ "davis_bg_fixed range": 0.20813816765394771,
+ "davis_obj_fixed range": 0.04694278698496129,
+ "davis_audit_fixed quotient+MS": [
+  0,
+  0,
+  0.0
+ ],
+ "davis_drop_fixed quotient+MS": 0.4351717464925012,
+ "davis_min_fixed quotient+MS": 0.056684405741009525,
+ "davis_bg_fixed quotient+MS": 0.4693940732739367,
+ "davis_obj_fixed quotient+MS": 0.18191702337194432,
+ "davis_audit_warp range": [
+  6664,
+  0,
+  1.0000000000000036
+ ],
+ "davis_drop_warp range": 0.4360748266408644,
+ "davis_min_warp range": 0.02659248508305112,
+ "davis_bg_warp range": 0.48544004409101776,
+ "davis_obj_warp range": 0.06675433937747799,
+ "davis_audit_warp+refine range": [
+  6748,
+  0,
+  1.0000000000000056
+ ],
+ "davis_drop_warp+refine range": 0.4935897435897436,
+ "davis_min_warp+refine range": 0.04497661667472985,
+ "davis_bg_warp+refine range": 0.5550640578795851,
+ "davis_obj_warp+refine range": 0.09104674726489204,
+ "davis_audit_warp+refine MS": [
+  6830,
+  0,
+  1.0000000000000016
+ ],
+ "davis_drop_warp+refine MS": 0.7280358006773101,
+ "davis_min_warp+refine MS": 0.22773746169972586,
+ "davis_bg_warp+refine MS": 0.8072006345762839,
+ "davis_obj_warp+refine MS": 0.23272411147347988,
+ "davis_clips": 90,
+ "iota_pix_frac_le": {
+  "0.5": 0.03666500229345239,
+  "4.0": 0.2785976045940581,
+  "8.0": 0.4729608640374323,
+  "16.0": 0.6853858099854614,
+  "32.0": 0.8590678237300197,
+  "64.0": 0.9606981968203594,
+  "128.0": 0.9949084411922868,
+  "256.0": 0.9999662707696901,
+  "1000000000.0": 1.0
+ },
+ "film_drop_fixed range": 0.4278266790467347,
+ "film_drop_fixed quotient+MS": 0.6153667595171773,
+ "film_drop_warp range": 0.5620451872485299,
+ "film_drop_warp+refine range": 0.6109811203961623,
+ "film_drop_warp+refine MS": 0.715143299288146,
+ "film_audit": [
+  2046,
+  0
+ ],
+ "warp_audit": [
+  2431,
+  0
+ ],
+ "competitive_ratio_range": [
+  1.0022529771483746,
+  1.18313769035533
+ ],
+ "shift_hall_range d=32": [
+  0.7295868382824904,
+  0.7297810884767406
+ ],
+ "shift_hall_quotient+MS d0=80": [
+  0.9418854092767136,
+  0.9487939596635249
+ ],
+ "shift_lobby_range d=32": [
+  0.7630812156062573,
+  0.7630812156062573
+ ],
+ "shift_lobby_quotient+MS d0=80": [
+  0.964914518023867,
+  0.97097013541087
+ ],
+ "shift_virat_range d=32": [
+  0.9907402488996813,
+  0.9907478373045986
+ ],
+ "shift_virat_quotient+MS d0=80": [
+  0.9910703445135832,
+  0.9937433601456974
+ ],
+ "audit_lobby@25fps_target": 0.9772643013383754,
+ "audit_lobby@2fps_target": 0.9617954911433172,
+ "audit_virat@10fps_target": 0.9922619047619048,
+ "audit_virat@2fps_target": 0.9915016233766234
+}

@@ -1,0 +1,5 @@
+Tears of Steel 1280x534 @ 24 fps: 17607 frames in 13 chunks of 60 s, patch 16, quotient + multi-scale at Delta_0 = 80, search 16 px; 5485 s
+  skipped: no compensation 0.738, camera 0.801, follow 0.863 (followed, not sent: 0.067 of all patches)
+  sent with compensation: anchor 0.017 (307 frames), frontier 0.026 (new area 0.009 of a frame), refresh 0.155
+  frames between anchors: median 30, mean 57; correlation after alignment, median 0.967
+  skipped per 30 s window: no compensation 0.33 to 0.90, camera 0.41 to 0.91, follow 0.42 to 0.96

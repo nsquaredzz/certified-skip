@@ -1,0 +1,13 @@
+  mallard-water     80 frames, 1 obj, SAM 2 1.60 s/frame, rule 0.55, carry 0.08 | every frame J 0.958 | never 0.345 | tau 1: SAM 2 on 51 %, gated J 0.935, uniform J 0.934 | tau 2.5: SAM 2 on 27 %, gated J 0.898, uniform J 0.898
+  snowboard         66 frames, 2 obj, SAM 2 2.40 s/frame, rule 0.52, carry 0.08 | every frame J 0.803 | never 0.274 | tau 1: SAM 2 on 45 %, gated J 0.744, uniform J 0.738 | tau 2.5: SAM 2 on 20 %, gated J 0.674, uniform J 0.666
+  car-shadow        40 frames, 1 obj, SAM 2 1.47 s/frame, rule 0.31, carry 0.08 | every frame J 0.977 | never 0.584 | tau 1: SAM 2 on 46 %, gated J 0.969, uniform J 0.968 | tau 2.5: SAM 2 on 18 %, gated J 0.935, uniform J 0.935
+  train             80 frames, 4 obj, SAM 2 4.08 s/frame, rule 0.31, carry 0.07 | every frame J 0.940 | never 0.710 | tau 1: SAM 2 on 24 %, gated J 0.926, uniform J 0.924 | tau 2.5: SAM 2 on 10 %, gated J 0.900, uniform J 0.895
+  planes-water      38 frames, 2 obj, SAM 2 2.21 s/frame, rule 0.17, carry 0.08 | every frame J 0.758 | never 0.659 | tau 1: SAM 2 on 8 %, gated J 0.754, uniform J 0.720 | tau 2.5: SAM 2 on 8 %, gated J 0.754, uniform J 0.720
+  drift-chicane     52 frames, 1 obj, SAM 2 1.41 s/frame, rule 0.18, carry 0.08 | every frame J 0.926 | never 0.228 | tau 1: SAM 2 on 24 %, gated J 0.843, uniform J 0.849 | tau 2.5: SAM 2 on 10 %, gated J 0.683, uniform J 0.698
+mean over 6 clips, 350 frames; the rule costs 130 s and the carry 27 s in total on this machine
+  every frame  J 0.894   SAM 2 on 100.0 % of frames (350 calls)   time: SAM 2 815 s + ours 0 s = 815 s
+  never        J 0.467   SAM 2 on   0.0 % of frames (0 calls)   time: SAM 2 0 s + ours 27 s = 27 s
+  gated 1      J 0.862   SAM 2 on  32.8 % of frames (121 calls)   time: SAM 2 238 s + ours 157 s = 395 s
+  uniform 1    J 0.856   SAM 2 on  32.8 % of frames (121 calls)   time: SAM 2 237 s + ours 27 s = 264 s
+  gated 2.5    J 0.807   SAM 2 on  15.4 % of frames (57 calls)   time: SAM 2 95 s + ours 157 s = 252 s
+  uniform 2.5  J 0.802   SAM 2 on  15.4 % of frames (57 calls)   time: SAM 2 94 s + ours 27 s = 121 s

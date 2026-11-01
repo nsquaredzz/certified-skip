@@ -1,0 +1,71 @@
+% Certified event-proportional video compute: paper draft.
+% Build:  tectonic -X compile main.tex   (or: tectonic main.tex)
+% For a NeurIPS submission replace the preamble block marked "layout" with \usepackage{neurips_2027}.
+\documentclass[10pt]{article}
+
+% ---- layout (stands in for the NeurIPS style file) -------------------------------------------
+\usepackage[letterpaper,textwidth=5.5in,textheight=9in,top=1in]{geometry}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\setlength{\parskip}{0pt}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\paragraph}[runin]{\bfseries}{}{0em}{}[.]
+\titlespacing{\paragraph}{0pt}{6pt}{4pt}
+% ---------------------------------------------------------------------------------------------
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.4em}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Dgm}{\operatorname{Dgm}}
+\newcommand{\dB}{d_B}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\midrange}{\operatorname{midrange}}
+\newcommand{\OPT}{\mathrm{OPT}}
+\newcommand{\todo}[1]{\textcolor{red!70!black}{[#1]}}
+
+\title{Certified Event-Proportional Video Compute:\\ Skip Certificates for Moving Cameras, a Bound on What Any Sound Rule Must Keep,\\ and an Audit of Video Token Reducers}
+
+\author{Niyath Nair\\ \texttt{iamniyathnair@gmail.com}}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/related}
+\input{sections/background}
+\input{sections/theory}
+\input{sections/audit}
+\input{sections/experiments}
+\input{sections/limitations}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

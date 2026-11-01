@@ -1,0 +1,125 @@
+DAVIS 2017 trainval 480p: 90 clips, 6208 frames, patch 16, quotient + multi-scale at Delta_0 = 80 unless named otherwise, search 16 px; 3617 s
+
+[none]
+  skipped 0.463 of all patches (per clip: median 0.431, quartiles 0.307 to 0.629)
+  sent    anchor 0.000 (0 frames)   frontier 0.000 (new area 0.000 of a frame)   refresh 0.537
+  refresh rate of held patches: on an object 0.632, next to one 0.660, background 0.504
+  followed, not sent: 0.000 of all patches; of held patches on an object 0.000, next to one 0.000, background 0.000
+  where the refreshes are: object 0.160, next to one 0.124, background 0.717   (object patches are 0.136 of all)
+  sent, all kinds: 0.632 of object patches, 0.504 of background patches
+
+[camera]
+  skipped 0.671 of all patches (per clip: median 0.679, quartiles 0.582 to 0.795)
+  sent    anchor 0.017 (100 frames)   frontier 0.037 (new area 0.018 of a frame)   refresh 0.275
+  refresh rate of held patches: on an object 0.586, next to one 0.474, background 0.212
+  followed, not sent: 0.000 of all patches; of held patches on an object 0.000, next to one 0.000, background 0.000
+  where the refreshes are: object 0.277, next to one 0.169, background 0.554   (object patches are 0.136 of all)
+  sent, all kinds: 0.603 of object patches, 0.259 of background patches
+
+[follow]
+  skipped 0.775 of all patches (per clip: median 0.786, quartiles 0.724 to 0.848)
+  sent    anchor 0.017 (100 frames)   frontier 0.037 (new area 0.018 of a frame)   refresh 0.171
+  refresh rate of held patches: on an object 0.330, next to one 0.337, background 0.133
+  followed, not sent: 0.112 of all patches; of held patches on an object 0.261, next to one 0.146, background 0.089
+  where the refreshes are: object 0.250, next to one 0.192, background 0.558   (object patches are 0.136 of all)
+  sent, all kinds: 0.358 of object patches, 0.184 of background patches
+
+[camera, range 32]
+  skipped 0.430 of all patches (per clip: median 0.417, quartiles 0.311 to 0.529)
+  sent    anchor 0.016 (94 frames)   frontier 0.037 (new area 0.018 of a frame)   refresh 0.517
+  refresh rate of held patches: on an object 0.716, next to one 0.692, background 0.495
+  followed, not sent: 0.000 of all patches; of held patches on an object 0.000, next to one 0.000, background 0.000
+  where the refreshes are: object 0.180, next to one 0.131, background 0.688   (object patches are 0.136 of all)
+  sent, all kinds: 0.728 of object patches, 0.524 of background patches
+
+per clip, skipped (none -> camera -> follow), anchors, mean correlation after alignment:
+  mallard-water           80 frames  0.183 -> 0.211 -> 0.348   anchors  3   corr 0.89
+  snowboard               66 frames  0.173 -> 0.221 -> 0.443   anchors  3   corr 0.82
+  classic-car             63 frames  0.363 -> 0.389 -> 0.541   anchors  5   corr 0.78
+  dancing                 62 frames  0.393 -> 0.415 -> 0.545   anchors  0   corr 0.88
+  scooter-black           43 frames  0.288 -> 0.464 -> 0.575   anchors  0   corr 0.84
+  motocross-jump          40 frames  0.521 -> 0.483 -> 0.581   anchors  7   corr 0.85
+  shooting                40 frames  0.383 -> 0.481 -> 0.611   anchors  6   corr 0.68
+  drift-straight          50 frames  0.121 -> 0.423 -> 0.618   anchors  2   corr 0.83
+  upside-down             65 frames  0.325 -> 0.426 -> 0.626   anchors  2   corr 0.90
+  hike                    80 frames  0.193 -> 0.591 -> 0.634   anchors  0   corr 0.95
+  walking                 72 frames  0.326 -> 0.369 -> 0.634   anchors  3   corr 0.89
+  parkour                100 frames  0.304 -> 0.438 -> 0.635   anchors  2   corr 0.86
+  longboard               52 frames  0.293 -> 0.412 -> 0.640   anchors  3   corr 0.93
+  tuk-tuk                 59 frames  0.342 -> 0.434 -> 0.643   anchors  0   corr 0.86
+  breakdance              84 frames  0.699 -> 0.614 -> 0.648   anchors  0   corr 0.90
+  drift-turn              64 frames  0.376 -> 0.506 -> 0.651   anchors  6   corr 0.84
+  car-roundabout          75 frames  0.369 -> 0.582 -> 0.672   anchors  0   corr 0.92
+  goat                    90 frames  0.053 -> 0.487 -> 0.687   anchors  1   corr 0.89
+  flamingo                80 frames  0.289 -> 0.632 -> 0.693   anchors  0   corr 0.97
+  motocross-bumps         60 frames  0.454 -> 0.610 -> 0.694   anchors  8   corr 0.84
+  dog-agility             25 frames  0.407 -> 0.586 -> 0.695   anchors  0   corr 0.78
+  scooter-board           91 frames  0.455 -> 0.547 -> 0.713   anchors  5   corr 0.89
+  scooter-gray            75 frames  0.260 -> 0.609 -> 0.719   anchors  0   corr 0.81
+  mallard-fly             70 frames  0.137 -> 0.677 -> 0.738   anchors  1   corr 0.89
+  blackswan               50 frames  0.261 -> 0.492 -> 0.740   anchors  1   corr 0.95
+  cat-girl                89 frames  0.249 -> 0.517 -> 0.740   anchors  0   corr 0.88
+  soapbox                 99 frames  0.432 -> 0.585 -> 0.740   anchors  4   corr 0.87
+  kid-football            68 frames  0.633 -> 0.643 -> 0.742   anchors  4   corr 0.91
+  cows                   104 frames  0.188 -> 0.696 -> 0.743   anchors  0   corr 0.95
+  horsejump-low           60 frames  0.175 -> 0.701 -> 0.744   anchors  0   corr 0.90
+  car-turn                80 frames  0.509 -> 0.602 -> 0.751   anchors  4   corr 0.94
+  varanus-cage            67 frames  0.415 -> 0.661 -> 0.754   anchors  0   corr 0.94
+  lab-coat                47 frames  0.399 -> 0.566 -> 0.758   anchors  2   corr 0.94
+  horsejump-high          50 frames  0.443 -> 0.676 -> 0.759   anchors  0   corr 0.90
+  india                   81 frames  0.431 -> 0.582 -> 0.766   anchors  3   corr 0.90
+  motorbike               43 frames  0.470 -> 0.628 -> 0.766   anchors  0   corr 0.93
+  breakdance-flare        71 frames  0.385 -> 0.738 -> 0.767   anchors  0   corr 0.87
+  camel                   90 frames  0.263 -> 0.712 -> 0.768   anchors  0   corr 0.97
+  loading                 50 frames  0.352 -> 0.641 -> 0.779   anchors  0   corr 0.95
+  drone                   91 frames  0.506 -> 0.629 -> 0.782   anchors  3   corr 0.88
+  lady-running            65 frames  0.360 -> 0.560 -> 0.783   anchors  3   corr 0.93
+  dance-twirl             90 frames  0.360 -> 0.706 -> 0.784   anchors  1   corr 0.93
+  lindy-hop               73 frames  0.585 -> 0.652 -> 0.785   anchors  0   corr 0.92
+  night-race              46 frames  0.769 -> 0.706 -> 0.786   anchors  3   corr 0.86
+  car-shadow              40 frames  0.495 -> 0.679 -> 0.786   anchors  0   corr 0.95
+  train                   80 frames  0.232 -> 0.680 -> 0.787   anchors  0   corr 0.92
+  libby                   49 frames  0.225 -> 0.577 -> 0.788   anchors  1   corr 0.82
+  bike-packing            69 frames  0.715 -> 0.743 -> 0.793   anchors  0   corr 0.93
+  kite-surf               50 frames  0.602 -> 0.662 -> 0.793   anchors  1   corr 0.93
+  dogs-scale              83 frames  0.574 -> 0.609 -> 0.799   anchors  1   corr 0.90
+  color-run               84 frames  0.596 -> 0.580 -> 0.800   anchors  3   corr 0.88
+  bear                    82 frames  0.318 -> 0.778 -> 0.800   anchors  0   corr 0.96
+  bus                     80 frames  0.381 -> 0.722 -> 0.802   anchors  0   corr 0.90
+  bmx-trees               80 frames  0.148 -> 0.762 -> 0.803   anchors  0   corr 0.95
+  stroller                91 frames  0.297 -> 0.590 -> 0.805   anchors  2   corr 0.90
+  swing                   60 frames  0.179 -> 0.659 -> 0.806   anchors  0   corr 0.87
+  surf                    55 frames  0.637 -> 0.697 -> 0.808   anchors  1   corr 0.96
+  dog                     60 frames  0.155 -> 0.704 -> 0.809   anchors  0   corr 0.93
+  boxing-fisheye          87 frames  0.544 -> 0.756 -> 0.814   anchors  0   corr 0.97
+  bmx-bumps               90 frames  0.395 -> 0.747 -> 0.820   anchors  1   corr 0.94
+  lucia                   70 frames  0.067 -> 0.789 -> 0.824   anchors  0   corr 0.93
+  crossing                52 frames  0.862 -> 0.796 -> 0.825   anchors  0   corr 0.98
+  sheep                   68 frames  0.930 -> 0.828 -> 0.836   anchors  0   corr 0.98
+  boat                    75 frames  0.735 -> 0.757 -> 0.840   anchors  0   corr 0.98
+  rallye                  50 frames  0.866 -> 0.830 -> 0.844   anchors  1   corr 0.94
+  stunt                   71 frames  0.546 -> 0.795 -> 0.845   anchors  0   corr 0.97
+  dog-gooses              86 frames  0.433 -> 0.828 -> 0.847   anchors  0   corr 0.95
+  soccerball              48 frames  0.788 -> 0.845 -> 0.848   anchors  0   corr 0.96
+  rhino                   90 frames  0.349 -> 0.806 -> 0.853   anchors  0   corr 0.97
+  dance-jump              60 frames  0.323 -> 0.795 -> 0.855   anchors  0   corr 0.96
+  skate-park              80 frames  0.767 -> 0.838 -> 0.858   anchors  0   corr 0.99
+  hockey                  75 frames  0.634 -> 0.777 -> 0.862   anchors  1   corr 0.95
+  tennis                  70 frames  0.619 -> 0.783 -> 0.869   anchors  0   corr 0.87
+  miami-surf              70 frames  0.731 -> 0.750 -> 0.878   anchors  2   corr 0.92
+  elephant                80 frames  0.464 -> 0.839 -> 0.882   anchors  0   corr 0.98
+  paragliding-launch      80 frames  0.445 -> 0.815 -> 0.883   anchors  0   corr 0.85
+  kite-walk               80 frames  0.776 -> 0.828 -> 0.886   anchors  0   corr 0.97
+  koala                  100 frames  0.389 -> 0.754 -> 0.887   anchors  0   corr 0.95
+  mbike-trick             79 frames  0.764 -> 0.823 -> 0.895   anchors  1   corr 0.97
+  schoolgirls             80 frames  0.884 -> 0.877 -> 0.897   anchors  0   corr 0.95
+  pigs                    79 frames  0.660 -> 0.830 -> 0.901   anchors  0   corr 0.94
+  gold-fish               78 frames  0.770 -> 0.805 -> 0.907   anchors  0   corr 0.94
+  tractor-sand            76 frames  0.605 -> 0.900 -> 0.918   anchors  0   corr 0.98
+  rollerblade             35 frames  0.453 -> 0.901 -> 0.918   anchors  0   corr 0.94
+  dogs-jump               66 frames  0.849 -> 0.877 -> 0.919   anchors  0   corr 0.97
+  paragliding             70 frames  0.582 -> 0.915 -> 0.939   anchors  0   corr 0.91
+  judo                    34 frames  0.904 -> 0.900 -> 0.949   anchors  0   corr 0.97
+  disc-jockey             76 frames  0.904 -> 0.870 -> 0.957   anchors  0   corr 0.89
+  planes-water            38 frames  0.969 -> 0.951 -> 0.964   anchors  0   corr 0.99
+  drift-chicane           52 frames  0.953 -> 0.945 -> 0.965   anchors  0   corr 0.96
