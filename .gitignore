@@ -26,3 +26,6 @@ out/*.u8
 
 # local builds
 *.egg-info/
+
+# rollout arrays of the long-video experiments
+out/longvid_*.npy
