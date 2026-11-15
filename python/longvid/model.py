@@ -22,14 +22,14 @@ import torch.nn.functional as F
 
 
 def rope_angles(pos, dt, dy, dx, base=10000.0):
-    """pos (N, 3) = (t, y, x) -> angles (N, (dt + dy + dx) / 2)."""
+    """pos (..., 3) = (t, y, x) -> angles (..., (dt + dy + dx) / 2); pos may carry a leading batch dimension."""
     fs = [1.0 / (base ** (torch.arange(0, d, 2, device=pos.device).float() / d)) for d in (dt, dy, dx)]
-    return torch.cat([pos[:, i:i + 1].float() * fs[i][None] for i in range(3)], -1)
+    return torch.cat([pos[..., i:i + 1].float() * fs[i] for i in range(3)], -1)
 
 
 def rotate(x, ang):
-    """x (B, N, H, dh), ang (N, dh / 2): rotate consecutive pairs."""
-    c, s = ang.cos()[None, :, None], ang.sin()[None, :, None]
+    """x (B, N, H, dh), ang (N, dh / 2) or (B, N, dh / 2): rotate consecutive pairs."""
+    c, s = (ang.cos()[None, :, None], ang.sin()[None, :, None]) if ang.dim() == 2 else (ang.cos()[:, :, None], ang.sin()[:, :, None])
     x1, x2 = x[..., 0::2], x[..., 1::2]
     return torch.stack([x1 * c - x2 * s, x1 * s + x2 * c], -1).flatten(-2)
 
@@ -45,19 +45,31 @@ class Block(nn.Module):
         self.temp = nn.Parameter(torch.full((heads, 1, 1), float(temp)))
 
     def forward(self, x, cond, pos, past=None, mask=None):
-        """x (B, n, D); cond (B, n, D); pos (n, 3). past = (k_raw, v, pos_k) from a cache. Returns x and this call's (k_raw, v)."""
+        """x (B, n, D); cond (B, n, D); pos (n, 3). past = (k_raw, v, pos_k[, bias]) from a cache; bias (B, E) is added to the
+        logits of the cached entries (log of the number of frames an entry stands for; -inf for an entry that is gone).
+        Returns x and this call's (k_raw, v)."""
         B, n, D = x.shape
         sh1, sc1, g1, sh2, sc2, g2 = self.ada(cond).chunk(6, -1)
         h = self.n1(x) * (1 + sc1) + sh1
         q, k, v = self.qkv(h).view(B, n, 3, self.H, self.dh).unbind(2)
         q, k = F.normalize(q, dim=-1), F.normalize(k, dim=-1)
-        K, V, pk = (k, v, pos) if past is None else (torch.cat([past[0], k], 1), torch.cat([past[1], v], 1), torch.cat([past[2], pos], 0))
+        amask = None
+        if past is None:
+            K, V, pk = k, v, pos
+        else:
+            pp = past[2]
+            pk = torch.cat([pp, pos.expand(B, -1, -1) if pp.dim() == 3 else pos], 1 if pp.dim() == 3 else 0)
+            K, V = torch.cat([past[0], k], 1), torch.cat([past[1], v], 1)
+            if len(past) > 3 and past[3] is not None:
+                amask = torch.cat([past[3], torch.zeros(B, n, device=x.device, dtype=past[3].dtype)], 1)[:, None, None, :]
         qr, kr = rotate(q, rope_angles(pos, *self.split)), rotate(K, rope_angles(pk, *self.split))
-        s = torch.einsum("bnhd,bmhd->bhnm", qr, kr) * self.temp.clamp(0.1, 30.0)[None]
+        qh = qr.transpose(1, 2) * self.temp.clamp(0.1, 30.0)[None].to(qr.dtype)
         if mask is not None:
-            s = s.masked_fill(~mask[:, None] if mask.dim() == 3 else ~mask[None, None], float("-inf"))
-        o = torch.einsum("bhnm,bmhd->bnhd", s.softmax(-1), V).reshape(B, n, D)
-        x = x + g1 * self.proj(o)
+            amask = mask[None, None] if mask.dim() == 2 else mask[:, None]
+        elif amask is not None:
+            amask = amask.to(qh.dtype)
+        o = F.scaled_dot_product_attention(qh, kr.transpose(1, 2), V.transpose(1, 2), attn_mask=amask, scale=1.0)
+        x = x + g1 * self.proj(o.transpose(1, 2).reshape(B, n, D))
         x = x + g2 * self.mlp(self.n2(x) * (1 + sc2) + sh2)
         return x, (k, v)
 
@@ -75,7 +87,8 @@ class KVCache:
     def stage(self, l, k, v):
         self._stage[l] = (k, v)
 
-    def commit(self, t):
+    def commit(self, t, ref=None):
+        self.n_tok = self._stage[0][0].shape[1]
         for l in range(self.depth):
             self.k[l].append(self._stage[l][0]); self.v[l].append(self._stage[l][1])
         self.ts.append(t); self._stage = [None] * self.depth; self.evict()
@@ -87,6 +100,10 @@ class KVCache:
             for l in range(self.depth):
                 del self.k[l][self.sink]; del self.v[l][self.sink]
             del self.ts[self.sink]
+
+    def entries(self):
+        """Number of cache entries (tokens) held per sequence."""
+        return float(len(self.ts) * getattr(self, "n_tok", 0))
 
     def times(self):
         return list(range(len(self.ts))) if self.reindex else list(self.ts)
@@ -104,6 +121,67 @@ class KVCache:
 def velocity(xs, sigma, x0_hat, floor=0.05):
     """v = (x_sigma - x0_hat) / sigma with sigma floored; xs (..., N, pd), sigma (...,)."""
     return (xs - x0_hat) / sigma.clamp_min(floor)[..., None, None]
+
+
+class MergeCache:
+    """A cache that holds one entry per run of unchanged content, with the run length as a logit bias.
+
+    When a clean frame is committed, each token location is compared with the patch its current entry was made from.
+    Within `eps` (sup norm, the anchored rule of the skip certificate) the location is *merged*: no new entry, the
+    entry's count goes up by one and its position is moved to the latest frame. Otherwise the frame's token becomes a
+    new entry. At attention time an entry adds log(count) to its logit: k identical copies of a key are exactly one
+    copy with +log k, so a merged entry weighs what the copies it stands for would have weighed (exact when the
+    copies are identical, an approximation within the certificate otherwise).
+    `window` drops an entry that was not refreshed for that many frames: static content is refreshed by every merge and
+    stays, changed content ages out. Keys are stored before rotation, so a refreshed entry is rotated to its new time.
+    """
+
+    def __init__(self, depth, eps, window=None):
+        self.depth, self.eps, self.window = depth, float(eps), window
+        self.K = [None] * depth; self.V = [None] * depth; self._stage = [None] * depth
+        self.alive = self.count = self.tpos = self.ref = self.cur = None
+
+    def __len__(self):
+        return 0 if self.alive is None else self.alive.shape[1]
+
+    def stage(self, l, k, v):
+        self._stage[l] = (k, v)
+
+    def query_t(self, t):
+        return t
+
+    def commit(self, t, ref):
+        B, N = ref.shape[:2]; dev = ref.device
+        change = torch.ones(B, N, dtype=torch.bool, device=dev) if self.ref is None else (ref - self.ref).abs().amax(-1) > self.eps
+        C = 0 if self.alive is None else self.alive.shape[1]
+        cat = lambda old, new: new if old is None else torch.cat([old, new], 1)
+        for l in range(self.depth):
+            k, v = self._stage[l]
+            self.K[l], self.V[l] = cat(self.K[l], k[:, None]), cat(self.V[l], v[:, None])
+        self.alive = cat(self.alive, change[:, None]); self.count = cat(self.count, torch.ones(B, 1, N, device=dev))
+        self.tpos = cat(self.tpos, torch.full((B, 1, N), float(t), device=dev))
+        if self.ref is not None:
+            keep = ~change
+            if keep.any():
+                b = torch.arange(B, device=dev)[:, None].expand(B, N)[keep]; p = torch.arange(N, device=dev)[None].expand(B, N)[keep]
+                c = self.cur[keep]; self.count[b, c, p] += 1; self.tpos[b, c, p] = float(t)
+            self.ref = torch.where(change[..., None], ref, self.ref); self.cur = torch.where(change, torch.full_like(self.cur, C), self.cur)
+        else:
+            self.ref, self.cur = ref.clone(), torch.full((B, N), C, dtype=torch.long, device=dev)
+        if self.window is not None:
+            self.alive &= self.tpos >= t - self.window
+        self._stage = [None] * self.depth
+
+    def entries(self):
+        return 0.0 if self.alive is None else float(self.alive.sum((1, 2)).float().mean())
+
+    def get(self, l, grid):
+        if self.alive is None:
+            return None
+        B, C, N = self.alive.shape; yx = grid(0)[:, 1:]
+        pos = torch.cat([self.tpos.reshape(B, C * N, 1), yx.repeat(C, 1)[None].expand(B, -1, -1).to(self.tpos.dtype)], -1)
+        bias = torch.where(self.alive, self.count.log(), torch.full_like(self.count, float("-inf"))).reshape(B, C * N)
+        return self.K[l].flatten(1, 2), self.V[l].flatten(1, 2), pos, bias
 
 
 class LongVidDiT(nn.Module):
@@ -170,5 +248,5 @@ class LongVidDiT(nn.Module):
             if write:
                 cache.stage(l, k, v)
         if write:
-            cache.commit(t)
+            cache.commit(t, xt)
         return self.head(x, cond)
