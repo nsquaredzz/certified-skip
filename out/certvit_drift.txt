@@ -1,0 +1,9 @@
+hall@30.0fps     entries  8.02% | halo full: compute  64.5% (heur  61.8%) | drift cert 0.395 heur 0.702 | halo none: compute  8.0%, drift cert 0.882 heur 1.000  (107s)
+    drift by layer, certified, halo full: 0.386 0.391 0.391 0.392 0.392 0.395 | halo none: 0.712 0.799 0.832 0.856 0.871 0.882
+hall@10.0fps     entries  9.76% | halo full: compute  68.3% (heur  65.2%) | drift cert 0.372 heur 0.502 | halo none: compute  9.8%, drift cert 0.864 heur 0.918  (38s)
+    drift by layer, certified, halo full: 0.363 0.369 0.370 0.371 0.370 0.372 | halo none: 0.701 0.786 0.818 0.840 0.854 0.864
+leftbag@25.0fps  entries  5.59% | halo full: compute  50.5% (heur  48.1%) | drift cert 0.493 heur 0.722 | halo none: compute  5.6%, drift cert 0.899 heur 1.023  (146s)
+    drift by layer, certified, halo full: 0.472 0.479 0.483 0.488 0.488 0.493 | halo none: 0.756 0.833 0.860 0.878 0.887 0.899
+leftbag@8.3fps   entries  6.65% | halo full: compute  53.9% (heur  53.7%) | drift cert 0.493 heur 0.612 | halo none: compute  6.7%, drift cert 0.906 heur 0.983  (49s)
+    drift by layer, certified, halo full: 0.471 0.478 0.482 0.488 0.488 0.493 | halo none: 0.772 0.843 0.867 0.884 0.894 0.906
+wrote out/certvit_drift.json
