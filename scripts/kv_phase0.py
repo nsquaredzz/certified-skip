@@ -121,7 +121,7 @@ def main():
                 print(f"  {fps:5.1f} | {'':24s} {100 * r['cert']:6.2f} {100 * r['sod']:6.2f} {100 * r['centre']:6.2f} {100 * r['bound']:6.2f} {100 * r['cons_fixed']:7.2f} {100 * r['cons_matched']:7.2f} |"
                       f" {r['cert'] / r['bound']:16.2f} | {'':9s} {r['ghost_cert']:5.2f} {r['ghost_fixed']:7.2f} {r['ghost_matched']:7.2f} | {'':11s} {r['gb_cert']:5.2f} {r['gb_bound']:5.2f}   ({r['sec']:.0f}s)", flush=True)
     Path(a.out + ".json").write_text(json.dumps(rows, indent=1))
-    print("\n=== Summary: share of the full cache kept, and projected GB per hour (Qwen2-VL-7B, 448x448 at 2 fps, full cache %.1f GB)" % gb_per_hour(1.0))
+    print("\n=== Summary: share of the full cache kept (full = every block of every frame), and GB per hour for 448x448 frames at 57,344 bytes per entry, one entry per kept block-frame, no two-frame token merge")
     for P in map(int, a.blocks.split(",")):
         ks = [k for k in rows if k.endswith(f"@{P}")]
         lo = {k: min(rows[k], key=lambda q: abs(q["fps"] - 2.0)) for k in ks}; hi = {k: rows[k][-1] for k in ks}
