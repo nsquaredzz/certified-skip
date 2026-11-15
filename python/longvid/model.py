@@ -3,7 +3,9 @@
   tokens        a frame is cut into patches; one token per patch, one block of tokens per frame
   attention     bidirectional inside a frame, causal across frames; 3D rotary positions (t, y, x); QK-norm
   conditioning  adaLN-zero on the noise level of each frame separately (diffusion forcing: every frame has its own)
-  objective     rectified flow, x_sigma = (1 - sigma) x0 + sigma eps, the network predicts v = eps - x0
+  objective     rectified flow, x_sigma = (1 - sigma) x0 + sigma eps. The network predicts the clean frame x0 (x-prediction): a token holds
+                more values than the hidden width, so a network that predicts v = eps - x0 could not pass the noise through it;
+                `velocity` turns the output into v = (x_sigma - x0_hat) / sigma, the quantity the loss and the sampler use
   clean context training lays the sequence out as [clean frames][noisy frames]; a noisy frame sees the clean frames
                 before it and itself, so at inference the clean frames are exactly what a KV cache holds
 
@@ -97,6 +99,11 @@ class KVCache:
             return None
         pos = torch.cat([grid(t) for t in self.times()], 0)
         return torch.cat(self.k[l], 1), torch.cat(self.v[l], 1), pos
+
+
+def velocity(xs, sigma, x0_hat, floor=0.05):
+    """v = (x_sigma - x0_hat) / sigma with sigma floored; xs (..., N, pd), sigma (...,)."""
+    return (xs - x0_hat) / sigma.clamp_min(floor)[..., None, None]
 
 
 class LongVidDiT(nn.Module):

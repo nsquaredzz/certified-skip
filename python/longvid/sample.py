@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import torch
 
-from .model import KVCache
+from .model import KVCache, velocity
 
 
 def schedule(steps, shift=3.0):
@@ -21,7 +21,7 @@ def rollout(model, prompt, n_frames, steps=8, sink=0, window=None, reindex=False
     for n in range(n_frames):
         t = Pn + n; x = torch.randn(B, model.N, model.pd, generator=gen)
         for i in range(steps):
-            s0, s1 = sig[i], sig[i + 1]; v = model.forward_chunk(x, torch.full((B,), float(s0)), t, cache, write=False)
+            s0, s1 = sig[i], sig[i + 1]; sg = torch.full((B,), float(s0)); v = velocity(x, sg, model.forward_chunk(x, sg, t, cache, write=False))
             x = x + (s1 - s0) * v
         x = x.clamp(-1, 1); model.forward_chunk(x, torch.zeros(B), t, cache, write=True)
         out.append(model.unpatchify(x[:, None])[:, 0])

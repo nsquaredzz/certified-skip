@@ -16,7 +16,7 @@ import argparse, json, sys, time
 from pathlib import Path
 import numpy as np, torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
-from longvid.model import LongVidDiT
+from longvid.model import LongVidDiT, velocity
 from longvid import data
 from longvid.sample import rollout
 
@@ -32,7 +32,7 @@ def train(model, steps, B, lr, seed, log):
         shared = torch.rand(B, 1) < 0.5
         s = torch.sigmoid(torch.randn(B, F_TRAIN) * 1.0 + 0.0); s = torch.where(shared, s[:, :1].expand(-1, F_TRAIN), s)
         eps = torch.randn_like(x0); xs = (1 - s)[..., None, None] * x0 + s[..., None, None] * eps
-        loss = ((model.forward_train(xs, x0, s) - (eps - x0)) ** 2).mean()
+        loss = ((velocity(xs, s, model.forward_train(xs, x0, s)) - (eps - x0)) ** 2).mean()
         opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); opt.step(); sched.step()
         ema = loss.item() if ema is None else 0.98 * ema + 0.02 * loss.item()
         if it % 100 == 0 or it == steps - 1: log(f"step {it:5d}  loss {ema:.4f}  ({time.time() - t0:.0f}s)")
