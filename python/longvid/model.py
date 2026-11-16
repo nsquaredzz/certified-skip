@@ -184,6 +184,81 @@ class MergeCache:
         return self.K[l].flatten(1, 2), self.V[l].flatten(1, 2), pos, bias
 
 
+class MotionMergeCache(MergeCache):
+    """MergeCache that lets an entry *move*: content that shifted by a whole token keeps its entry, at a new position.
+
+    On commit, each location p of the new frame is compared with the patch held for every location p - d, for every
+    whole-token displacement d with |d|_inf <= radius (d = 0 tried first, so a tie keeps the entry in place). If the best
+    match is within eps (sup norm, against the patch the entry was made from, carried along with it), the entry
+    is claimed by p: no new entry, its count goes up and its position becomes (t, p). An entry can be claimed by one
+    location only; a second claimant becomes a new entry. Keys are stored before rotation, so moving an entry is a
+    change of its stored (y, x) and nothing is recomputed. radius = 0 is MergeCache.
+
+    Why this can be exact: the model puts position into attention only through rotary encoding, so at layer 0 a
+    token's key and value depend on its pixels alone, and a token moved by a whole token is the same entry. Deeper layers
+    see neighbours through relative positions, which a translation of the whole neighbourhood leaves unchanged.
+    Sub-token motion changes a token's pixels and is not matched; that is a limit of this rule, not an approximation in it.
+    """
+
+    def __init__(self, depth, eps, grid_hw, radius=1, window=None):
+        super().__init__(depth, eps, window); self.gh, self.gw = grid_hw; self.radius = int(radius)
+        self.ypos = self.xpos = self.cur_l = None
+
+    def commit(self, t, ref):
+        B, N = ref.shape[:2]; dev = ref.device; gh, gw = self.gh, self.gw
+        C = len(self); yy = torch.arange(N, device=dev) // gw; xx = torch.arange(N, device=dev) % gw
+        if self.ref is None:
+            matched = torch.zeros(B, N, dtype=torch.bool, device=dev); src = torch.zeros(B, N, dtype=torch.long, device=dev)
+        else:
+            R = self.ref.view(B, gh, gw, -1); X = ref.view(B, gh, gw, -1)
+            best = torch.full((B, gh, gw), float("inf"), device=dev); bd = torch.zeros(B, gh, gw, 2, dtype=torch.long, device=dev)
+            ds = [(0, 0)] + [(dy, dx) for dy in range(-self.radius, self.radius + 1) for dx in range(-self.radius, self.radius + 1) if (dy, dx) != (0, 0)]
+            for dy, dx in ds:
+                ty, sy = slice(max(dy, 0), gh + min(dy, 0)), slice(max(-dy, 0), gh + min(-dy, 0))
+                tx, sx = slice(max(dx, 0), gw + min(dx, 0)), slice(max(-dx, 0), gw + min(-dx, 0))
+                err = (X[:, ty, tx] - R[:, sy, sx]).abs().amax(-1); cur = best[:, ty, tx]; better = err < cur
+                best[:, ty, tx] = torch.where(better, err, cur)
+                bd[:, ty, tx, 0] = torch.where(better, torch.full_like(err, dy, dtype=torch.long), bd[:, ty, tx, 0])
+                bd[:, ty, tx, 1] = torch.where(better, torch.full_like(err, dx, dtype=torch.long), bd[:, ty, tx, 1])
+            best, bd = best.view(B, N), bd.view(B, N, 2)
+            matched = best <= self.eps; src = (yy[None] - bd[..., 0]) * gw + (xx[None] - bd[..., 1])
+            for b in range(B):                                     # one claimant per entry: the closest match wins
+                idx = torch.nonzero(matched[b]).flatten()
+                if len(idx):
+                    taken = set()
+                    for p in idx[torch.argsort(best[b, idx])].tolist():
+                        s_ = int(src[b, p])
+                        if s_ in taken: matched[b, p] = False
+                        else: taken.add(s_)
+        change = ~matched; cat = lambda old, new: new if old is None else torch.cat([old, new], 1)
+        for l in range(self.depth):
+            k, v = self._stage[l]; self.K[l], self.V[l] = cat(self.K[l], k[:, None]), cat(self.V[l], v[:, None])
+        self.alive = cat(self.alive, change[:, None]); self.count = cat(self.count, torch.ones(B, 1, N, device=dev))
+        self.tpos = cat(self.tpos, torch.full((B, 1, N), float(t), device=dev))
+        self.ypos = cat(self.ypos, yy.float()[None, None].expand(B, 1, N).clone()); self.xpos = cat(self.xpos, xx.float()[None, None].expand(B, 1, N).clone())
+        if self.ref is None:
+            self.ref, self.cur = ref.clone(), torch.full((B, N), C, dtype=torch.long, device=dev); self.cur_l = torch.arange(N, device=dev)[None].expand(B, N).clone()
+        else:
+            bb = torch.arange(B, device=dev)[:, None].expand(B, N)
+            cc, ll = self.cur.gather(1, src), self.cur_l.gather(1, src)           # the entry each location would claim
+            if matched.any():
+                b_, c_, l_, p_ = bb[matched], cc[matched], ll[matched], torch.arange(N, device=dev)[None].expand(B, N)[matched]
+                self.count[b_, c_, l_] += 1; self.tpos[b_, c_, l_] = float(t); self.ypos[b_, c_, l_] = yy[p_].float(); self.xpos[b_, c_, l_] = xx[p_].float()
+            self.ref = torch.where(matched[..., None], self.ref.gather(1, src[..., None].expand(-1, -1, ref.shape[-1])), ref)
+            self.cur = torch.where(matched, cc, torch.full_like(cc, C)); self.cur_l = torch.where(matched, ll, torch.arange(N, device=dev)[None].expand(B, N))
+        if self.window is not None:
+            self.alive &= self.tpos >= t - self.window
+        self._stage = [None] * self.depth
+
+    def get(self, l, grid):
+        if self.alive is None:
+            return None
+        B, C, N = self.alive.shape
+        pos = torch.stack([self.tpos, self.ypos, self.xpos], -1).reshape(B, C * N, 3)
+        bias = torch.where(self.alive, self.count.log(), torch.full_like(self.count, float("-inf"))).reshape(B, C * N)
+        return self.K[l].flatten(1, 2), self.V[l].flatten(1, 2), pos, bias
+
+
 class LongVidDiT(nn.Module):
     def __init__(self, frame=(32, 32), patch=4, ch=3, dim=128, depth=4, heads=4):
         super().__init__()

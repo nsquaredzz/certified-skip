@@ -124,3 +124,41 @@ def test_rollout_runs_with_every_cache():
     for mk in (None, lambda d: MergeCache(d, 0.2), lambda d: MergeCache(d, 0.2, window=4)):
         out = rollout(m, prompt, 5, steps=2, make_cache=mk, gen=torch.Generator().manual_seed(0))
         assert out.shape == (2, 5, 3, 16, 16) and torch.isfinite(out).all()
+
+
+from longvid.model import MotionMergeCache
+
+
+def test_motion_with_radius_zero_is_merge():
+    m = small(); g = torch.Generator().manual_seed(8); base = torch.randn(2, m.N, m.pd, generator=g)
+    xs = [base.clone() for _ in range(4)]; xs[2][:, :3] += 1.0                         # a few locations change on one frame
+    a, b = MergeCache(m.depth, 0.1), MotionMergeCache(m.depth, 0.1, (m.gh, m.gw), radius=0)
+    _commit_all(m, a, xs); _commit_all(m, b, xs); q = torch.randn(2, m.N, m.pd, generator=g)
+    with torch.no_grad():
+        oa = m.forward_chunk(q, torch.full((2,), 0.5), 4, a); ob = m.forward_chunk(q, torch.full((2,), 0.5), 4, b)
+    assert a.entries() == b.entries() and torch.allclose(oa, ob, atol=1e-5)
+
+
+def test_a_pan_by_one_token_adds_only_the_new_column():
+    m = small(); gh, gw = m.gh, m.gw; B, T = 1, 6; g = torch.Generator().manual_seed(9)
+    world = torch.randn(B, gh, gw + T, m.pd, generator=g)                               # content wider than the frame
+    xs = [world[:, :, t:t + gw].reshape(B, gh * gw, m.pd) for t in range(T)]           # the view slides right by one token a frame
+    c = MotionMergeCache(m.depth, 0.01, (gh, gw), radius=1); _commit_all(m, c, xs)
+    assert c.entries() == gh * gw + (T - 1) * gh                                        # every frame: only the column that entered
+    plain = MergeCache(m.depth, 0.01); _commit_all(m, plain, xs)
+    assert plain.entries() == T * gh * gw                                               # a merge that cannot move keeps nothing
+    alive0 = c.alive[0, 0].view(gh, gw)                                                  # first frame's entries: column 0 left the view
+    assert alive0.all() and float(c.xpos[0, 0].view(gh, gw)[0, 1]) == 0.0              # the entry made at column 1 now sits at column 0
+
+
+def test_an_entry_is_claimed_once():
+    m = small(); gh, gw = m.gh, m.gw; B = 1; g = torch.Generator().manual_seed(10)
+    x0 = torch.randn(B, gh * gw, m.pd, generator=g); x1 = torch.randn(B, gh * gw, m.pd, generator=g)
+    x1.view(B, gh, gw, -1)[:, 1, 1] = x0.view(B, gh, gw, -1)[:, 1, 1]; x1.view(B, gh, gw, -1)[:, 1, 2] = x0.view(B, gh, gw, -1)[:, 1, 1]
+    c = MotionMergeCache(m.depth, 0.01, (gh, gw), radius=1); _commit_all(m, c, [x0, x1])
+    assert c.entries() == 2 * gh * gw - 1 and int(c.count.max()) == 2                  # two copies of one patch: one merges, one is new
+
+
+def test_pan_world_slides():
+    fr, bgs, cols = data.episode_pan(np.random.default_rng(3), 5, speeds=(8,))
+    assert fr.shape == (5, 3, 32, 32) and np.allclose(bgs[1][:, :, :-8], bgs[0][:, :, 8:])
