@@ -29,3 +29,5 @@ out/*.u8
 
 # rollout arrays of the long-video experiments
 out/longvid_*.npy
+# training checkpoints (optimizer state included; large)
+out/*.ckpt

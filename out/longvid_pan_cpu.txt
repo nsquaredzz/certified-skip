@@ -1,0 +1,54 @@
+device cpu, 1.3 M parameters, 16 tokens per frame, 8-frame clips, batch 16, 13 min budget, world pan
+step    200  loss 0.4295  lr 4.99e-04     44s / 780s  4.5 it/s
+step    400  loss 0.3749  lr 4.92e-04     87s / 780s  4.6 it/s
+step    600  loss 0.3201  lr 4.76e-04    132s / 780s  4.5 it/s
+step    800  loss 0.2674  lr 4.53e-04    177s / 780s  4.5 it/s
+step   1000  loss 0.2393  lr 4.23e-04    223s / 780s  4.5 it/s
+step   1200  loss 0.2150  lr 3.86e-04    269s / 780s  4.5 it/s
+step   1400  loss 0.1958  lr 3.47e-04    314s / 780s  4.5 it/s
+step   1600  loss 0.1823  lr 3.05e-04    358s / 780s  4.5 it/s
+step   1800  loss 0.1625  lr 2.62e-04    402s / 780s  4.5 it/s
+step   2000  loss 0.1544  lr 2.19e-04    446s / 780s  4.5 it/s
+step   2200  loss 0.1464  lr 1.77e-04    490s / 780s  4.5 it/s
+step   2400  loss 0.1500  lr 1.39e-04    534s / 780s  4.5 it/s
+step   2600  loss 0.1428  lr 1.04e-04    578s / 780s  4.5 it/s
+step   2800  loss 0.1359  lr 7.28e-05    624s / 780s  4.5 it/s
+step   3000  loss 0.1340  lr 4.94e-05    670s / 780s  4.5 it/s
+step   3200  loss 0.1307  lr 3.40e-05    714s / 780s  4.5 it/s
+step   3400  loss 0.1274  lr 2.61e-05    757s / 780s  4.5 it/s
+trained 3504 steps in 780s (72 clips/s)
+full                 (10s) 1-16: bg 0.170±0.003 mse 0.112±0.008 fgdev 0.395 col 1.07 ent 168 | 17-48: bg 0.260±0.017 mse 0.192±0.018 fgdev 0.628 col 1.15 ent 552
+sink1+win3           (6s) 1-16: bg 0.171±0.003 mse 0.113±0.008 fgdev 0.398 col 1.07 ent 63 | 17-48: bg 0.217±0.004 mse 0.151±0.008 fgdev 0.571 col 1.12 ent 64
+sink1+win7           (6s) 1-16: bg 0.168±0.003 mse 0.110±0.007 fgdev 0.387 col 1.06 ent 113 | 17-48: bg 0.216±0.005 mse 0.147±0.009 fgdev 0.566 col 1.11 ent 128
+merge e=0.1          (8s) 1-16: bg 0.173±0.002 mse 0.114±0.008 fgdev 0.408 col 1.07 ent 138 | 17-48: bg 0.239±0.014 mse 0.168±0.015 fgdev 0.614 col 1.16 ent 284
+merge e=0.2          (8s) 1-16: bg 0.176±0.004 mse 0.113±0.007 fgdev 0.413 col 1.06 ent 102 | 17-48: bg 0.191±0.005 mse 0.128±0.008 fgdev 0.469 col 1.10 ent 139
+merge e=0.1 w7       (8s) 1-16: bg 0.172±0.002 mse 0.112±0.008 fgdev 0.402 col 1.06 ent 88 | 17-48: bg 0.201±0.005 mse 0.134±0.008 fgdev 0.508 col 1.11 ent 39
+motion e=0.1         (9s) 1-16: bg 0.177±0.003 mse 0.116±0.007 fgdev 0.408 col 1.09 ent 117 | 17-48: bg 0.259±0.014 mse 0.194±0.014 fgdev 0.639 col 1.19 ent 326
+motion e=0.2         (8s) 1-16: bg 0.179±0.003 mse 0.117±0.007 fgdev 0.416 col 1.10 ent 85 | 17-48: bg 0.271±0.018 mse 0.210±0.020 fgdev 0.634 col 1.19 ent 265
+motion e=0.1 w7      (8s) 1-16: bg 0.175±0.003 mse 0.114±0.007 fgdev 0.398 col 1.08 ent 77 | 17-48: bg 0.196±0.004 mse 0.131±0.007 fgdev 0.492 col 1.15 ent 66
+
+paired against sink1+win7, frames 25-48 (negative = better; mean ± SE over 16 episodes, same prompts and noise):
+  full                 entries    616   d(bg) +0.0497±0.0152   d(mse) +0.0522±0.0168   d(fgdev) +0.0581±0.0201
+  sink1+win3           entries     64   d(bg) -0.0043±0.0054   d(mse) -0.0015±0.0039   d(fgdev) -0.0206±0.0181
+  sink1+win7           entries    128   d(bg) +0.0000±0.0000   d(mse) +0.0000±0.0000   d(fgdev) +0.0000±0.0000
+  merge e=0.1          entries    306   d(bg) +0.0241±0.0113   d(mse) +0.0217±0.0131   d(fgdev) +0.0407±0.0194
+  merge e=0.2          entries    143   d(bg) -0.0299±0.0060   d(mse) -0.0231±0.0049   d(fgdev) -0.1164±0.0222
+  merge e=0.1 w7       entries     36   d(bg) -0.0190±0.0045   d(mse) -0.0173±0.0035   d(fgdev) -0.0681±0.0171
+  motion e=0.1         entries    364   d(bg) +0.0510±0.0138   d(mse) +0.0541±0.0145   d(fgdev) +0.0748±0.0234
+  motion e=0.2         entries    300   d(bg) +0.0657±0.0188   d(mse) +0.0736±0.0213   d(fgdev) +0.0718±0.0337
+  motion e=0.1 w7      entries     64   d(bg) -0.0240±0.0071   d(mse) -0.0202±0.0053   d(fgdev) -0.0860±0.0289
+evaluation took 70s; wrote out/longvid_pan_cpu.json
+device cpu, 1.3 M parameters, 16 tokens per frame, 16-frame clips, batch 64, 10 min budget, world pan
+full                 (14s) 1-16: bg 0.183±0.003 mse 0.117±0.008 fgdev 0.438 col 1.08 ent 168 | 17-48: bg 0.283±0.018 mse 0.213±0.019 fgdev 0.665 col 1.19 ent 552
+sink1+win7           (6s) 1-16: bg 0.180±0.003 mse 0.113±0.007 fgdev 0.422 col 1.06 ent 113 | 17-48: bg 0.211±0.003 mse 0.143±0.008 fgdev 0.554 col 1.12 ent 128
+merge e=0.1          (7s) 1-16: bg 0.183±0.004 mse 0.115±0.008 fgdev 0.440 col 1.08 ent 145 | 17-48: bg 0.235±0.011 mse 0.164±0.013 fgdev 0.605 col 1.18 ent 314
+motion e=0.1         (7s) 1-16: bg 0.183±0.004 mse 0.115±0.007 fgdev 0.439 col 1.08 ent 126 | 17-48: bg 0.242±0.010 mse 0.172±0.012 fgdev 0.615 col 1.14 ent 330
+motion e=0.1 w7      (8s) 1-16: bg 0.181±0.004 mse 0.113±0.007 fgdev 0.431 col 1.06 ent 81 | 17-48: bg 0.202±0.005 mse 0.133±0.007 fgdev 0.522 col 1.15 ent 65
+
+paired against sink1+win7, frames 25-48 (negative = better; mean ± SE over 16 episodes, same prompts and noise):
+  full                 entries    616   d(bg) +0.0836±0.0203   d(mse) +0.0793±0.0217   d(fgdev) +0.1142±0.0245
+  sink1+win7           entries    128   d(bg) +0.0000±0.0000   d(mse) +0.0000±0.0000   d(fgdev) +0.0000±0.0000
+  merge e=0.1          entries    340   d(bg) +0.0244±0.0096   d(mse) +0.0217±0.0083   d(fgdev) +0.0426±0.0263
+  motion e=0.1         entries    366   d(bg) +0.0365±0.0092   d(mse) +0.0324±0.0101   d(fgdev) +0.0689±0.0199
+  motion e=0.1 w7      entries     63   d(bg) -0.0086±0.0063   d(mse) -0.0109±0.0050   d(fgdev) -0.0269±0.0266
+evaluation took 42s; wrote out/longvid_pan_cpu.json
