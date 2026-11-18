@@ -22,7 +22,15 @@ Right: the picture the model is left with when every other patch is reused from 
 On this clip 95 % of the patches are never sent. Every clip on this page links to its full-quality MP4.
 </sub></p>
 
-## What is new (October 2026)
+## What is new (November 2026): moving cameras
+
+**Paper:** [Certified Event-Proportional Video Compute](paper/main.pdf) ([LaTeX source](paper/)).
+
+* **Moving cameras.** The certificate now holds under a group of warps: a homography for each frame plus a refinement for each patch, with the reference kept in a world canvas. On the 90 clips of DAVIS 2017 the rule drops a median of **72.8 %** of patches, against 43.5 % for the best fixed-camera rule. Almost all of the dropped patches are background (80.7 % of background patches dropped, 23.3 % of object patches). Exact persistence diagrams on **20,242** dropped patches found **no violation**. The one approximation is bilinear resampling. It enters through a term `ι` that can be read off each pixel and is zero on a fixed camera.
+* **A bound on what any sound rule must keep.** At threshold Δ, the causal rule keeps at most twice as many patches as a clairvoyant schedule at Δ/2, plus one. No deterministic causal rule can do better than that against a clairvoyant schedule at any threshold above Δ/2. On real footage the rule keeps at most 18 % more than the clairvoyant optimum at the same threshold.
+* **An audit of seven published video token reducers** on planted events at matched budgets. Rules that compare consecutive frames miss slow fades. Rules with periodic anchors catch fades but miss brief and small events. The certified rule catches both.
+
+## Earlier (October 2026)
 
 Three results since the first write-up. Each has a section of [THEORY.md](THEORY.md) and a part of [RESULTS.md](RESULTS.md).
 
@@ -56,6 +64,7 @@ Everything is implemented twice, as a header-only C++17 core and as a numpy refe
 | Question | Measured | Details |
 |---|---|---|
 | How much is skipped? | **98.9 %** of patches on the median camera, 90.8 % on the worst, over 25 fixed-camera clips | [Part VI](RESULTS.md#part-vi--breadth-25-fixed-camera-clips-2026-10-08-last) |
+| And with a moving camera? | **72.8 %** median over the 90 DAVIS 2017 clips, against 43.5 % for the best fixed-camera rule. No violation in 20,242 audited patches | [Paper](paper/main.pdf), §6 |
 | Is anything lost? | Planted 5×5 px and 3×3 px objects: all kept on all 25 clips. Slow fades: 249 of 250 kept | [Part VI](RESULTS.md#part-vi--breadth-25-fixed-camera-clips-2026-10-08-last) |
 | What about faint objects? | 6×6 px objects of contrast 12: **96 %** kept with the sequential test, 13 % without, for 0.1 points of skip rate on the median clip | [Part III](RESULTS.md#part-iii--the-time-axis-sequential-quickest-detection-rule-2026-10-08-later-still), [Part VI](RESULTS.md#part-vi--breadth-25-fixed-camera-clips-2026-10-08-last) |
 | Does a model notice? | A slowly appearing object reaches the model in **48 of 48** trials, against 6 of 48 for the consecutive-frame heuristic at the same skip rate | [Part VII](RESULTS.md#part-vii--end-to-end-with-a-real-video-llm-2026-10-08-last) |
